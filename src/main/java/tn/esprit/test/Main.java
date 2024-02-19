@@ -1,14 +1,10 @@
 package tn.esprit.test;
 
-import tn.esprit.services.plan_exercice;
-import tn.esprit.models.coach;
 import tn.esprit.models.plan;
-import tn.esprit.models.exercice;
 import tn.esprit.services.exerciceService;
 import tn.esprit.services.planService;
-import tn.esprit.utils.MyDatabase;
+
 import java.sql.SQLException;
-import java.util.List;
 
 
 public class Main {
