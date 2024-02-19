@@ -1,12 +1,11 @@
 package tn.esprit.services;
-
 import tn.esprit.models.coach;
+import tn.esprit.models.exercice;
+import tn.esprit.models.plan;
 import tn.esprit.utils.MyDatabase;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
 public class coachService implements IService<coach>{
     private Connection connection;
     public coachService(){
@@ -17,6 +16,11 @@ public class coachService implements IService<coach>{
         String req = "INSERT INTO coach (nom,prenom,age,photo_url,biographie,specialite,tarif,evaluation) VALUES('"+coach.getNom()+"','"+coach.getPrenom()+"',"+coach.getAge()+",'"+coach.getPhoto_url()+"','"+coach.getBiographie()+"','"+coach.getSpecialite()+"',"+coach.getTarif()+",'"+coach.getEvaluation()+"')";
         Statement st = connection.createStatement();
         st.executeUpdate(req);
+    }
+
+    @Override
+    public void ajouterPlan(plan plan, List<exercice> exercices) throws SQLException {
+
     }
 
     @Override

@@ -1,22 +1,20 @@
 package tn.esprit.models;
 
-public class plan {
-    //objectif du plan
+public class exercice {
     private int ID;
-    private String NOM, DESCRIPTION;
-
-    public plan(int ID, String NOM, String DESCRIPTION) {
+    private String NOM, DESCRIPTION, IMAGE_URL;
+    public exercice(int ID, String NOM, String DESCRIPTION) {
         this.ID = ID;
         this.NOM = NOM;
         this.DESCRIPTION = DESCRIPTION;
     }
 
-    public plan(String NOM, String DESCRIPTION) {
+    public exercice(String NOM, String DESCRIPTION) {
         this.NOM = NOM;
         this.DESCRIPTION = DESCRIPTION;
     }
 
-    public plan() {
+    public exercice() {
 
     }
 
@@ -46,7 +44,7 @@ public class plan {
 
     @Override
     public String toString() {
-        return "plan{" +
+        return "exercice{" +
                 "ID=" + ID +
                 ", NOM='" + NOM + '\'' +
                 ", DESCRIPTION='" + DESCRIPTION + '\'' +
