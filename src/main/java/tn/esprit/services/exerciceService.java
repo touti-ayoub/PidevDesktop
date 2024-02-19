@@ -59,4 +59,23 @@ public class exerciceService implements IService<exercice> {
         return exercices;
 
     }
+    // Méthode pour récupérer un exercice par son ID
+    public exercice recupererExerciceParId(int id)throws SQLException {
+        String query = "SELECT * FROM exercice WHERE idExercice = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                exercice exercice = new exercice();
+                exercice.setID(resultSet.getInt("idExercice"));
+                exercice.setNOM(resultSet.getString("NOM"));
+                exercice.setDESCRIPTION(resultSet.getString("DESCRIPTION"));
+                // Si d'autres colonnes sont présentes, vous pouvez les ajouter de la même manière
+                return exercice;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null; // Si aucun exercice correspondant n'est trouvé
+    }
 }

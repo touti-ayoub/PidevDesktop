@@ -35,7 +35,6 @@ public class planService implements IService<plan> {
              stPlan.setString(1, plan.getNOM());
               stPlan.setString(2, plan.getDESCRIPTION());
               stPlan.executeUpdate();
-
             // Récupérer l'ID du plan nouvellement ajouté
                ResultSet generatedKeys = stPlan.getGeneratedKeys();
                int idPlan = -1;

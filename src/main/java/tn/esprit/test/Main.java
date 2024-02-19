@@ -1,34 +1,51 @@
 package tn.esprit.test;
-
+import tn.esprit.models.exercice;
 import tn.esprit.models.plan;
 import tn.esprit.services.exerciceService;
 import tn.esprit.services.planService;
-
+import tn.esprit.services.plan_exercice;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class Main {
 
     public static void main(String[] args) {
 
-        planService cs = new planService();
-        // plan_exercice cs = new plan_exercice();
-        exerciceService c = new exerciceService();
+        planService ps = new planService();
+        plan_exercice pe = new plan_exercice();
+        exerciceService es = new exerciceService();
         try {
-            // cs.ajouter(new plan("debutant","pour les nouveaux"));
-            //  cs.ajouter(new exercice(1 ,"squat","20 fois"));
+            // ps.ajouter(new plan("debutant","pour les nouveaux"));
+           // es.ajouter(new exercice(4, "Lying Leg Curl", "3 Sets 12-10-8 Reps "));
             // cs.modifier(new plan(1,"avancee","pour les anciens"));
             //cs.supprimer(1);
 
-            //List<exercice> c1 = c.recuperer();
-            // System.out.println(c1);
-            // cs.ajouterPlan(new plan(1,"debutant","pour les nouveaux"),c1);
+            //  List<exercice> c1 = es.recuperer();
+            //   System.out.println(c1);
+           //    List<exercice> exercices = new ArrayList<>();
+            // Ajoutez les exercices que vous voulez associer
+            //    exercice exercice1 = new exercice();
+            //    exercice1.setID(2); // Supposons que vous avez un identifiant pour chaque exercice
+            //    exercices.add(exercice1);
+            //    exercice exercice2 = new exercice();
+            //     exercice2.setID(2);
+            //     exercices.add(exercice2);
+            //ps.ajouterPlan(new plan("Sech 1", "6 Week"), );
             //  System.out.println(cs.recuperer());
             // plan_exercice plan_exercice = new plan_exercice();
             //plan_exercice.afficherAssociations();
             // cs.afficherAssociations();
-               plan p = cs.rechercherParNom("debutant");
-            System.out.println(p);
+            //   plan p = cs.rechercherParNom("debutant");
+            // System.out.println(p);
+          //  Arrays.asList(
+                //    new exercice(1, "Exercice 1"),
+                 //   new exercice(2, "Exercice 2"),
+                 //   new exercice(3, "Exercice 3")
+            exercice e1 = es.recupererExerciceParId(1);
+            System.out.println(e1);
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
