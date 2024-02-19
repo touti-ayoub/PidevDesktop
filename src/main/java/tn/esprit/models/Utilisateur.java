@@ -4,6 +4,7 @@ import java.util.Objects;
 
 public class Utilisateur {
     private int codeU;
+    //
 private String prenom;
 
     public Utilisateur() {

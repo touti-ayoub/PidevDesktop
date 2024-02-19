@@ -5,6 +5,7 @@ import java.util.Objects;
 
 public class Competition {
     private int codeC;
+    //
     private String libelle;
     private Date dateDebut;
     private Date dateFin;

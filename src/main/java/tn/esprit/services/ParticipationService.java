@@ -18,18 +18,7 @@ public class ParticipationService implements IParticipationService<Participation
         Statement st = connection.createStatement();
         st.executeUpdate(req);
     }
-    /*    @Override
-        public void modifier(Competition competition) throws SQLException {
-            String req = "UPDATE competition SET libelle=?, dateDebut=? , dateFin=?, nbrMembre=?, nbrMaxMembres=? WHERE code=?";
-            PreparedStatement ps = connection.prepareStatement(req);
-            ps.setString(1, competition.getLibelle());
-            ps.setDate(2, competition.getDateDebut());
-            ps.setDate(3, competition.getDateFin());
-            ps.setInt(4, competition.getNbrMembre());
-            ps.setInt(5, competition.getNbrMaxMembres());
-            ps.setInt(6, competition.getCode());
-            ps.executeUpdate();
-        }*/
+    /*   modifier participant*/
     @Override
     public void modifier(Participation participation) throws SQLException {
         String req = "UPDATE participation SET codeU=?, codeC=? , description=? WHERE codeP=?";
@@ -40,11 +29,7 @@ public class ParticipationService implements IParticipationService<Participation
         ps.setInt(4, participation.getCodeP());
         ps.executeUpdate();
     }
-/*
- String req = "DELETE FROM competition WHERE codeC=?";
-        PreparedStatement ps = connection.prepareStatement(req);
-        ps.setInt(1, code);
-        ps.executeUpdate();*/
+
     @Override
     public void supprimer(int code) throws SQLException {
    String req = "DELETE FROM participation WHERE codeP=?";
@@ -52,22 +37,7 @@ public class ParticipationService implements IParticipationService<Participation
         ps.setInt(1, code);
         ps.executeUpdate();
     }
-/*  List<Competition> competitions = new ArrayList<>();
-        String req = "SELECT * FROM competition";
-        Statement st = connection.createStatement();
-        ResultSet rs = st.executeQuery(req);
-        while (rs.next()) {
-            Competition c = new Competition();
-            c.setCodeC(rs.getInt("codeC"));
-            c.setLibelle(rs.getString("libelle"));
-            c.setDateDebut(rs.getDate("dateDebut"));
-            c.setDateFin(rs.getDate("dateFin"));
-            c.setNbrMembre(rs.getInt("nbrMembre"));
-            c.setNbrMaxMembres(rs.getInt("nbrMaxMembres"));
-            competitions.add(c);
-        }
-        return competitions;
-*/
+
     @Override
     public List<Participation> recuperer() throws SQLException{
          List<Participation> participations = new ArrayList<>();

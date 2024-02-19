@@ -10,7 +10,7 @@ import java.util.List;
 public class CompetitionService implements ICompetitionService<Competition>{
 
     private Connection connection;
-
+//
     public CompetitionService() {
         connection = MyDatabase.getInstance().getConnection();
     }

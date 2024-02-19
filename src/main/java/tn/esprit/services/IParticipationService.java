@@ -8,11 +8,7 @@ public interface IParticipationService <P>{
     void modifier(P p) throws SQLException;
 
 
-    /*
-     String req = "DELETE FROM competition WHERE codeC=?";
-            PreparedStatement ps = connection.prepareStatement(req);
-            ps.setInt(1, code);
-            ps.executeUpdate();*/
+
     void supprimer(int id) throws SQLException;
 
     List<P> recuperer() throws SQLException;

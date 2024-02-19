@@ -4,6 +4,7 @@ import java.util.Objects;
 
 public class Participation {
     private int codeP;
+    //
     private int codeU;
     private int codeC;
     private String description;
