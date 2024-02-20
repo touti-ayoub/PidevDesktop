@@ -1,5 +1,8 @@
 package tn.esprit.models;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Recipe {
     private int idRecipe;
     private String name;

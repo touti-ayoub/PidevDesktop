@@ -136,4 +136,60 @@ public class RecipeService implements IService<Recipe> {
         }
         return foods;
     }
+
+    private Recipe createRecipeFromResultSet(ResultSet resultSet) throws SQLException {
+        Recipe recipe = new Recipe();
+        recipe.setIdRecipe(resultSet.getInt("idRecipe"));
+        recipe.setName(resultSet.getString("name"));
+        recipe.setTotalCalories(resultSet.getInt("totalCalories"));
+        recipe.setTotalProtein(resultSet.getInt("totalProtein"));
+        recipe.setTotalCarbs(resultSet.getInt("totalCarbs"));
+        recipe.setTotalFat(resultSet.getInt("totalFat"));
+        return recipe;
+    }
+
+    // Filter recipes by ingredient
+    public List<Recipe> filterByIngredient(String ingredient) throws SQLException {
+        String sql = "SELECT * FROM recipe JOIN recipe_food ON recipe.idRecipe = recipe_food.idRecipe WHERE recipe_food.ingredient = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, ingredient);
+        ResultSet resultSet = statement.executeQuery();
+
+        List<Recipe> recipes = new ArrayList<>();
+        while (resultSet.next()) {
+            recipes.add(createRecipeFromResultSet(resultSet));
+        }
+
+        return recipes;
+    }
+
+    // Sort recipes by calories
+    public List<Recipe> sortByCalories(boolean ascending) throws SQLException {
+        String sql = "SELECT * FROM recipe ORDER BY totalCalories " + (ascending ? "ASC" : "DESC");
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        List<Recipe> recipes = new ArrayList<>();
+        while (resultSet.next()) {
+            recipes.add(createRecipeFromResultSet(resultSet));
+        }
+
+        return recipes;
+    }
+
+    // Search recipes by keyword
+    public List<Recipe> searchByKeyword(String keyword) throws SQLException {
+        String sql = "SELECT * FROM recipe WHERE name LIKE ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, "%" + keyword + "%");
+        ResultSet resultSet = statement.executeQuery();
+
+        List<Recipe> recipes = new ArrayList<>();
+        while (resultSet.next()) {
+            recipes.add(createRecipeFromResultSet(resultSet));
+        }
+
+        return recipes;
+    }
+
 }

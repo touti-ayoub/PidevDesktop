@@ -74,4 +74,91 @@ public class FoodService implements IService<Food>{
         }
         return foods;
     }
+
+    // Filter foods by calories
+    public List<Food> filterByCalories(int calories) throws SQLException {
+        String sql = "SELECT * FROM food WHERE calories <= ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, calories);
+        ResultSet resultSet = statement.executeQuery();
+
+        List<Food> foods = new ArrayList<>();
+        while (resultSet.next()) {
+            foods.add(createFoodFromResultSet(resultSet));
+        }
+
+        return foods;
+    }
+
+    // Filter foods by name
+    public List<Food> filterByName(String name) throws SQLException {
+        String sql = "SELECT * FROM food WHERE name = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, name);
+        ResultSet resultSet = statement.executeQuery();
+
+        List<Food> foods = new ArrayList<>();
+        while (resultSet.next()) {
+            foods.add(createFoodFromResultSet(resultSet));
+        }
+
+        return foods;
+    }
+
+    // Search foods by keyword
+    public List<Food> searchFoods(String keyword) throws SQLException {
+        String sql = "SELECT * FROM food WHERE name LIKE ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, "%" + keyword + "%");
+        ResultSet resultSet = statement.executeQuery();
+
+        List<Food> foods = new ArrayList<>();
+        while (resultSet.next()) {
+            foods.add(createFoodFromResultSet(resultSet));
+        }
+
+        return foods;
+    }
+
+    // Sort foods by calories
+    public List<Food> sortByCalories(boolean ascending) throws SQLException {
+        String sql = "SELECT * FROM food ORDER BY calories " + (ascending ? "ASC" : "DESC");
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        List<Food> foods = new ArrayList<>();
+        while (resultSet.next()) {
+            foods.add(createFoodFromResultSet(resultSet));
+        }
+
+        return foods;
+    }
+
+    // Sort foods by name
+    public List<Food> sortByName(boolean ascending) throws SQLException {
+        String sql = "SELECT * FROM food ORDER BY name " + (ascending ? "ASC" : "DESC");
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        List<Food> foods = new ArrayList<>();
+        while (resultSet.next()) {
+            foods.add(createFoodFromResultSet(resultSet));
+        }
+
+        return foods;
+    }
+
+    private Food createFoodFromResultSet(ResultSet resultSet) throws SQLException {
+        Food food = new Food();
+        food.setId(resultSet.getInt("IdFood"));
+        food.setName(resultSet.getString("name"));
+        food.setCalories(resultSet.getInt("calories"));
+        food.setProtein(resultSet.getInt("protein"));
+        food.setCarbohydrates(resultSet.getInt("carbohydrates"));
+        food.setFat(resultSet.getInt("fat"));
+        food.setServingSize(resultSet.getDouble("serving_size"));
+        food.setServingUnit(resultSet.getString("serving_unit"));
+        return food;
+    }
+
 }
