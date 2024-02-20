@@ -1,14 +1,13 @@
 package tn.esprit.test;
 
-import tn.esprit.utils.MyDatabase;
+import tn.esprit.models.User;
+import tn.esprit.services.UserService;
 
 public class Main {
 
     public static void main(String[] args) {
-        MyDatabase db = MyDatabase.getInstance();
-        MyDatabase db2 = MyDatabase.getInstance();
 
-        System.out.println(db);
-        System.out.println(db2);
+        UserService us = new UserService();
+        us.AjouterUser(new User("saleh","mhamdi","patati","patata","donc","six","sept",1));
     }
 }
