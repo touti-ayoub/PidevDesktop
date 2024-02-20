@@ -1,4 +1,4 @@
-package controllers;
+package tn.esprit.controllers;
 
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
