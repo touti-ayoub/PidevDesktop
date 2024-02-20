@@ -23,8 +23,8 @@ public class Main {
             // cs.modifier(new plan(1,"avancee","pour les anciens"));
             //cs.supprimer(1);
 
-            //  List<exercice> c1 = es.recuperer();
-            //   System.out.println(c1);
+              List<exercice> c1 = es.recuperer();
+               System.out.println(c1);
            //    List<exercice> exercices = new ArrayList<>();
             // Ajoutez les exercices que vous voulez associer
             //    exercice exercice1 = new exercice();
@@ -34,11 +34,11 @@ public class Main {
             //     exercice2.setID(2);
             //     exercices.add(exercice2);
             // Récupérer les exercices depuis la base de données
-            List<exercice> list1 = new ArrayList<>();
-            list1.add(es.recupererExerciceParId(1)); // Exemple de récupération par ID
-            list1.add(es.recupererExerciceParId(2));
-            System.out.println(list1);
-            ps.ajouterPlan(new plan("Sech 1", "6 Week"), list1);
+           // List<exercice> list1 = new ArrayList<>();
+           // list1.add(es.recupererExerciceParId(1)); // Exemple de récupération par ID
+           // list1.add(es.recupererExerciceParId(2));
+           // System.out.println(list1);
+         //   ps.ajouterPlan(new plan("Sech 1", "6 Week"), list1);
             //  System.out.println(cs.recuperer());
             // plan_exercice plan_exercice = new plan_exercice();
             //plan_exercice.afficherAssociations();

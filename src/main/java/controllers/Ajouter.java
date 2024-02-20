@@ -2,11 +2,16 @@ package controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import tn.esprit.models.exercice;
 import tn.esprit.services.exerciceService;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class Ajouter {
@@ -33,4 +38,15 @@ public class Ajouter {
         }
 
     }
+    @FXML
+    void navigate(ActionEvent event) {
+        try {
+             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/AfficherEx.fxml"));
+            nomTF.getScene().setRoot(fxmlLoader.load());
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
+    }
+
 }
