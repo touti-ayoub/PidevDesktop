@@ -33,7 +33,12 @@ public class Main {
             //    exercice exercice2 = new exercice();
             //     exercice2.setID(2);
             //     exercices.add(exercice2);
-            //ps.ajouterPlan(new plan("Sech 1", "6 Week"), );
+            // Récupérer les exercices depuis la base de données
+            List<exercice> list1 = new ArrayList<>();
+            list1.add(es.recupererExerciceParId(1)); // Exemple de récupération par ID
+            list1.add(es.recupererExerciceParId(2));
+            System.out.println(list1);
+            ps.ajouterPlan(new plan("Sech 1", "6 Week"), list1);
             //  System.out.println(cs.recuperer());
             // plan_exercice plan_exercice = new plan_exercice();
             //plan_exercice.afficherAssociations();
@@ -44,8 +49,8 @@ public class Main {
                 //    new exercice(1, "Exercice 1"),
                  //   new exercice(2, "Exercice 2"),
                  //   new exercice(3, "Exercice 3")
-            exercice e1 = es.recupererExerciceParId(1);
-            System.out.println(e1);
+          //  exercice e1 = es.recupererExerciceParId(1);
+          //  System.out.println(e1);
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }

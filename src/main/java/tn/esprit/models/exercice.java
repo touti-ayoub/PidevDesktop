@@ -2,7 +2,7 @@ package tn.esprit.models;
 
 public class exercice {
     private int ID;
-    private String NOM, DESCRIPTION, IMAGE_URL;
+    private String NOM, DESCRIPTION, MUSCLE_CIBLE, IMAGE_URL;
     public exercice(int ID, String NOM, String DESCRIPTION) {
         this.ID = ID;
         this.NOM = NOM;
@@ -49,5 +49,19 @@ public class exercice {
                 ", NOM='" + NOM + '\'' +
                 ", DESCRIPTION='" + DESCRIPTION + '\'' +
                 '}';
+    }
+
+    public exercice(String NOM, String DESCRIPTION, String MUSCLE_CIBLE) {
+        this.NOM = NOM;
+        this.DESCRIPTION = DESCRIPTION;
+        this.MUSCLE_CIBLE = MUSCLE_CIBLE;
+    }
+
+    public String getMUSCLE_CIBLE() {
+        return MUSCLE_CIBLE;
+    }
+
+    public void setMUSCLE_CIBLE(String MUSCLE_CIBLE) {
+        this.MUSCLE_CIBLE = MUSCLE_CIBLE;
     }
 }
