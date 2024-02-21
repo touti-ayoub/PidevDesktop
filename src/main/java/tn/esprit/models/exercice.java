@@ -53,18 +53,6 @@ public class exercice {
     }
 
 
-
-
-    @Override
-    public String toString() {
-        return "exercice{" +
-                "ID=" + ID +
-                ", NOM='" + NOM + '\'' +
-                ", DESCRIPTION='" + DESCRIPTION + '\'' +
-                '}';
-    }
-
-
     public String getMUSCLE_CIBLE() {
         return MUSCLE_CIBLE;
     }
@@ -79,6 +67,17 @@ public class exercice {
 
     public void setIMAGE_URL(String IMAGE_URL) {
         this.IMAGE_URL = IMAGE_URL;
+    }
+
+    @Override
+    public String toString() {
+        return "exercice{" +
+                "ID=" + ID +
+                ", NOM='" + NOM + '\'' +
+                ", DESCRIPTION='" + DESCRIPTION + '\'' +
+                ", MUSCLE_CIBLE='" + MUSCLE_CIBLE + '\'' +
+                ", IMAGE_URL='" + IMAGE_URL + '\'' +
+                '}';
     }
 }
 

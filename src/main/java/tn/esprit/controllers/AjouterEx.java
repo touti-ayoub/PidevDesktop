@@ -1,4 +1,6 @@
 package tn.esprit.controllers;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
@@ -12,6 +14,7 @@ import tn.esprit.services.exerciceService;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class AjouterEx {
@@ -69,6 +72,16 @@ public class AjouterEx {
             e.printStackTrace();
             // Gérer l'erreur d'ajout d'exercice
         }
+    }
+    @FXML
+    void navigate(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/AfficherEx.fxml"));
+            nameTextField.getScene().setRoot(fxmlLoader.load());
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
     }
 
 

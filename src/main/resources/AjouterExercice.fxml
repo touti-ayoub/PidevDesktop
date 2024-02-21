@@ -23,5 +23,6 @@
             <Button layoutX="28.0" layoutY="188.0" mnemonicParsing="false" onAction="#handleUploadImage" text="Télécharger une image" GridPane.rowIndex="3" />
             <Button layoutX="29.0" layoutY="236.0" mnemonicParsing="false" onAction="#handleAddExercise" text="Ajouter l'exercice" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <TextArea fx:id="descriptionTextArea" layoutX="25.0" layoutY="104.0" prefHeight="60.0" prefWidth="158.0" />
+            <Button layoutX="319.0" layoutY="80.0" mnemonicParsing="false" onAction="#navigate" text="Button" />
         </children>
 </AnchorPane>

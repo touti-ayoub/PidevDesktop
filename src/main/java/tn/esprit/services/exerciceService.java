@@ -56,10 +56,10 @@ public class exerciceService implements IService<exercice> {
             exercice.setNOM(rs.getString("NOM"));
             exercice.setDESCRIPTION(rs.getString("DESCRIPTION"));
             exercice.setMUSCLE_CIBLE(rs.getString("MUSCLE_CIBLE"));
+            exercice.setIMAGE_URL(rs.getString("IMAGE_URL"));
             exercices.add(exercice);
         }
         return exercices;
-
     }
     // Méthode pour récupérer un exercice par son ID
     public exercice recupererExerciceParId(int id)throws SQLException {
