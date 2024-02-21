@@ -3,11 +3,21 @@ package tn.esprit.models;
 public class exercice {
     private int ID;
     private String NOM, DESCRIPTION, MUSCLE_CIBLE, IMAGE_URL;
-    public exercice(int ID, String NOM, String DESCRIPTION) {
+    public exercice(int ID, String NOM, String DESCRIPTION ,String MUSCLE_CIBLE, String IMAGE_URL) {
         this.ID = ID;
         this.NOM = NOM;
         this.DESCRIPTION = DESCRIPTION;
+        this.MUSCLE_CIBLE = MUSCLE_CIBLE;
+        this.IMAGE_URL = IMAGE_URL;
     }
+
+    public exercice(String NOM, String DESCRIPTION, String MUSCLE_CIBLE , String IMAGE_URL) {
+        this.NOM = NOM;
+        this.DESCRIPTION = DESCRIPTION;
+        this.MUSCLE_CIBLE = MUSCLE_CIBLE;
+        this.IMAGE_URL = IMAGE_URL;
+    }
+
 
     public exercice(String NOM, String DESCRIPTION) {
         this.NOM = NOM;
@@ -42,6 +52,9 @@ public class exercice {
         this.DESCRIPTION = DESCRIPTION;
     }
 
+
+
+
     @Override
     public String toString() {
         return "exercice{" +
@@ -51,11 +64,6 @@ public class exercice {
                 '}';
     }
 
-    public exercice(String NOM, String DESCRIPTION, String MUSCLE_CIBLE) {
-        this.NOM = NOM;
-        this.DESCRIPTION = DESCRIPTION;
-        this.MUSCLE_CIBLE = MUSCLE_CIBLE;
-    }
 
     public String getMUSCLE_CIBLE() {
         return MUSCLE_CIBLE;
@@ -64,4 +72,13 @@ public class exercice {
     public void setMUSCLE_CIBLE(String MUSCLE_CIBLE) {
         this.MUSCLE_CIBLE = MUSCLE_CIBLE;
     }
+
+    public String getIMAGE_URL() {
+        return IMAGE_URL;
+    }
+
+    public void setIMAGE_URL(String IMAGE_URL) {
+        this.IMAGE_URL = IMAGE_URL;
+    }
 }
+

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.AjouterEx">
+
+
+
+
+        <children>
+            <Label layoutX="33.0" layoutY="27.0" text="Ajouter un nouvel exercice" GridPane.columnSpan="2" />
+            <Label layoutX="32.0" layoutY="53.0" text="Nom de l'exercice :" />
+            <TextField fx:id="nameTextField" layoutX="29.0" layoutY="44.0" promptText="nom" GridPane.columnIndex="1" />
+            <Label layoutX="29.0" layoutY="79.0" text="Description de l'exercice :" GridPane.rowIndex="1" />
+            <Label layoutX="178.0" layoutY="192.0" text="Image de l'exercice :" GridPane.rowIndex="2" />
+            <ImageView fx:id="imageView" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button layoutX="28.0" layoutY="188.0" mnemonicParsing="false" onAction="#handleUploadImage" text="Télécharger une image" GridPane.rowIndex="3" />
+            <Button layoutX="29.0" layoutY="236.0" mnemonicParsing="false" onAction="#handleAddExercise" text="Ajouter l'exercice" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <TextArea fx:id="descriptionTextArea" layoutX="25.0" layoutY="104.0" prefHeight="60.0" prefWidth="158.0" />
+        </children>
+</AnchorPane>

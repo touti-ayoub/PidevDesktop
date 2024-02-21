@@ -14,7 +14,7 @@ public class exerciceService implements IService<exercice> {
     }
     @Override
     public void ajouter(exercice exercice) throws SQLException {
-        String req = "INSERT INTO exercice (NOM,DESCRIPTION) VALUES('"+exercice.getNOM()+"','"+exercice.getDESCRIPTION()+"')";
+        String req = "INSERT INTO exercice (NOM,DESCRIPTION,MUSCLE_CIBLE,IMAGE_URL) VALUES('"+exercice.getNOM()+"','"+exercice.getDESCRIPTION()+"','"+exercice.getMUSCLE_CIBLE()+"','"+exercice.getIMAGE_URL()+"')";
         Statement st = connection.createStatement();
         st.executeUpdate(req);
     }
@@ -26,11 +26,12 @@ public class exerciceService implements IService<exercice> {
 
     @Override
     public void modifier(exercice exercice) throws SQLException {
-        String req = "UPDATE exercice SET NOM=?, DESCRIPTION=? WHERE IdExerice=?";
+        String req = "UPDATE exercice SET NOM=?, DESCRIPTION=?,MUSCLE_CIBLE =? WHERE IdExerice=?";
         PreparedStatement ps = connection.prepareStatement(req);
         ps.setString(1,exercice.getNOM());
         ps.setString(2,exercice.getDESCRIPTION());
-        ps.setInt(3,exercice.getID());
+        ps.setString(3,exercice.getMUSCLE_CIBLE());
+        ps.setInt(4,exercice.getID());
         ps.executeUpdate();
     }
 
@@ -54,6 +55,7 @@ public class exerciceService implements IService<exercice> {
             exercice.setID(rs.getInt("idExercice"));
             exercice.setNOM(rs.getString("NOM"));
             exercice.setDESCRIPTION(rs.getString("DESCRIPTION"));
+            exercice.setMUSCLE_CIBLE(rs.getString("MUSCLE_CIBLE"));
             exercices.add(exercice);
         }
         return exercices;
@@ -70,7 +72,7 @@ public class exerciceService implements IService<exercice> {
                 exercice.setID(resultSet.getInt("idExercice"));
                 exercice.setNOM(resultSet.getString("NOM"));
                 exercice.setDESCRIPTION(resultSet.getString("DESCRIPTION"));
-                // Si d'autres colonnes sont présentes, vous pouvez les ajouter de la même manière
+                exercice.setDESCRIPTION(resultSet.getString("MUSCLE_CIBLE"));
                 return exercice;
             }
         } catch (SQLException e) {

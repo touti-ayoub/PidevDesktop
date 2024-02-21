@@ -10,7 +10,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import tn.esprit.models.exercice;
 import tn.esprit.services.exerciceService;
-
 import java.sql.SQLException;
 import java.util.List;
 

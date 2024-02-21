@@ -19,12 +19,12 @@ public class Main {
         exerciceService es = new exerciceService();
         try {
             // ps.ajouter(new plan("debutant","pour les nouveaux"));
-           // es.ajouter(new exercice(4, "Lying Leg Curl", "3 Sets 12-10-8 Reps "));
+            es.ajouter(new exercice( "Leg extensionmmmm", "3 Sets 12-10-8 Reps ","legs","nn"));
             // cs.modifier(new plan(1,"avancee","pour les anciens"));
             //cs.supprimer(1);
 
-              List<exercice> c1 = es.recuperer();
-               System.out.println(c1);
+            //  List<exercice> c1 = es.recuperer();
+            //   System.out.println(c1);
            //    List<exercice> exercices = new ArrayList<>();
             // Ajoutez les exercices que vous voulez associer
             //    exercice exercice1 = new exercice();

@@ -23,13 +23,15 @@ public class Ajouter {
 
     @FXML
     private TextField nomTF;
+    @FXML
+    private TextField urlTF;
 
     private final exerciceService es = new exerciceService();
 
     @FXML
     void ajouter(ActionEvent event)  {
         try {
-            es.ajouter(new exercice(nomTF.getText(),descriptionTF.getText(),musclecibleTF.getText()));
+            es.ajouter(new exercice(nomTF.getText(),descriptionTF.getText(),musclecibleTF.getText(),urlTF.getText()));
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("erreur");
