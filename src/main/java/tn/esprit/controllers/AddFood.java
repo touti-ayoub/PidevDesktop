@@ -166,7 +166,6 @@ public class AddFood implements Initializable {
         } catch (IOException e) {
             System.err.println("Failed to load the page: " + e.getMessage());
         }
-
     }
 
     @Override
