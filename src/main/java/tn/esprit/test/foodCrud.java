@@ -31,14 +31,14 @@ public class foodCrud {
         }
         */
         // ------------------------------ DELETE ------------------------------
-        /*
+
         try {
-            rs.supprimer(2);
+            rs.supprimer(1);
             System.out.println("DELETE DONE");
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
-        */
+
         // ------------------------------ READ ------------------------------
 
         try {

@@ -32,7 +32,7 @@ public class FoodService implements IService<Food>{
     }
 
     @Override
-    public void modifier(Food food) throws SQLException {
+    public int modifier(Food food) throws SQLException {
         String sql = "UPDATE food SET name = ?, calories = ?, protein = ?, carbohydrates = ?, fat = ?, serving_size = ?, serving_unit = ? WHERE IdFood = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, food.getName());
@@ -43,15 +43,16 @@ public class FoodService implements IService<Food>{
         statement.setDouble(6, food.getServingSize());
         statement.setString(7, food.getServingUnit());
         statement.setInt(8, food.getId());
-        statement.executeUpdate();
+        return statement.executeUpdate();
     }
 
     @Override
-    public void supprimer(int id) throws SQLException {
+    public boolean supprimer(int id) throws SQLException {
         String sql = "DELETE FROM food WHERE IdFood = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, id);
-        statement.executeUpdate();
+        int rowsAffected = statement.executeUpdate();
+        return rowsAffected > 0;
     }
 
     @Override

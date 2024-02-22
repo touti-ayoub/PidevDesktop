@@ -37,7 +37,7 @@ public class RecipeService implements IService<Recipe> {
     }
 
     @Override
-    public void modifier(Recipe recipe) throws SQLException {
+    public int modifier(Recipe recipe) throws SQLException {
         String sql = "UPDATE recipe SET name = ?, totalCalories = ?, totalProtein = ?, totalCarbs = ?, totalFat = ? WHERE IdRecipe = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, recipe.getName());
@@ -47,14 +47,16 @@ public class RecipeService implements IService<Recipe> {
         statement.setInt(5, recipe.getTotalFat());
         statement.setInt(6, recipe.getIdRecipe());
         statement.executeUpdate();
+        return 0;
     }
 
     @Override
-    public void supprimer(int id) throws SQLException {
+    public boolean supprimer(int id) throws SQLException {
         String sql = "DELETE FROM recipe WHERE IdRecipe = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, id);
         statement.executeUpdate();
+        return false;
     }
 
     @Override
