@@ -1,21 +1,33 @@
 package tn.esprit.controllers;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import tn.esprit.models.Food;
 import tn.esprit.services.FoodService;
 
+import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
-public class AddFood {
-
+public class AddFood implements Initializable {
     @FXML
     private TextField caloriesTF;
 
     @FXML
     private TextField carbsTF;
+
+    @FXML
+    private ComboBox<String> combo;
 
     @FXML
     private TextField fatTF;
@@ -30,10 +42,12 @@ public class AddFood {
     private TextField servsizeTF;
 
     @FXML
-    private TextField servunitTF;
+    void Select(ActionEvent event) {
+
+    }
 
     @FXML
-    void addFood(ActionEvent event) {
+    void inesrtFood(ActionEvent event) {
         FoodService foodService = new FoodService();
         Food food = new Food();
         food.setName(nameTF.getText());
@@ -42,7 +56,7 @@ public class AddFood {
         food.setCarbohydrates(Integer.parseInt(carbsTF.getText()));
         food.setFat(Integer.parseInt(fatTF.getText()));
         food.setServingSize(Double.parseDouble(servsizeTF.getText()));
-        food.setServingUnit(servunitTF.getText());
+        food.setServingUnit(combo.getValue()); // get the selected item from the combo box
 
         try {
             foodService.ajouter(food);
@@ -51,16 +65,53 @@ public class AddFood {
             alert.setContentText("Food Added Successfully");
             alert.showAndWait();
         } catch (SQLException e) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("ERROR !!!!!!");
-        alert.setContentText(e.getMessage());
-        alert.showAndWait();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR !!!!!!");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
         }
+    }
+
+    @FXML
+    void addFood(ActionEvent event) {
 
     }
 
     @FXML
-    void displayFood(ActionEvent event) {
+    void deleteFood(ActionEvent event) {
 
+    }
+
+    @FXML
+    void editFood(ActionEvent event) {
+
+    }
+
+    @FXML
+    void viewFood(ActionEvent event) {
+        try {
+            // Load the FXML file
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main.fxml"));
+
+            // Create the scene
+            Scene scene = new Scene(fxmlLoader.load());
+
+            // Get the current stage
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Set the scene for the stage
+            stage.setScene(scene);
+
+            // Show the stage
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Failed to load the page: " + e.getMessage());
+        }
+
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        combo.setItems(FXCollections.observableArrayList("gram","ounce","cup","litre"));
     }
 }
