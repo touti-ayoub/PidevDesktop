@@ -110,6 +110,7 @@ public class EditFood {
     }
 
     public void initialize() {
+
         combo.setItems(FXCollections.observableArrayList("gram","ounce","cup","litre"));
     }
 }
