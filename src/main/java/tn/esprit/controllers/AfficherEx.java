@@ -1,17 +1,18 @@
 package tn.esprit.controllers;
+
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import tn.esprit.models.exercice;
 import tn.esprit.services.exerciceService;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -27,6 +28,8 @@ public class AfficherEx {
 
     @FXML
     private TableView<exercice> tableView;
+    @FXML
+    private TextField RechercherTF;
 
     private final exerciceService es = new exerciceService();
 
@@ -66,7 +69,32 @@ public class AfficherEx {
                         }
                     }
                 }
+
             });
+            // initial filtered list
+            FilteredList<exercice> filteredData = new FilteredList<>(observableList, b -> true);
+            RechercherTF.textProperty().addListener((observable, oldValue, newValue) -> {
+                filteredData.setPredicate(exercice -> {
+                    if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
+                        return true;
+
+                    }
+                    String searchKeyword = newValue.toLowerCase();
+
+                    if (exercice.getNOM().toLowerCase().indexOf(searchKeyword) > -1) {
+                        return true;
+                    } else if (exercice.getDESCRIPTION().toLowerCase().indexOf(searchKeyword) > -1) {
+                        return true;
+                    }else if (exercice.getMUSCLE_CIBLE().toLowerCase().indexOf(searchKeyword) > -1) {
+                        return true;
+                    }else return false;
+
+
+                });
+            });
+            SortedList<exercice> sortedData = new SortedList<>(filteredData);
+            sortedData.comparatorProperty().bind(tableView.comparatorProperty());
+            tableView.setItems(sortedData);
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());

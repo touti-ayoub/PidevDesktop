@@ -21,7 +21,7 @@ public class MainFX extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterExercice.fxml"));
         try {
             Parent root = loader.load();
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(root,1080,600);
             primaryStage.setTitle("afficher exercice");
             primaryStage.setScene(scene);
             primaryStage.show();
