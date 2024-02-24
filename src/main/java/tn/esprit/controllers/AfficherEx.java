@@ -201,6 +201,23 @@ public class AfficherEx {
     }
 
     private void handleDeleteAction(exercice ex) {
-        // TODO: Implement the logic to delete the exercise
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Delete Exercise");
+        alert.setContentText("Are you sure you want to delete this exercise?");
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                try {
+                    es.deletePlanExerciceByExerciceId(ex.getID());
+                    es.supprimer(ex.getID());
+                    refreshTableView();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    showAlert("Delete Error", "Failed to delete the exercise.", e.getMessage());
+                }
+            }
+        });
     }
+
 }

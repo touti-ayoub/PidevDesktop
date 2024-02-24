@@ -81,4 +81,10 @@ public class exerciceService implements IService<exercice> {
         }
         return null; // Si aucun exercice correspondant n'est trouvé
     }
+    public void deletePlanExerciceByExerciceId(int id) throws SQLException {
+        String req = "DELETE FROM plan_exercice WHERE IdExercice = ?";
+        PreparedStatement ps = connection.prepareStatement(req);
+        ps.setInt(1, id);
+        ps.executeUpdate();
+    }
 }

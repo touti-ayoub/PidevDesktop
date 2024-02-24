@@ -79,5 +79,7 @@ public class exercice {
                 ", IMAGE_URL='" + IMAGE_URL + '\'' +
                 '}';
     }
+
+
 }
 
