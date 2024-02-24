@@ -1,0 +1,86 @@
+package tn.esprit.controllers;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
+import tn.esprit.models.Competition;
+import tn.esprit.services.CompetitionService;
+
+import java.sql.Date;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+public class ajouterCompetition {
+    @FXML
+    private DatePicker dateDebut;
+
+
+
+    @FXML
+    private DatePicker dateFin;
+
+    @FXML
+    private TextField libelle;
+
+    @FXML
+    private TextField nbrMaxMembres;
+
+  //  @FXML
+   // private TextField nbrMembre;
+private final CompetitionService cs = new CompetitionService();
+
+    @FXML
+    void ajouterCompetition(ActionEvent event) throws SQLException, ParseException {
+        if (dateDebut.getValue() == null || dateFin.getValue() == null || libelle.getText().isEmpty() || nbrMaxMembres.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText("Erreur de saisie !");
+            alert.setContentText("Veuillez remplir tous les champs, y compris la date.");
+            alert.show();
+        } else {
+            try {
+                // Conversion des objets LocalDate en java.util.Date
+                java.sql.Date dateDebutValue = java.sql.Date.valueOf(dateDebut.getValue());
+                java.sql.Date dateFinValue = java.sql.Date.valueOf(dateFin.getValue());
+
+                // Vérifier si la date de début est supérieure à la date système
+                if (dateDebutValue.before(new java.util.Date())) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Erreur");
+                    alert.setHeaderText("Date de début invalide");
+                    alert.setContentText("La date de début ne peut pas être antérieure à la date actuelle.");
+                    alert.show();
+                    return; // Arrêter l'exécution si la date de début est invalide
+                }
+
+                // Vérifier si la date de fin est supérieure à la date de début
+                if (dateFinValue.before(dateDebutValue)) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Erreur");
+                    alert.setHeaderText("Date de fin invalide");
+                    alert.setContentText("La date de fin ne peut pas être antérieure à la date de début.");
+                    alert.show();
+                    return; // Arrêter l'exécution si la date de fin est invalide
+                }
+
+                // Conversion de la chaîne nombre en int
+                int nbrMaxMembresValue = Integer.parseInt(nbrMaxMembres.getText());
+
+                // Ajouter la compétition avec les dates converties
+                cs.ajouter(new Competition(libelle.getText(), dateDebutValue, dateFinValue, nbrMaxMembresValue));
+
+            } catch (NumberFormatException e) {
+                // Gérer l'exception de manière appropriée (affichage d'un message d'erreur, journalisation, etc.)
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur");
+                alert.setHeaderText("Erreur de conversion du nombre");
+                alert.setContentText("Veuillez saisir un nombre valide pour le nombre maximal de membres.");
+                alert.show();
+            }
+        }
+    }
+
+}
