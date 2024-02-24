@@ -26,7 +26,7 @@ public class exerciceService implements IService<exercice> {
 
     @Override
     public void modifier(exercice exercice) throws SQLException {
-        String req = "UPDATE exercice SET NOM=?, DESCRIPTION=?,MUSCLE_CIBLE =? WHERE IdExerice=?";
+        String req = "UPDATE exercice SET NOM=?, DESCRIPTION=?,MUSCLE_CIBLE =? WHERE IdExercice=?";
         PreparedStatement ps = connection.prepareStatement(req);
         ps.setString(1,exercice.getNOM());
         ps.setString(2,exercice.getDESCRIPTION());
@@ -35,9 +35,10 @@ public class exerciceService implements IService<exercice> {
         ps.executeUpdate();
     }
 
+
     @Override
     public void supprimer(int id) throws SQLException {
-        String req = "DELETE FROM exercice WHERE IDExercice = ?";
+        String req = "DELETE FROM exercice WHERE IdExercice = ?";
         PreparedStatement ps = connection.prepareStatement(req);
         ps.setInt(1,id);
         ps.executeUpdate();
@@ -52,7 +53,7 @@ public class exerciceService implements IService<exercice> {
         ResultSet rs = st.executeQuery(req);
         while (rs.next()){
             exercice exercice = new exercice();
-            exercice.setID(rs.getInt("idExercice"));
+            exercice.setID(rs.getInt("IdExercice"));
             exercice.setNOM(rs.getString("NOM"));
             exercice.setDESCRIPTION(rs.getString("DESCRIPTION"));
             exercice.setMUSCLE_CIBLE(rs.getString("MUSCLE_CIBLE"));

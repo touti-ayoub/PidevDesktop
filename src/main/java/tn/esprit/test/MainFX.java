@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class MainFX extends Application {
 
@@ -22,6 +23,7 @@ public class MainFX extends Application {
         try {
             Parent root = loader.load();
             Scene scene = new Scene(root,1080,600);
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/style.css")).toExternalForm());
             primaryStage.setTitle("afficher exercice");
             primaryStage.setScene(scene);
             primaryStage.show();

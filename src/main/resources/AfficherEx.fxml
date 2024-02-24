@@ -4,24 +4,33 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 
 <AnchorPane prefHeight="600.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.AfficherEx">
-    <children>
-        <!-- Barre de recherche -->
-        <TextField fx:id="RechercherTF" layoutX="30.0" layoutY="20.0" prefHeight="25.0" prefWidth="300.0" promptText="Rechercher" />
+   <children>
+      <Label layoutX="31.0" layoutY="30.0" prefHeight="17.0" prefWidth="109.0" text="Seach exercice" />
+      <TableView fx:id="tableView" layoutX="25.0" layoutY="104.0" prefHeight="375.0" prefWidth="800.0">
+        <columns>
+          <TableColumn fx:id="nomEx" prefWidth="170.0" text="NOM" />
+          <TableColumn fx:id="descriptionEx" prefWidth="170.0" text="DESCRIPTION" />
+            <TableColumn fx:id="muscleEX" prefWidth="170.0" text="MUSCLE" />
+            <TableColumn fx:id="imageEx" minWidth="2.0" prefWidth="160.0" text="IMAGE" />
+            <TableColumn fx:id="actionCol" text="Action">
+            </TableColumn>
 
-        <!-- Titre de la table -->
-        <Label layoutX="30.0" layoutY="60.0" prefHeight="17.0" prefWidth="150.0" text="Liste des exercices" />
+        </columns>
+      </TableView>
+       <StackPane layoutX="140.0" layoutY="25.0" prefHeight="28.0" prefWidth="320.0">
+           <TextField fx:id="RechercherTF"  styleClass="search-field" />
+           <ImageView  fitHeight="35" fitWidth="35" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
+               <image>
+                   <Image url="@/img/search_8767612.png" /> <!-- Assurez-vous que le chemin est correct -->
+               </image>
+           </ImageView>
+       </StackPane>
 
-        <!-- Tableau des exercices -->
-        <TableView fx:id="tableView" layoutX="30.0" layoutY="90.0" prefHeight="450.0" prefWidth="1020.0">
-            <columns>
-                <TableColumn fx:id="nomEx" prefWidth="170.0" text="NOM" />
-                <TableColumn fx:id="descriptionEx" prefWidth="300.0" text="DESCRIPTION" />
-                <TableColumn fx:id="muscleEX" prefWidth="170.0" text="MUSCLE" />
-                <TableColumn fx:id="imageEx" minWidth="2.0" prefWidth="170.0" text="IMAGE" />
-            </columns>
-        </TableView>
-    </children>
+   </children>
 </AnchorPane>

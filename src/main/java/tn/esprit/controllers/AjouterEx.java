@@ -39,8 +39,6 @@ public class AjouterEx {
     @FXML
     private void initialize() {
     }
-
-
     @FXML
     private void handleUploadImage() throws FileNotFoundException {
         FileChooser fileChooser = new FileChooser();

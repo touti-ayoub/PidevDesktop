@@ -1,0 +1,13 @@
+.search-field {
+    -fx-padding: 10;
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+    -fx-background-color: #ffffff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);
+}
+
+.search-field:focused {
+    -fx-background-color: #f0f0f0;
+}
+
+/* Vous pouvez ajouter une classe CSS pour votre TableView si vous voulez également la styliser */

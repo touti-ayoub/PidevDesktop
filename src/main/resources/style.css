@@ -1,0 +1,38 @@
+.search-field {
+    -fx-padding: 10 40 10 40; /* Augmentez le padding gauche pour décaler le texte vers la droite */
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-background-color: #E8E8E8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.1, 0, 1);
+}
+
+.search-field:focused {
+    -fx-background-color: #FFFFFF;
+}
+
+.search-field:hover {
+    -fx-background-color: #F0F0F0;
+}
+.pad{
+    -fx-padding: 0,10,0;
+}
+.table-view {
+    -fx-base: #F0F0F0;
+}
+
+.table-row-cell {
+    -fx-background-color: #FAFAFA;
+    -fx-border-color: #D0D0D0;
+    -fx-table-cell-border-color: #D0D0D0;
+}
+
+.button {
+    -fx-background-color: #FFC107, #E0E0E0, #EEEEEE;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 5;
+    -fx-padding: 3 5 3 5;
+}
+
+.button:hover {
+    -fx-background-color: #FFA000, #E0E0E0, #EEEEEE;
+}
