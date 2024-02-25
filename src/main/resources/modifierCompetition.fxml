@@ -27,7 +27,7 @@
       <TextField fx:id="nbr" layoutX="475.0" layoutY="303.0" prefHeight="26.0" prefWidth="86.0" />
       <DatePicker fx:id="dateDebut" layoutX="431.0" layoutY="191.0" />
       <DatePicker fx:id="dateFin" layoutX="431.0" layoutY="255.0" />
-      <Button layoutX="492.0" layoutY="412.0" mnemonicParsing="false" text="Modifier" onAction="#handleModifierButtonClick"/>
+      <Button fx:id="modifierC" layoutX="492.0" layoutY="412.0" mnemonicParsing="false"  onAction="#handleModifierButtonClick" text="Modifier" />
       <Label layoutX="342.0" layoutY="142.0" text="libellé" />
       <Label layoutX="342.0" layoutY="195.0" text="date de début" />
       <Label layoutX="342.0" layoutY="259.0" text="Date de fin" />

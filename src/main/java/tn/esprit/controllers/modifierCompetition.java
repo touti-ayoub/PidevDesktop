@@ -28,13 +28,13 @@ public class modifierCompetition {
     @FXML
     private TextField nbr;
     private Competition competition;
-    private CompetitionService competitionService; // Ajoutez le service
+    private CompetitionService competitionService=new CompetitionService(); // Ajoutez le service
 
-    public modifierCompetition() {
-        // Initialiser votre service ici
-        this.competitionService = new CompetitionService();
-    }
+
+
     public void initData(Competition competition) {
+        this.competition = competition;
+
         // Initialisez les champs avec les informations de la compétition
         libelle.setText(competition.getLibelle());
         dateDebut.setValue(competition.getDateDebut().toLocalDate());
@@ -47,6 +47,12 @@ public class modifierCompetition {
         // Vérifiez si la compétition a été initialisée
         if (competition != null) {
             try {
+                // Mettez à jour les champs de la compétition avec les nouvelles valeurs entrées par l'utilisateur
+                competition.setLibelle(libelle.getText());
+                competition.setDateDebut(java.sql.Date.valueOf(dateDebut.getValue()));
+                competition.setDateFin(java.sql.Date.valueOf(dateFin.getValue()));
+                competition.setNbrMaxMembres(Integer.parseInt(nbr.getText()));
+
                 // Mise à jour de la compétition en utilisant le service
                 competitionService.modifier(competition);
 
@@ -61,10 +67,12 @@ public class modifierCompetition {
                 modifierC.getScene().getWindow().hide();
             } catch (SQLException e) {
                 e.printStackTrace();
+                // Log the SQL exception details
+                System.err.println("SQL Exception: " + e.getMessage());
+
                 // Gérez l'exception de manière appropriée (affichage d'un message d'erreur, journalisation, etc.)
             }
         }
     }
-
 
 }
