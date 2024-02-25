@@ -1,5 +1,4 @@
 package tn.esprit.controllers;
-
 import tn.esprit.controllers.EditExerciceController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,7 +18,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import tn.esprit.models.exercice;
 import tn.esprit.services.exerciceService;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -74,13 +72,11 @@ public class AfficherEx {
             });
             SortedList<exercice> sortedData = new SortedList<>(filteredData);
             sortedData.comparatorProperty().bind(tableView.comparatorProperty());
-
             tableView.setItems(sortedData);
             nomEx.setCellValueFactory(new PropertyValueFactory<>("NOM"));
             descriptionEx.setCellValueFactory((new PropertyValueFactory<>("DESCRIPTION")));
             muscleEX.setCellValueFactory(new PropertyValueFactory<>("MUSCLE_CIBLE"));
             imageEx.setCellValueFactory(new PropertyValueFactory<>("IMAGE_URL"));
-
             imageEx.setCellFactory(column -> new TableCell<exercice, String>() {
                 private final ImageView imageView = new ImageView();
 
@@ -114,11 +110,11 @@ public class AfficherEx {
                 private final Button deleteButton;
 
                 {
-                    editIcon = new ImageView(new Image(getClass().getResourceAsStream("/img/search_8767612.png")));
+                    editIcon = new ImageView(new Image(getClass().getResourceAsStream("/img/edit.png")));
                     editIcon.setFitWidth(40);
                     editIcon.setFitHeight(40);
 
-                    deleteIcon = new ImageView(new Image(getClass().getResourceAsStream("/img/search_8767612.png")));
+                    deleteIcon = new ImageView(new Image(getClass().getResourceAsStream("/img/traaash.png")));
                     deleteIcon.setFitWidth(40);
                     deleteIcon.setFitHeight(40);
 
