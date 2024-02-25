@@ -2,12 +2,17 @@ package tn.esprit.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import tn.esprit.models.Competition;
 import tn.esprit.services.CompetitionService;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -71,8 +76,28 @@ private final CompetitionService cs = new CompetitionService();
 
                 // Ajouter la compétition avec les dates converties
                 cs.ajouter(new Competition(libelle.getText(), dateDebutValue, dateFinValue, nbrMaxMembresValue));
+                // Après avoir ajouté la compétition avec succès, naviguez vers la liste des compétitions
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/listeCompetition.fxml"));
+                Parent root = loader.load();
 
-            } catch (NumberFormatException e) {
+                // Créez une nouvelle scène et configurez-la dans votre stage principal
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+
+                // Obtenez l'instance de listeCompetition
+                listeCompetition controllerListe = loader.getController();
+
+                // Appelez la méthode de rafraîchissement sur l'instance de listeCompetition
+                controllerListe.refreshListeCompetitions();
+
+                // Montrez la nouvelle scène
+                stage.show();
+
+                // Fermez la scène actuelle (ajouterCompetition)
+                Stage currentStage = (Stage) libelle.getScene().getWindow();
+                currentStage.close();
+            } catch (NumberFormatException | IOException e) {
                 // Gérer l'exception de manière appropriée (affichage d'un message d'erreur, journalisation, etc.)
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Erreur");
