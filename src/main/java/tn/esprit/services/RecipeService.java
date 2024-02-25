@@ -73,6 +73,11 @@ public class RecipeService implements IService<Recipe> {
             recipe.setTotalProtein(resultSet.getInt("totalProtein"));
             recipe.setTotalCarbs(resultSet.getInt("totalCarbs"));
             recipe.setTotalFat(resultSet.getInt("totalFat"));
+
+            // Fetch the foods for this recipe
+            List<Food> foods = getFoodsInRecipe(recipe.getIdRecipe());
+            recipe.setFoods(foods); // Assuming you have a setter method in your Recipe class
+
             recipes.add(recipe);
         }
         return recipes;

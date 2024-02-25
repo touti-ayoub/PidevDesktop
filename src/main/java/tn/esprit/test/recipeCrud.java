@@ -29,7 +29,7 @@ public class recipeCrud {
         // Add first food item to the recipe
         RecipeFood recipeFood1 = new RecipeFood();
         recipeFood1.setIdRecipe(recipe.getIdRecipe());
-        recipeFood1.setIdFood(1); // Assuming there is a food item with IdFood = 1
+        recipeFood1.setIdFood(9); // Assuming there is a food item with IdFood = 1
         try {
             recipeService.addFoodToRecipe(recipeFood1);
             System.out.println("Food 1 added to recipe successfully");
@@ -40,7 +40,7 @@ public class recipeCrud {
         // Add second food item to the recipe
         RecipeFood recipeFood2 = new RecipeFood();
         recipeFood2.setIdRecipe(recipe.getIdRecipe());
-        recipeFood2.setIdFood(2); // Assuming there is a food item with IdFood = 2
+        recipeFood2.setIdFood(10); // Assuming there is a food item with IdFood = 2
         try {
             recipeService.addFoodToRecipe(recipeFood2);
             System.out.println("Food 2 added to recipe successfully");
@@ -51,7 +51,7 @@ public class recipeCrud {
         // Add third food item to the recipe
         RecipeFood recipeFood3 = new RecipeFood();
         recipeFood3.setIdRecipe(recipe.getIdRecipe());
-        recipeFood3.setIdFood(3); // Assuming there is a food item with IdFood = 3
+        recipeFood3.setIdFood(12); // Assuming there is a food item with IdFood = 3
         try {
             recipeService.addFoodToRecipe(recipeFood3);
             System.out.println("Food 3 added to recipe successfully");

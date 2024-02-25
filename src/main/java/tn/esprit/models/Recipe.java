@@ -2,6 +2,7 @@ package tn.esprit.models;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class Recipe {
     private int idRecipe;
@@ -10,6 +11,8 @@ public class Recipe {
     private int totalProtein;
     private int totalCarbs;
     private int totalFat;
+    private List<Food> foods; // Add this line
+
 
     // constructors, getters, setters, toString method
 
@@ -21,6 +24,8 @@ public class Recipe {
         this.totalProtein = totalProtein;
         this.totalCarbs = totalCarbs;
         this.totalFat = totalFat;
+        this.foods = foods; // And this line
+
     }
 
     public Recipe(String name, int totalCalories, int totalProtein, int totalCarbs, int totalFat) {
@@ -29,6 +34,8 @@ public class Recipe {
         this.totalProtein = totalProtein;
         this.totalCarbs = totalCarbs;
         this.totalFat = totalFat;
+        this.foods = foods; // And this line
+
     }
 
     public Recipe() {
@@ -82,6 +89,14 @@ public class Recipe {
         this.totalFat = totalFat;
     }
 
+    public List<Food> getFoods() { // Add this method
+        return foods;
+    }
+
+    public void setFoods(List<Food> foods) { // And this method
+        this.foods = foods;
+    }
+
     @Override
     public String toString() {
         return "Recipe{" +
@@ -91,6 +106,7 @@ public class Recipe {
                 ", totalProtein=" + totalProtein +
                 ", totalCarbs=" + totalCarbs +
                 ", totalFat=" + totalFat +
+                ", foods=" + foods + // And this line
                 '}';
     }
 }
