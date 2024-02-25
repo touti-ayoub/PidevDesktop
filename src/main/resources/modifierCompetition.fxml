@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="609.0" prefWidth="845.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.modifierCompetition">
+   <children>
+      <VBox layoutX="1.0" layoutY="-1.0" prefHeight="610.0" prefWidth="261.0" />
+      <HBox alignment="CENTER" layoutX="259.0" prefHeight="46.0" prefWidth="586.0">
+         <children>
+            <Label text="Modifier compétition">
+               <font>
+                  <Font name="Cambria" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox layoutX="259.0" layoutY="46.0" prefHeight="46.0" prefWidth="586.0" />
+      <TextField fx:id="libelle" layoutX="443.0" layoutY="138.0" />
+      <TextField fx:id="nbr" layoutX="475.0" layoutY="303.0" prefHeight="26.0" prefWidth="86.0" />
+      <DatePicker fx:id="dateDebut" layoutX="431.0" layoutY="191.0" />
+      <DatePicker fx:id="dateFin" layoutX="431.0" layoutY="255.0" />
+      <Button layoutX="492.0" layoutY="412.0" mnemonicParsing="false" text="Modifier" onAction="#handleModifierButtonClick"/>
+      <Label layoutX="342.0" layoutY="142.0" text="libellé" />
+      <Label layoutX="342.0" layoutY="195.0" text="date de début" />
+      <Label layoutX="342.0" layoutY="259.0" text="Date de fin" />
+      <Label layoutX="344.0" layoutY="308.0" text="nombre max membres" />
+   </children>
+</AnchorPane>
