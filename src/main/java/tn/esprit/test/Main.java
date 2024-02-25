@@ -25,6 +25,9 @@ public class Main {
 
               List<exercice> c1 = es.recuperer();
                System.out.println(c1);
+               List<String> c2 = es.getUniqueMuscleCibles();
+            System.out.println(c2);
+
            //    List<exercice> exercices = new ArrayList<>();
             // Ajoutez les exercices que vous voulez associer
             //    exercice exercice1 = new exercice();

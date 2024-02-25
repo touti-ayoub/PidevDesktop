@@ -87,4 +87,15 @@ public class exerciceService implements IService<exercice> {
         ps.setInt(1, id);
         ps.executeUpdate();
     }
+    public List<String> getUniqueMuscleCibles() throws SQLException {
+        List<String> muscleCibles = new ArrayList<>();
+        String req = "SELECT DISTINCT MUSCLE_CIBLE FROM exercice ORDER BY MUSCLE_CIBLE";
+        Statement st = connection.createStatement();
+        ResultSet rs = st.executeQuery(req);
+        while (rs.next()) {
+            muscleCibles.add(rs.getString("MUSCLE_CIBLE"));
+        }
+        return muscleCibles;
+    }
+
 }

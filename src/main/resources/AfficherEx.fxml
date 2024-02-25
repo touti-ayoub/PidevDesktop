@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -19,18 +20,20 @@
             <TableColumn fx:id="muscleEX" prefWidth="170.0" text="MUSCLE" />
             <TableColumn fx:id="imageEx" minWidth="2.0" prefWidth="160.0" text="IMAGE" />
             <TableColumn fx:id="actionCol" text="Action">
+                <!-- Pas besoin de cellValueFactory pour les boutons d'action -->
             </TableColumn>
 
         </columns>
       </TableView>
        <StackPane layoutX="140.0" layoutY="25.0" prefHeight="28.0" prefWidth="320.0">
-           <TextField fx:id="RechercherTF"  styleClass="search-field" />
-           <ImageView  fitHeight="35" fitWidth="35" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
+           <TextField fx:id="RechercherTF" styleClass="search-field" />
+           <ImageView fitHeight="35" fitWidth="35" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
                    <Image url="@/img/search_8767612.png" /> <!-- Assurez-vous que le chemin est correct -->
                </image>
            </ImageView>
        </StackPane>
+      <ComboBox fx:id="muscleCibleComboBox" layoutX="483.0" layoutY="30.0" prefWidth="150.0" />
 
    </children>
 </AnchorPane>

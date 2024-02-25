@@ -41,6 +41,9 @@ public class AfficherEx {
     private TableView<exercice> tableView;
     @FXML
     private TextField RechercherTF;
+    @FXML
+    private ComboBox<String> muscleCibleComboBox;
+
 
     @FXML
     private TableColumn<exercice, Void> actionCol;
@@ -153,6 +156,12 @@ public class AfficherEx {
             alert.setTitle("erreur");
             alert.setContentText(e.getMessage());
             alert.showAndWait();
+        }
+        try {
+            List<String> muscleCibles = es.getUniqueMuscleCibles();
+            muscleCibleComboBox.getItems().addAll(muscleCibles);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

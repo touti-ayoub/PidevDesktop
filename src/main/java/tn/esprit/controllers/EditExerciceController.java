@@ -3,7 +3,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import tn.esprit.models.exercice;
 import tn.esprit.services.exerciceService;
-
 import java.sql.PreparedStatement;
 
 public class EditExerciceController {
