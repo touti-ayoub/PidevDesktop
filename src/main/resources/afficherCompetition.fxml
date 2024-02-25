@@ -10,8 +10,8 @@
       <Label fx:id="dateDebutLabel" layoutX="97.0" layoutY="153.0" text="Label" />
       <Label fx:id="dateFinLabel" layoutX="97.0" layoutY="220.0" text="Label" />
       <Label fx:id="nbrMaxLabel" layoutX="97.0" layoutY="286.0" text="Label" />
-      <Button layoutX="339.0" layoutY="320.0" mnemonicParsing="false" text="Supprimer" />
+      <Button fx:id="supprimer" layoutX="339.0" layoutY="320.0" mnemonicParsing="false" onAction="#handleSupprimerButtonClick" text="Supprimer" />
       <Button fx:id="modifierC" layoutX="253.0" layoutY="320.0" mnemonicParsing="false" onAction="#handleModifierButtonClick" text="modifier" />
-      <Button layoutX="176.0" layoutY="320.0" mnemonicParsing="false" text="retour" />
+      <Button fx:id="retour" layoutX="176.0" layoutY="320.0" mnemonicParsing="false"  text="retour" />
    </children>
 </AnchorPane>

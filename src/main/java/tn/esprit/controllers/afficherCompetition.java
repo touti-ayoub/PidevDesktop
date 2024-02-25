@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import tn.esprit.models.Competition;
+import tn.esprit.services.CompetitionService;
 
 import java.io.IOException;
 
@@ -29,7 +30,10 @@ public class afficherCompetition {
 
     @FXML
     private Button modifierC;
-
+    @FXML
+    private Button retour;
+    @FXML
+    private Button supprimer;
     private Competition selectedCompetition; // Déclarer selectedCompetition ici
 
     public void initData(Competition competition) {
@@ -69,7 +73,44 @@ public class afficherCompetition {
         }
     }
 
+//retour dans l'interface liste competition
 
+    @FXML
+    private void handleSupprimerButtonClick(ActionEvent event) {
+        // Vérifiez si une compétition est sélectionnée
+        if (selectedCompetition != null) {
+            try {
+                // Récupérez l'instance du service ou gestionnaire de données
+                CompetitionService cs = new CompetitionService();
+
+                // Appelez votre méthode de suppression depuis votre service ou gestionnaire de données
+                int codeCompetitionASupprimer = selectedCompetition.getCodeC();
+                cs.supprimer(codeCompetitionASupprimer);
+
+                // Obtenez l'instance de listeCompetition
+                listeCompetition controllerListe = listeCompetition.getInstance();
+
+                // Vérifiez si l'instance est null
+                if (controllerListe != null) {
+                    // Appelez la méthode de rafraîchissement sur l'instance de listeCompetition
+                    controllerListe.refreshListeCompetitions();
+                } else {
+                    // Gérez le cas où l'instance est null
+                    System.out.println("Erreur: Impossible d'obtenir l'instance de listeCompetition.");
+                }
+
+                // Fermez la scène actuelle (afficherCompetition)
+                Stage currentStage = (Stage) supprimer.getScene().getWindow();
+                currentStage.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+                // Gérez l'exception de manière appropriée (affichage d'un message d'erreur, journalisation, etc.)
+            }
+        } else {
+            // Affichez un message d'erreur ou avertissement indiquant qu'aucune compétition n'est sélectionnée.
+            System.out.println("Aucune compétition sélectionnée pour la suppression.");
+        }
+    }
 
 
 }
