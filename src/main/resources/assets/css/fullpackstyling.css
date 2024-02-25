@@ -63,19 +63,19 @@
 
 .combo-box
 {
-    -fx-background-color : #141124;
+    -fx-background-color :  #3F2B63;
     -fx-border-color:  #515658;
     -fx-border-radius: 30;
 }
 .combo-box:hover
 {
-    -fx-background-color : #141124;
+    -fx-background-color :  #7156DD;
     -fx-border-color:  #FFFF;
     -fx-border-radius: 30;
 }
 .combo-box:pressed
 {
-    -fx-background-color : #141124;
+    -fx-background-color : #b3aae8;
     -fx-border-color:  #FFFF;
     -fx-border-radius: 30;
 }
