@@ -30,7 +30,7 @@ public class afficherCompetition {
     private Label libelleLabel;
 
     @FXML
-    private Label nbrMaxLabel;
+    private Label tarifLabel;
 
     @FXML
     private Button modifierC;
@@ -45,7 +45,7 @@ public class afficherCompetition {
         libelleLabel.setText("Compétition: " + competition.getLibelle());
         dateDebutLabel.setText("Date de début: " + competition.getDateDebut());
         dateFinLabel.setText("Date de fin: " + competition.getDateFin().toString());
-        nbrMaxLabel.setText("Nombre max membres: " + competition.getNbrMaxMembres());
+        tarifLabel.setText("Tarif: " + competition.getTarif());
     }
     @FXML
     private void handleModifierButtonClick(ActionEvent event) {
@@ -63,6 +63,10 @@ public class afficherCompetition {
             // Obtenez le contrôleur de la nouvelle interface et transmettez les données
             modifierCompetition controller = loader.getController();
             controller.initData(competition);
+
+
+            // Ajoutez une référence à afficherCompetition dans le contrôleur modifierCompetition
+            controller.setAfficherCompetition(this);
 
             // Créez une nouvelle scène et configurez-la dans votre stage principal
             Scene scene = new Scene(root);
@@ -130,6 +134,10 @@ public class afficherCompetition {
             warning.showAndWait();
         }
     }
-
+    // Ajoutez cette méthode pour rafraîchir la compétition après modification
+    public void refreshCompetitions() {
+        // Appelez votre méthode initData avec la compétition actuellement affichée
+        initData(selectedCompetition);
+    }
 
 }

@@ -39,7 +39,14 @@ public class modifierCompetition {
         libelle.setText(competition.getLibelle());
         dateDebut.setValue(competition.getDateDebut().toLocalDate());
         dateFin.setValue(competition.getDateFin().toLocalDate());
-        nbr.setText(String.valueOf(competition.getNbrMaxMembres()));
+        nbr.setText(String.valueOf(competition.getTarif()));
+    }
+
+    private afficherCompetition afficherCompetition;
+
+    // Add a method to set the reference to afficherCompetition
+    public void setAfficherCompetition(afficherCompetition afficherCompetition) {
+        this.afficherCompetition = afficherCompetition;
     }
 
     @FXML
@@ -51,7 +58,7 @@ public class modifierCompetition {
                 competition.setLibelle(libelle.getText());
                 competition.setDateDebut(java.sql.Date.valueOf(dateDebut.getValue()));
                 competition.setDateFin(java.sql.Date.valueOf(dateFin.getValue()));
-                competition.setNbrMaxMembres(Integer.parseInt(nbr.getText()));
+                competition.setTarif(Float.parseFloat(nbr.getText()));
 
                 // Mise à jour de la compétition en utilisant le service
                 competitionService.modifier(competition);
@@ -65,12 +72,14 @@ public class modifierCompetition {
 
                 // Fermez la fenêtre de modification
                 modifierC.getScene().getWindow().hide();
+// Rafraîchissez la liste dans le contrôleur listeCompetition
+                if (afficherCompetition != null) {
+                    afficherCompetition.refreshCompetitions();
+                }
+
             } catch (SQLException e) {
                 e.printStackTrace();
-                // Log the SQL exception details
                 System.err.println("SQL Exception: " + e.getMessage());
-
-                // Gérez l'exception de manière appropriée (affichage d'un message d'erreur, journalisation, etc.)
             }
         }
     }

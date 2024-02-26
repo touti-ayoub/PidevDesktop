@@ -1,5 +1,6 @@
 package tn.esprit.models;
 
+//import java.sql.Date;
 import java.sql.Date;
 import java.util.Objects;
 
@@ -9,27 +10,28 @@ public class Competition {
     private String libelle;
     private Date dateDebut;
     private Date dateFin;
-    private int nbrMembre;
-    private int nbrMaxMembres;
+
+   // private int nbrMembre;
+    private float tarif;
+
 
     public Competition() {
     }
 
-    public Competition(String libelle, Date dateDebut, Date dateFin, int nbrMembre, int nbrMaxMembres) {
+    public Competition(String libelle, Date dateDebut, Date dateFin, float tarif) {
         this.libelle = libelle;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
-        this.nbrMembre = nbrMembre;
-        this.nbrMaxMembres = nbrMaxMembres;
+        this.tarif = tarif;
     }
 
-    public Competition(int codeC, String libelle, Date dateDebut, Date dateFin, int nbrMembre, int nbrMaxMembres) {
+    public Competition(int codeC, String libelle, Date dateDebut, Date dateFin, float tarif) {
         this.codeC = codeC;
         this.libelle = libelle;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
-        this.nbrMembre = nbrMembre;
-        this.nbrMaxMembres = nbrMaxMembres;
+
+        this.tarif = tarif;
     }
 
     public int getCodeC() {
@@ -64,20 +66,20 @@ public class Competition {
         this.dateFin = dateFin;
     }
 
-    public int getNbrMembre() {
+  /*  public int getNbrMembre() {
         return nbrMembre;
     }
 
     public void setNbrMembre(int nbrMembre) {
         this.nbrMembre = nbrMembre;
+    }*/
+
+    public float getTarif() {
+        return tarif;
     }
 
-    public int getNbrMaxMembres() {
-        return nbrMaxMembres;
-    }
-
-    public void setNbrMaxMembres(int nbrMaxMembres) {
-        this.nbrMaxMembres = nbrMaxMembres;
+    public void setTarif(float tarif) {
+        this.tarif = tarif;
     }
 
     @Override
@@ -85,23 +87,23 @@ public class Competition {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Competition that = (Competition) o;
-        return codeC == that.codeC && nbrMembre == that.nbrMembre && nbrMaxMembres == that.nbrMaxMembres && Objects.equals(libelle, that.libelle) && Objects.equals(dateDebut, that.dateDebut) && Objects.equals(dateFin, that.dateFin);
+        return codeC == that.codeC  && tarif == that.tarif && Objects.equals(libelle, that.libelle) && Objects.equals(dateDebut, that.dateDebut) && Objects.equals(dateFin, that.dateFin);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(codeC, libelle, dateDebut, dateFin, nbrMembre, nbrMaxMembres);
+        return Objects.hash(codeC, libelle, dateDebut, dateFin, tarif);
     }
 
     @Override
     public String toString() {
-        return "Competition{" +
-                "codeC=" + codeC +
-                ", libelle='" + libelle + '\'' +
-                ", dateDebut=" + dateDebut +
-                ", dateFin=" + dateFin +
-                ", nbrMembre=" + nbrMembre +
-                ", nbrMaxMembres=" + nbrMaxMembres +
-                '}';
+        return "Competition: " +
+
+                libelle  +
+                "   dateDebut: " + dateDebut +
+                "   dateFin: " + dateFin +
+
+                "   tarif: " + tarif
+                ;
     }
 }

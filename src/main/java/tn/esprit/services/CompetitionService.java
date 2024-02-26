@@ -16,19 +16,19 @@ public class CompetitionService implements ICompetitionService<Competition>{
     }
     @Override
     public void ajouter(Competition competition) throws SQLException {
-        String req = "INSERT INTO competition (libelle,dateDebut,dateFin,nbrMaxMembres) Values('" + competition.getLibelle() + "','" + competition.getDateDebut() + "','" + competition.getDateFin()  + "'," + competition.getNbrMaxMembres() + ")";
+        String req = "INSERT INTO competition (libelle,dateDebut,dateFin,tarif) Values('" + competition.getLibelle() + "','" + competition.getDateDebut() + "','" + competition.getDateFin()  + "'," + competition.getTarif() + ")";
         Statement st = connection.createStatement();
         st.executeUpdate(req);
     }
 
     @Override
     public void modifier(Competition competition) throws SQLException {
-        String req = "UPDATE competition SET libelle=?, dateDebut=? , dateFin=?, nbrMaxMembres=? WHERE codeC=?";
+        String req = "UPDATE competition SET libelle=?, dateDebut=? , dateFin=?, tarif=? WHERE codeC=?";
         PreparedStatement ps = connection.prepareStatement(req);
         ps.setString(1, competition.getLibelle());
         ps.setDate(2, competition.getDateDebut());
         ps.setDate(3, competition.getDateFin());
-        ps.setInt(4, competition.getNbrMaxMembres());
+        ps.setFloat(4, competition.getTarif());
         ps.setInt(5, competition.getCodeC());
         ps.executeUpdate();
     }
@@ -44,7 +44,7 @@ public class CompetitionService implements ICompetitionService<Competition>{
     @Override
     public List<Competition> recuperer() throws SQLException {
         List<Competition> competitions = new ArrayList<>();
-        String req = "SELECT * FROM competition";
+         String req = "SELECT * FROM competition";
         Statement st = connection.createStatement();
         ResultSet rs = st.executeQuery(req);
         while (rs.next()) {
@@ -54,7 +54,7 @@ public class CompetitionService implements ICompetitionService<Competition>{
             c.setDateDebut(rs.getDate("dateDebut"));
             c.setDateFin(rs.getDate("dateFin"));
        /*     c.setNbrMembre(rs.getInt("nbrMembre"));*/
-            c.setNbrMaxMembres(rs.getInt("nbrMaxMembres"));
+            c.setTarif(rs.getFloat("tarif"));
             competitions.add(c);
         }
         return competitions;
@@ -73,10 +73,10 @@ public Competition recupererParId(int codeC) throws SQLException {
                     String libelle = resultSet.getString("libelle");
                     java.sql.Date dateDebut = resultSet.getDate("dateDebut");
                     java.sql.Date dateFin = resultSet.getDate("dateFin");
-                    int nbrMaxMembres = resultSet.getInt("nbrMaxMembres");
+                    float tarif = resultSet.getFloat("tarif");
 
                     // Create a new Competition object
-                    Competition competition = new Competition(codeC, libelle, dateDebut, dateFin, nbrMaxMembres);
+                    Competition competition = new Competition(codeC, libelle, dateDebut, dateFin, tarif);
 
                     return competition;
                 }
@@ -110,6 +110,29 @@ public Competition recupererParId(int codeC) throws SQLException {
         return competitions;
     }
 */
+public List<Competition> rechercherParLibelle(String libelleRecherche) throws SQLException {
+    List<Competition> competitions = new ArrayList<>();
+    String query = "SELECT * FROM competition WHERE libelle LIKE ?";
 
+    try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        preparedStatement.setString(1, "%" + libelleRecherche + "%"); // Recherche partiellement basée sur le libellé
+
+        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                int codeC = resultSet.getInt("codeC");
+                String libelle = resultSet.getString("libelle");
+                java.sql.Date dateDebut = resultSet.getDate("dateDebut");
+                java.sql.Date dateFin = resultSet.getDate("dateFin");
+                float tarif = resultSet.getFloat("tarif");
+
+                // Créer un nouvel objet Competition
+                Competition competition = new Competition(codeC, libelle, dateDebut, dateFin, tarif);
+                competitions.add(competition);
+            }
+        }
+    }
+
+    return competitions;
+}
 
 }

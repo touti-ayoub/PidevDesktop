@@ -22,8 +22,6 @@ public class ajouterCompetition {
     @FXML
     private DatePicker dateDebut;
 
-
-
     @FXML
     private DatePicker dateFin;
 
@@ -31,7 +29,7 @@ public class ajouterCompetition {
     private TextField libelle;
 
     @FXML
-    private TextField nbrMaxMembres;
+    private TextField tarifTxt;
 
   //  @FXML
    // private TextField nbrMembre;
@@ -39,7 +37,7 @@ private final CompetitionService cs = new CompetitionService();
 
     @FXML
     void ajouterCompetition(ActionEvent event) throws SQLException, ParseException {
-        if (dateDebut.getValue() == null || dateFin.getValue() == null || libelle.getText().isEmpty() || nbrMaxMembres.getText().isEmpty()) {
+        if (dateDebut.getValue() == null || dateFin.getValue() == null || libelle.getText().isEmpty() || tarifTxt.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
             alert.setHeaderText("Erreur de saisie !");
@@ -72,10 +70,10 @@ private final CompetitionService cs = new CompetitionService();
                 }
 
                 // Conversion de la chaîne nombre en int
-                int nbrMaxMembresValue = Integer.parseInt(nbrMaxMembres.getText());
-
+           //     int nbrMaxMembresValue = Integer.parseInt(nbrMaxMembres.getText());
+float tarif =Float.parseFloat(tarifTxt.getText());
                 // Ajouter la compétition avec les dates converties
-                cs.ajouter(new Competition(libelle.getText(), dateDebutValue, dateFinValue, nbrMaxMembresValue));
+                cs.ajouter(new Competition(libelle.getText(), dateDebutValue, dateFinValue, tarif));
                 // Après avoir ajouté la compétition avec succès, naviguez vers la liste des compétitions
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/listeCompetition.fxml"));
                 Parent root = loader.load();
@@ -102,7 +100,7 @@ private final CompetitionService cs = new CompetitionService();
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Erreur");
                 alert.setHeaderText("Erreur de conversion du nombre");
-                alert.setContentText("Veuillez saisir un nombre valide pour le nombre maximal de membres.");
+                alert.setContentText("Veuillez saisir un nombre valide pour le tarif ");
                 alert.show();
             }
         }
