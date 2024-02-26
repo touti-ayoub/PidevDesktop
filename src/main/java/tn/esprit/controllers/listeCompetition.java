@@ -2,6 +2,7 @@ package tn.esprit.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -23,6 +24,10 @@ public class listeCompetition implements Initializable {
 
     @FXML
     private ListView<Competition> competitionListView;
+
+
+    @FXML
+    private TextField chercherText;
     private static listeCompetition instance;
     public static listeCompetition getInstance() {
         return instance;
@@ -104,6 +109,27 @@ public class listeCompetition implements Initializable {
         } catch (SQLException e) {
             // Gérer l'exception de manière appropriée (affichage d'un message d'erreur, journalisation, etc.)
             e.printStackTrace();
+        }
+    }
+    @FXML
+    private void handleSearchButtonClicked(ActionEvent event) {
+        String libelleRecherche = chercherText.getText();
+        if (!libelleRecherche.isEmpty()) {
+            try {
+                // Utilisez le service de compétition pour rechercher par libellé
+                CompetitionService cs = new CompetitionService();
+                List<Competition> competitions = cs.rechercherParLibelle(libelleRecherche);
+
+                // Mettez à jour la ListView avec les résultats de la recherche
+                ObservableList<Competition> competitionObservableList = FXCollections.observableArrayList(competitions);
+                competitionListView.setItems(competitionObservableList);
+
+                // Effacez le champ de recherche après la recherche
+                chercherText.clear();
+            } catch (SQLException e) {
+                // Gérer l'exception de manière appropriée (affichage d'un message d'erreur, journalisation, etc.)
+                e.printStackTrace();
+            }
         }
     }
 }
