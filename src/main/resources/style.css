@@ -27,12 +27,60 @@
 }
 
 .button {
-    -fx-background-color: #FFC107, #E0E0E0, #EEEEEE;
+    -fx-background-color: #ffffff, #E0E0E0, #EEEEEE;
     -fx-background-insets: 0, 1, 2;
     -fx-background-radius: 5;
     -fx-padding: 3 5 3 5;
 }
 
 .button:hover {
-    -fx-background-color: #FFA000, #E0E0E0, #EEEEEE;
+    -fx-background-color: #ffffff, #380e6b, #EEEEEE;
+}
+.root {
+    -fx-font-family: 'Muli', sans-serif;
+}
+
+.text {
+    -fx-background-color: #E8E8E8;
+    -fx-border-width: 2 2 2 2;
+    -fx-border-color:  #380e6b ;
+    -fx-padding: 5px 5px;
+    -fx-border-radius: 3;
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 15;
+
+}
+
+
+
+.buttonn {
+    background-color: #cc0251;
+    border-radius: 8px;
+    border-style: none;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    height: 40px;
+    line-height: 20px;
+    list-style: none;
+    margin: 0;
+    outline: none;
+    padding: 10px 16px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: color 100ms;
+    vertical-align: baseline;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+
+.button-1:hover,focuus {
+    -fx-background-color: #F082AC;
 }

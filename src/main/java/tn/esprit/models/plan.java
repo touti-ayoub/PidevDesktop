@@ -3,7 +3,15 @@ package tn.esprit.models;
 public class plan {
     //objectif du plan
     private int ID;
-    private String NOM, DESCRIPTION;
+
+    public plan(int ID, String NOM, String DESCRIPTION, String IMAGE_URL) {
+        this.ID = ID;
+        this.NOM = NOM;
+        this.DESCRIPTION = DESCRIPTION;
+        this.IMAGE_URL = IMAGE_URL;
+    }
+
+    private String NOM, DESCRIPTION,IMAGE_URL;
 
     public plan(int ID, String NOM, String DESCRIPTION) {
         this.ID = ID;
@@ -11,13 +19,22 @@ public class plan {
         this.DESCRIPTION = DESCRIPTION;
     }
 
-    public plan(String NOM, String DESCRIPTION) {
+    public plan(String NOM, String DESCRIPTION,String IMAGE_URL) {
         this.NOM = NOM;
         this.DESCRIPTION = DESCRIPTION;
+        this.IMAGE_URL=IMAGE_URL;
     }
 
     public plan() {
 
+    }
+
+    public String getIMAGE_URL() {
+        return IMAGE_URL;
+    }
+
+    public void setIMAGE_URL(String IMAGE_URL) {
+        this.IMAGE_URL = IMAGE_URL;
     }
 
     public int getID() {

@@ -106,20 +106,27 @@ public class AfficherEx {
             actionCol.setCellFactory(param -> new TableCell<exercice, Void>() {
                 private final ImageView editIcon;
                 private final ImageView deleteIcon;
+                private final ImageView addIcon;
                 private final Button editButton;
                 private final Button deleteButton;
+                private final Button addButton ;
 
                 {
                     editIcon = new ImageView(new Image(getClass().getResourceAsStream("/img/edit.png")));
-                    editIcon.setFitWidth(40);
-                    editIcon.setFitHeight(40);
+                    editIcon.setFitWidth(30);
+                    editIcon.setFitHeight(30);
 
                     deleteIcon = new ImageView(new Image(getClass().getResourceAsStream("/img/traaash.png")));
-                    deleteIcon.setFitWidth(40);
-                    deleteIcon.setFitHeight(40);
+                    deleteIcon.setFitWidth(30);
+                    deleteIcon.setFitHeight(30);
+
+                    addIcon = new ImageView(new Image((getClass().getResourceAsStream("/img/add-button.png"))));
+                    addIcon.setFitWidth(30); // Adjust size as needed
+                    addIcon.setFitHeight(30); // Adjust size as needed
 
                     editButton = new Button("", editIcon);
                     deleteButton = new Button("", deleteIcon);
+                    addButton = new Button("",addIcon);
 
                     editButton.setOnAction(event -> {
                         exercice currentEx = getTableView().getItems().get(getIndex());
@@ -130,6 +137,7 @@ public class AfficherEx {
                         exercice currentEx = getTableView().getItems().get(getIndex());
                         handleDeleteAction(currentEx);
                     });
+                    addButton.setOnAction(event -> handleAddAction());
                 }
 
                 @Override
@@ -138,7 +146,7 @@ public class AfficherEx {
                     if (empty) {
                         setGraphic(null);
                     } else {
-                        HBox container = new HBox(editButton, deleteButton);
+                        HBox container = new HBox(addButton ,editButton, deleteButton);
                         container.setAlignment(Pos.CENTER);
                         container.setSpacing(10);
                         setGraphic(container);
@@ -158,6 +166,24 @@ public class AfficherEx {
             muscleCibleComboBox.getItems().addAll(muscleCibles);
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+    private void handleAddAction() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterExercice.fxml"));
+            Parent addRoot = loader.load();
+            Stage currentStage = (Stage) tableView.getScene().getWindow();
+            Scene scene = new Scene(addRoot);
+            currentStage.setScene(scene);
+
+            // Optional: If you want to set the title of the window
+            currentStage.setTitle("Ajouter un nouvel exercice");
+
+            // Show the updated stage
+            currentStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Error Loading", "Cannot load the add exercise view.", e.getMessage());
         }
     }
 

@@ -30,10 +30,11 @@ public class planService implements IService<plan> {
     public void ajouterPlan(plan plan, List<exercice> exercices) throws SQLException {
         try {
             // Ajouter le plan à la table Plan
-                String reqPlan = "INSERT INTO plan (NOM, DESCRIPTION) VALUES (?, ?)";
+                String reqPlan = "INSERT INTO plan (NOM, DESCRIPTION,IMAGE_URL) VALUES (?, ? ,?)";
               PreparedStatement stPlan = connection.prepareStatement(reqPlan, Statement.RETURN_GENERATED_KEYS);
              stPlan.setString(1, plan.getNOM());
               stPlan.setString(2, plan.getDESCRIPTION());
+              stPlan.setString(3,plan.getIMAGE_URL());
               stPlan.executeUpdate();
             // Récupérer l'ID du plan nouvellement ajouté
                ResultSet generatedKeys = stPlan.getGeneratedKeys();
