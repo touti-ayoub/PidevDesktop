@@ -131,8 +131,7 @@
             </TableView>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
-                  <TextField prefHeight="26.0" prefWidth="438.0" />
-                  <Button graphicTextGap="10.0" mnemonicParsing="false" styleClass="button4" stylesheets="@assets/css/fullpackstyling.css" text="Search" textFill="WHITE">
+                  <TextField fx:id="searchTF" onKeyReleased="#searchFoods" prefHeight="26.0" prefWidth="438.0" />                  <Button graphicTextGap="10.0" mnemonicParsing="false" styleClass="button4" stylesheets="@assets/css/fullpackstyling.css" text="Search" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="18.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                            <image>
