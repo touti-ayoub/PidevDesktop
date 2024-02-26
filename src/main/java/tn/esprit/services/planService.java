@@ -142,6 +142,12 @@ public class planService implements IService<plan> {
 
         return Plan;
     }
+    public void deletePlanExerciceByPlanId(int id) throws SQLException {
+        String req = "DELETE FROM plan_exercice WHERE IdPlan = ?";
+        PreparedStatement ps = connection.prepareStatement(req);
+        ps.setInt(1, id);
+        ps.executeUpdate();
+    }
 
 
 
