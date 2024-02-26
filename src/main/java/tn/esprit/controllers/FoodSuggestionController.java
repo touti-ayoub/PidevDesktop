@@ -1,16 +1,13 @@
 package tn.esprit.controllers;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import tn.esprit.models.Food;
@@ -20,44 +17,56 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ViewFood {
-    @FXML
-    public TextField searchTF;
+public class FoodSuggestionController {
 
     @FXML
-    private TableColumn<Food, Integer> calF;
+    private TableView<Food> foodTable;
 
     @FXML
-    private TableColumn<Food, Integer> protF;
+    private TableColumn<Food, String> foodNameColumn;
 
     @FXML
-    private TableColumn<Food, Integer> carbsF;
+    private TableColumn<Food, Integer> caloriesColumn;
 
     @FXML
-    private TableColumn<Food, Integer> fatF;
+    private TableColumn<Food, Integer> proteinColumn;
 
     @FXML
-    private TableColumn<Food, String> nameF;
+    private TableColumn<Food, Integer> carbohydratesColumn;
 
     @FXML
-    private TableColumn<Food, Integer> sizeF;
+    private TableColumn<Food, Integer> fatColumn;
 
     @FXML
-    private TableView<Food> tableF;
+    private TableColumn<Food, Double> servingSizeColumn;
 
     @FXML
-    private TableColumn<?, ?> unitF;
+    private TableColumn<Food, String> servingUnitColumn;
+
+    private FoodService foodService;
+
+    public FoodSuggestionController() {
+        foodService = new FoodService();
+    }
 
     @FXML
-    void searchFoods(KeyEvent event) {
-        String keyword = searchTF.getText();
-        FoodService foodService = new FoodService();
+    public void initialize() {
+        foodNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        caloriesColumn.setCellValueFactory(new PropertyValueFactory<>("calories"));
+        proteinColumn.setCellValueFactory(new PropertyValueFactory<>("protein"));
+        carbohydratesColumn.setCellValueFactory(new PropertyValueFactory<>("carbohydrates"));
+        fatColumn.setCellValueFactory(new PropertyValueFactory<>("fat"));
+        servingSizeColumn.setCellValueFactory(new PropertyValueFactory<>("servingSize"));
+        servingUnitColumn.setCellValueFactory(new PropertyValueFactory<>("servingUnit"));
+        loadFoodSuggestions();
+    }
+
+    private void loadFoodSuggestions() {
         try {
-            List<Food> foods = foodService.searchFoods(keyword);
-            ObservableList<Food> observableList = FXCollections.observableList(foods);
-            tableF.setItems(observableList);
+            List<Food> foods = foodService.getFoodSuggestions();
+            foodTable.setItems(FXCollections.observableArrayList(foods));
         } catch (SQLException e) {
-            System.err.println("Failed to search foods: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -172,26 +181,6 @@ public class ViewFood {
             System.err.println("Failed to load the page: " + e.getMessage());
         }
 
-    }
-
-    @FXML
-    void initialize() {
-        FoodService foodService = new FoodService();
-        try {
-            List<Food> food = foodService.recuperer();
-            ObservableList<Food> observableList = FXCollections.observableList(food);
-            tableF.setItems(observableList);
-            nameF.setCellValueFactory(new PropertyValueFactory<>("Name"));
-            calF.setCellValueFactory(new PropertyValueFactory<>("calories"));
-            protF.setCellValueFactory(new PropertyValueFactory<>("protein"));
-            carbsF.setCellValueFactory(new PropertyValueFactory<>("carbohydrates"));
-            fatF.setCellValueFactory(new PropertyValueFactory<>("fat"));
-            sizeF.setCellValueFactory(new PropertyValueFactory<>("servingSize"));
-            unitF.setCellValueFactory(new PropertyValueFactory<>("servingUnit"));
-
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
     }
 
     public void bminavigate(ActionEvent actionEvent) {
