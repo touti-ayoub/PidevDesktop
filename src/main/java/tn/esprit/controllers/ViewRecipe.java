@@ -10,7 +10,9 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import tn.esprit.models.Food;
 import tn.esprit.models.Recipe;
@@ -22,6 +24,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ViewRecipe {
+    @FXML
+    private TextField searchTF;
+
     @FXML
     private TableColumn<Recipe, Integer> calR;
 
@@ -42,6 +47,19 @@ public class ViewRecipe {
 
     @FXML
     private TableColumn<Recipe, List<Food>> foodsR;
+
+    @FXML
+    void searchByKeyword(KeyEvent event) {
+        String keyword = searchTF.getText();
+        RecipeService recipeService = new RecipeService();
+        try {
+            List<Recipe> recipes = recipeService.searchByKeyword(keyword);
+            ObservableList<Recipe> observableList = FXCollections.observableList(recipes);
+            tableR.setItems(observableList);
+        } catch (SQLException e) {
+            System.err.println("Failed to search foods: " + e.getMessage());
+        }
+    }
 
     @FXML
     void addRecipe(ActionEvent event) {
