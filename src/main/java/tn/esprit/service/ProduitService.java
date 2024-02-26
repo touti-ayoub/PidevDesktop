@@ -7,8 +7,10 @@ import tn.esprit.utils.MyDatabase;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class ProduitService implements IService<Produit> {
+    private static final Logger LOGGER =;
     private Connection connection;
 
     public ProduitService() {
@@ -21,8 +23,12 @@ public class ProduitService implements IService<Produit> {
         try (PreparedStatement ps = connection.prepareStatement(req)) {
             ps.setString(1, produit.getNom());
             ps.setString(2, produit.getType());
-            ps.setInt(3, produit.getTaille());
+            ps.setString(3, produit.getTaille());
             ps.executeUpdate();
+            LOGGER.info("Produit ajouté avec succès: " + produit);
+        } catch (SQLException e) {
+            LOGGER.severe("Erreur lors de l'ajout du produit: " + e.getMessage());
+            throw e; // rethrow the exception after logging
         }
     }
 
@@ -55,7 +61,7 @@ public class ProduitService implements IService<Produit> {
              ResultSet rs = st.executeQuery(req)) {
 
             while (rs.next()) {
-                Produit produit = new Produit();
+                Produit produit = new Produit("proteine", "liquide", "small");
                 produit.setId(rs.getInt("id"));
                 produit.setNom(rs.getString("nom"));
                 produit.setType(rs.getString("type"));

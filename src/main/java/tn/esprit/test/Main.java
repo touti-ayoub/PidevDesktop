@@ -1,14 +1,19 @@
 package tn.esprit.test;
 
-import tn.esprit.utils.MyDatabase;
+import tn.esprit.models.Produit;
+import tn.esprit.service.ProduitService;
+
+import java.sql.SQLException;
 
 public class Main {
 
     public static void main(String[] args) {
-        MyDatabase db = MyDatabase.getInstance();
-        MyDatabase db2 = MyDatabase.getInstance();
+        ProduitService ps = new ProduitService();
 
-        System.out.println(db);
-        System.out.println(db2);
+        try {
+            ps.ajouter(new Produit("proteine", "liquide", "small"));
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
     }
 }

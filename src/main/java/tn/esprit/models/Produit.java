@@ -9,7 +9,7 @@ public class Produit {
     private float prix;
     private String photo;
 
-    public Produit() {
+    public Produit(String proteine, String liquide, String small) {
     }
 
     public Produit(int id, String nom, String type, String taille, float prix, String photo) {
