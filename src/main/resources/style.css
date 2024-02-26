@@ -84,10 +84,7 @@
 .button-1:hover,focuus {
     -fx-background-color: #F082AC;
 }
-.root {
-    -fx-padding: 20;
-    -fx-background-color: #FAFAFA;
-}
+
 
 .heading {
     -fx-font-size: 24px;

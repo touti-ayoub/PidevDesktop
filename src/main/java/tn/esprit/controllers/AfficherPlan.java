@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import tn.esprit.models.exercice;
 import tn.esprit.models.plan;
 import tn.esprit.services.planService;
 import java.net.URL;
@@ -55,6 +56,14 @@ public class AfficherPlan {
 
             SortedList<plan> sortedData = new SortedList<>(filteredData);
             sortedData.comparatorProperty().bind(tableView.comparatorProperty());
+            tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+                if (newSelection != null) {
+                    showPlanDetails(newSelection);
+                }
+            });
+
+            tableView.setItems(sortedData); // Assurez-vous que cette ligne est après la configuration de votre TableView
+
             tableView.setItems(sortedData);
 
             // Configuration des colonnes
@@ -94,8 +103,27 @@ public class AfficherPlan {
         }
     }
 
-    private void showPlanDetails(plan plan) {
-        // Ouvrir une nouvelle vue ou un dialogue pour afficher les détails du plan sélectionné
-        // Cette méthode dépend de la manière dont vous souhaitez implémenter la vue des détails
+    private void showPlanDetails(plan selectedPlan) {
+        try {
+            plan detailedPlan = ps.recupererPlanAvecExercices(selectedPlan.getID()); // Assurez-vous que cette méthode est bien implémentée dans votre planService
+
+            StringBuilder details = new StringBuilder();
+            details.append("Nom: ").append(detailedPlan.getNOM()).append("\n");
+            details.append("Description: ").append(detailedPlan.getDESCRIPTION()).append("\n\n");
+            details.append("Exercices:\n");
+            for (exercice ex : detailedPlan.getExercices()) {
+                details.append("- ").append(ex.getNOM()).append(": ").append(ex.getDESCRIPTION()).append("\n");
+            }
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Détails du Plan");
+            alert.setHeaderText("Informations du Plan et Exercices Associés");
+            alert.setContentText(details.toString());
+            alert.showAndWait();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gestion des erreurs
+        }
     }
+
 }

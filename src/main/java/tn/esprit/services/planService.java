@@ -111,6 +111,40 @@ public class planService implements IService<plan> {
         }
         return null; // Return null if no matching plan is found
     }
+    public plan recupererPlanAvecExercices(int idPlan) throws SQLException {
+        plan Plan = null;
+        List<exercice> exercicesList = new ArrayList<>();
+
+        String reqPlan = "SELECT * FROM plan WHERE IdPlan = ?";
+        PreparedStatement psPlan = connection.prepareStatement(reqPlan);
+        psPlan.setInt(1, idPlan);
+        ResultSet rsPlan = psPlan.executeQuery();
+        if (rsPlan.next()) {
+            Plan = new plan();
+            Plan.setID(rsPlan.getInt("IdPlan"));
+            Plan.setNOM(rsPlan.getString("NOM"));
+            Plan.setDESCRIPTION(rsPlan.getString("DESCRIPTION"));
+
+            String reqExercices = "SELECT e.* FROM exercice e JOIN plan_exercice pe ON e.IdExercice = pe.idExercice WHERE pe.idPlan = ?";
+            PreparedStatement psExercices = connection.prepareStatement(reqExercices);
+            psExercices.setInt(1, idPlan);
+            ResultSet rsExercices = psExercices.executeQuery();
+            while (rsExercices.next()) {
+                exercice exercice = new exercice();
+                exercice.setID(rsExercices.getInt("IdExercice"));
+                exercice.setNOM(rsExercices.getString("NOM"));
+                exercice.setDESCRIPTION(rsExercices.getString("DESCRIPTION"));
+                exercice.setMUSCLE_CIBLE(rsExercices.getString("MUSCLE_CIBLE"));
+                exercicesList.add(exercice);
+            }
+            Plan.setExercices(exercicesList); // Assurez-vous que votre classe plan a une méthode pour définir la liste des exercices
+        }
+
+        return Plan;
     }
+
+
+
+}
 
 
