@@ -7,10 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import tn.esprit.models.Competition;
 import tn.esprit.services.CompetitionService;
@@ -52,12 +49,26 @@ public class listeCompetition implements Initializable {
 
     private void handleListViewClick(MouseEvent event) {
         if (event.getClickCount() == 1) { // Vérifiez si le clic est simple (modifiable selon vos besoins)
+            if (!competitionListView.getItems().isEmpty()) {
             Competition selectedCompetition = competitionListView.getSelectionModel().getSelectedItem();
 
             // Vous pouvez maintenant utiliser les informations de la compétition sélectionnée
             // Par exemple, déplacez-vous vers une autre interface avec ces informations
             moveToAnotherInterface(selectedCompetition);
+        }else {
+                // Affichez un message ou effectuez une action appropriée lorsque le ListView est vide
+                // Affichez un message sur l'interface lorsque le ListView est vide
+                showEmptyListViewMessage();            }
         }
+    }
+    private void showEmptyListViewMessage() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText(null);
+        alert.setContentText("La Liste des compétitions est vide..");
+
+        // Affichez le message sur l'interface
+        alert.showAndWait();
     }
 
     private void moveToAnotherInterface(Competition competition) {
