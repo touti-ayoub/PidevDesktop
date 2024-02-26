@@ -13,11 +13,6 @@ public class plan {
 
     private String NOM, DESCRIPTION,IMAGE_URL;
 
-    public plan(int ID, String NOM, String DESCRIPTION) {
-        this.ID = ID;
-        this.NOM = NOM;
-        this.DESCRIPTION = DESCRIPTION;
-    }
 
     public plan(String NOM, String DESCRIPTION,String IMAGE_URL) {
         this.NOM = NOM;

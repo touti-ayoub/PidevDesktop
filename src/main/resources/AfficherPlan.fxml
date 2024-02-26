@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.geometry.Insets?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="tn.esprit.controllers.AfficherPlan"
+            prefHeight="400.0" prefWidth="600.0">
+
+
+        <children>
+            <VBox layoutX="42.0" layoutY="2.0" prefHeight="600.0" prefWidth="219.0" style="-fx-background-color: #3F2B63;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="861.0" AnchorPane.topAnchor="0.0">
+                <children>
+                    <ImageView fitHeight="192.0" fitWidth="189.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@img/iron_core.png" />
+                        </image>
+                        <VBox.margin>
+                            <Insets left="17.0" />
+                        </VBox.margin>
+                    </ImageView>
+                    <Pane prefHeight="100.0" prefWidth="224.0">
+                        <children>
+                            <ComboBox fx:id="muscleCibleComboBox" layoutX="48.0" layoutY="37.0" prefHeight="29.0" prefWidth="135.0">
+                                <padding>
+                                    <Insets bottom="2.0" left="10.0" top="2.0" />
+                                </padding>
+                            </ComboBox>
+                        </children>
+                    </Pane>
+                </children>
+                <padding>
+                    <Insets bottom="5.0" left="5.0" right="3.0" />
+                </padding>
+            </VBox>
+            <TableView fx:id="tableView" layoutX="252.0" layoutY="78.0" prefHeight="547.0" prefWidth="703.0">
+                <columns>
+                    <TableColumn fx:id="nomPlan" prefWidth="130.0" text="NOM" />
+                    <TableColumn fx:id="descriptionPlan" minWidth="2.0" prefWidth="130.0" text="description" />
+                    <TableColumn fx:id="imagePlan" minWidth="2.0" prefWidth="130.0" text="IMAGE" />
+                </columns>
+            </TableView>
+            <StackPane layoutX="274.0" layoutY="2.0" prefHeight="59.0" prefWidth="455.0" />
+            <TextField fx:id="RechercherTF" layoutX="370.0" layoutY="30.0" prefHeight="25.0" prefWidth="310.0" styleClass="search-field" stylesheets="@style.css">
+                <padding>
+                    <Insets right="5.0" />
+                </padding>
+            </TextField>
+
+            <Label layoutX="267.0" layoutY="27.0" prefHeight="33.0" prefWidth="81.0" text="Seach exercice" />
+
+        </children>
+    </AnchorPane>
+
+
+

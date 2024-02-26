@@ -84,3 +84,32 @@
 .button-1:hover,focuus {
     -fx-background-color: #F082AC;
 }
+.root {
+    -fx-padding: 20;
+    -fx-background-color: #FAFAFA;
+}
+
+.heading {
+    -fx-font-size: 24px;
+    -fx-text-fill: #333333;
+}
+
+.label {
+    -fx-text-fill: #666666;
+}
+
+.text-field, .text-area, .list-view {
+    -fx-border-color: #BDBDBD;
+}
+
+.primary-button {
+    -fx-background-color: #2196F3;
+    -fx-text-fill: white;
+    -fx-padding: 10 20;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.primary-button:hover {
+    -fx-background-color: #1976D2;
+}

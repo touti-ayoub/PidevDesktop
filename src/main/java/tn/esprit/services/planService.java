@@ -88,6 +88,7 @@ public class planService implements IService<plan> {
                 plan.setID(rs.getInt("IdPlan"));
                 plan.setNOM(rs.getString("NOM"));
                 plan.setDESCRIPTION((rs.getString("DESCRIPTION")));
+                plan.setIMAGE_URL(rs.getString("IMAGE_URL"));
                 plans.add(plan);
             }
             return plans;

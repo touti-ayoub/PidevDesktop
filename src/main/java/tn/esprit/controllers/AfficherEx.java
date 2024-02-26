@@ -92,8 +92,8 @@ public class AfficherEx {
                             URL url = new URL(imagePath);
                             Image image = new Image(url.toExternalForm());
                             imageView.setImage(image);
-                            imageView.setFitWidth(50);
-                            imageView.setFitHeight(50);
+                            imageView.setFitWidth(150);
+                            imageView.setFitHeight(150);
                             setGraphic(imageView);
                         } catch (Exception e) {
                             setGraphic(null);
