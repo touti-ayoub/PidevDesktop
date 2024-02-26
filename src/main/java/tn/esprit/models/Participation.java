@@ -1,5 +1,9 @@
 package tn.esprit.models;
 
+import tn.esprit.services.CompetitionService;
+import tn.esprit.services.UtilisateurService;
+
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class Participation {
@@ -12,19 +16,44 @@ public class Participation {
     public Participation() {
     }
 
-    public Participation(int codeU, int codeC, String description) {
+    public Participation( int codeC, String description, int codeU) {
         this.codeU = codeU;
         this.codeC = codeC;
         this.description = description;
     }
 
-    public Participation(int codeP, int codeU, int codeC, String description) {
+    public Participation(int codeP, int codeC, String description, int codeU) {
         this.codeP = codeP;
         this.codeU = codeU;
         this.codeC = codeC;
         this.description = description;
     }
 
+    //pour retourner une compétion avec son codeC
+    public Competition getCompetition() {
+        try {
+            // Remplacez le corps de cette méthode avec votre logique effective pour récupérer la Competition
+            // associée au codeC en utilisant votre service CompetitionService
+            CompetitionService competitionService = new CompetitionService();
+            return competitionService.recupererParId(codeC);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gérez l'exception de manière appropriée
+            return null;
+        }
+    }
+    public Utilisateur getUtilisateur() {
+        try {
+            // Remplacez le corps de cette méthode avec votre logique effective pour récupérer l'Utilisateur
+            // associé au codeU en utilisant votre service UtilisateurService
+            UtilisateurService utilisateurService = new UtilisateurService();
+            return utilisateurService.recupererParId(codeU);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gérez l'exception de manière appropriée
+            return null;
+        }
+    }
     public int getCodeP() {
         return codeP;
     }
