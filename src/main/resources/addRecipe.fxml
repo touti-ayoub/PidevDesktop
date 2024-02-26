@@ -2,8 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -14,8 +14,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="876.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.AddFood">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="876.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.AddRecipe">
     <children>
         <VBox prefHeight="642.0" prefWidth="250.0" style="-fx-background-color: #3F2B63;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -28,7 +29,7 @@
                         </ImageView>
                     </children>
                 </Pane>
-                <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#addFood" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@assets/css/fullpackstyling.css" text="Add Food" textFill="WHITE">
+                <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#addRecipe" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@assets/css/fullpackstyling.css" text="Add Recipe" textFill="WHITE">
                     <graphic>
                         <ImageView fitHeight="25.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -42,7 +43,7 @@
                         <Font size="13.0" />
                     </font>
                 </Button>
-                <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#viewFood" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@assets/css/fullpackstyling.css" text="View Food" textFill="WHITE">
+                <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#viewRecipe" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@assets/css/fullpackstyling.css" text="View Recipe" textFill="WHITE">
                     <graphic>
                         <ImageView fitHeight="25.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -57,7 +58,7 @@
                         <Font size="13.0" />
                     </font>
                 </Button>
-                <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="36.0" mnemonicParsing="false" onAction="#editFood" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@assets/css/fullpackstyling.css" text="Edit Food" textFill="WHITE">
+                <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="36.0" mnemonicParsing="false" onAction="#editRecipe" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@assets/css/fullpackstyling.css" text="Edit Recipe" textFill="WHITE">
                     <graphic>
                         <ImageView fitHeight="25.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -72,7 +73,7 @@
                         <Font size="13.0" />
                     </font>
                 </Button>
-                <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="63.0" mnemonicParsing="false" onAction="#deleteFood" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@assets/css/fullpackstyling.css" text="Delete Food" textFill="WHITE">
+                <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="63.0" mnemonicParsing="false" onAction="#deleteRecipe" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@assets/css/fullpackstyling.css" text="Delete Recipe" textFill="WHITE">
                     <graphic>
                         <ImageView fitHeight="25.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -87,27 +88,42 @@
                         <Font size="13.0" />
                     </font>
                 </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#foodNavigate" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@assets/css/fullpackstyling.css" text="Food" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/icons/food.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
             </children>
         </VBox>
-        <GridPane layoutX="278.0" layoutY="246.0" prefHeight="326.0" prefWidth="578.0" AnchorPane.leftAnchor="278.0" AnchorPane.rightAnchor="20.399999999999977">
+        <GridPane layoutX="278.0" layoutY="246.0" prefHeight="378.0" prefWidth="582.0" AnchorPane.leftAnchor="278.0" AnchorPane.rightAnchor="16.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints maxHeight="261.3999847412109" minHeight="10.0" prefHeight="261.3999847412109" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="261.3999847412109" minHeight="10.0" prefHeight="261.3999847412109" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="261.3999847412109" minHeight="10.0" prefHeight="261.3999847412109" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="261.3999847412109" minHeight="10.0" prefHeight="261.3999847412109" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="261.3999847412109" minHeight="10.0" prefHeight="52.80001220703127" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="283.9999938964844" minHeight="10.0" prefHeight="205.4" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="261.3999847412109" minHeight="0.0" prefHeight="68.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <TextField fx:id="nameField" prefHeight="56.0" promptText="Name" />
-                <ComboBox fx:id="foodComboBox" onAction="#Select" prefHeight="56.0" prefWidth="287.0" styleClass="combo-box" GridPane.columnIndex="1" />
-              <Button mnemonicParsing="false" onAction="#inesrtFood" prefHeight="50.0" prefWidth="130.0" styleClass="button2" stylesheets="@assets/css/fullpackstyling.css" text="Add" textFill="WHITE" GridPane.rowIndex="1">
+                <TextField fx:id="nameField" prefHeight="56.0" promptText="Recipe name" GridPane.columnIndex="1" />
+              <Button mnemonicParsing="false" onAction="#inesrtRecipe" prefHeight="50.0" prefWidth="130.0" styleClass="button2" stylesheets="@assets/css/fullpackstyling.css" text="Add" textFill="WHITE" GridPane.rowIndex="2">
                   <font>
                       <Font size="23.0" />
                   </font>
               </Button>
+            <ListView fx:id="foodListView" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+                <Text fx:id="actionStatus" layoutX="14.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" />
             </children>
         </GridPane>
         <Pane layoutX="250.0" layoutY="95.0" prefHeight="118.0" prefWidth="633.0" style="-fx-background-color: #7156DD;" AnchorPane.leftAnchor="250.39999999999998" AnchorPane.rightAnchor="-7.600000000000023">

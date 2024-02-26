@@ -2,6 +2,7 @@ package tn.esprit.models;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Recipe {
@@ -24,7 +25,7 @@ public class Recipe {
         this.totalProtein = totalProtein;
         this.totalCarbs = totalCarbs;
         this.totalFat = totalFat;
-        this.foods = foods; // And this line
+        this.foods = new ArrayList<>(); // Initialize the foods list
 
     }
 
@@ -34,11 +35,12 @@ public class Recipe {
         this.totalProtein = totalProtein;
         this.totalCarbs = totalCarbs;
         this.totalFat = totalFat;
-        this.foods = foods; // And this line
+        this.foods = new ArrayList<>(); // Initialize the foods list
 
     }
 
     public Recipe() {
+        this.foods = new ArrayList<>(); // Initialize the foods list
     }
 
     public int getIdRecipe() {
@@ -89,11 +91,11 @@ public class Recipe {
         this.totalFat = totalFat;
     }
 
-    public List<Food> getFoods() { // Add this method
+    public List<Food> getFoods() {
         return foods;
     }
 
-    public void setFoods(List<Food> foods) { // And this method
+    public void setFoods(List<Food> foods) {
         this.foods = foods;
     }
 

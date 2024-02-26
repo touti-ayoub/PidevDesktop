@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import tn.esprit.models.Food;
 import tn.esprit.services.FoodService;
@@ -131,7 +130,7 @@ public class DeleteFood {
     void viewFood(ActionEvent event) {
         try {
             // Load the FXML file
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/viewFood.fxml"));
 
             // Create the scene
             Scene scene = new Scene(fxmlLoader.load());
@@ -153,7 +152,7 @@ public class DeleteFood {
     public void recipeNavigate(ActionEvent actionEvent) {
         try {
             // Load the FXML file
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mainRecipe.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/viewRecipe.fxml"));
 
             // Create the scene
             Scene scene = new Scene(fxmlLoader.load());

@@ -150,7 +150,7 @@ public class AddFood implements Initializable {
     void viewFood(ActionEvent event) {
         try {
             // Load the FXML file
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/viewFood.fxml"));
 
             // Create the scene
             Scene scene = new Scene(fxmlLoader.load());
@@ -176,7 +176,7 @@ public class AddFood implements Initializable {
     public void recipeNavigate(ActionEvent actionEvent) {
         try {
             // Load the FXML file
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mainRecipe.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/viewRecipe.fxml"));
 
             // Create the scene
             Scene scene = new Scene(fxmlLoader.load());

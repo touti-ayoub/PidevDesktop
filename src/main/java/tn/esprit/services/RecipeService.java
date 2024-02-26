@@ -34,6 +34,14 @@ public class RecipeService implements IService<Recipe> {
         } else {
             throw new SQLException("Creating recipe failed, no ID obtained.");
         }
+
+        // Add each selected food to the recipe
+        for (Food food : recipe.getFoods()) {
+            RecipeFood recipeFood = new RecipeFood();
+            recipeFood.setIdRecipe(recipe.getIdRecipe());
+            recipeFood.setIdFood(food.getId());
+            addFoodToRecipe(recipeFood);
+        }
     }
 
     @Override
@@ -55,8 +63,8 @@ public class RecipeService implements IService<Recipe> {
         String sql = "DELETE FROM recipe WHERE IdRecipe = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, id);
-        statement.executeUpdate();
-        return false;
+        int rowsAffected = statement.executeUpdate();
+        return rowsAffected > 0;
     }
 
     @Override
@@ -83,6 +91,24 @@ public class RecipeService implements IService<Recipe> {
         return recipes;
     }
 
+    public Recipe getRecipeById(int id) throws SQLException {
+        String sql = "SELECT * FROM recipe WHERE IdRecipe = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id);
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            Recipe recipe = new Recipe();
+            recipe.setIdRecipe(resultSet.getInt("IdRecipe"));
+            recipe.setName(resultSet.getString("name"));
+            recipe.setTotalCalories(resultSet.getInt("totalCalories"));
+            recipe.setTotalProtein(resultSet.getInt("totalProtein"));
+            recipe.setTotalCarbs(resultSet.getInt("totalCarbs"));
+            recipe.setTotalFat(resultSet.getInt("totalFat"));
+            return recipe;
+        } else {
+            throw new SQLException("No recipe found with ID: " + id);
+        }
+    }
     // methods to add a food to a recipe, remove a food from a recipe, and retrieve all foods in a recipe
     public void addFoodToRecipe(RecipeFood recipeFood) throws SQLException {
         // Add the food to the recipe
@@ -103,7 +129,7 @@ public class RecipeService implements IService<Recipe> {
             int carbs = resultSet.getInt("carbohydrates");
             int fat = resultSet.getInt("fat");
 
-            // Update the nutritional information of the recipe
+            // Update the nutritional information of the recipe in the database
             sql = "UPDATE recipe SET totalCalories = totalCalories + ?, totalProtein = totalProtein + ?, totalCarbs = totalCarbs + ?, totalFat = totalFat + ? WHERE IdRecipe = ?";
             statement = connection.prepareStatement(sql);
             statement.setInt(1, calories);
@@ -112,6 +138,13 @@ public class RecipeService implements IService<Recipe> {
             statement.setInt(4, fat);
             statement.setInt(5, recipeFood.getIdRecipe());
             statement.executeUpdate();
+
+            // Update the nutritional information of the recipe in memory
+            Recipe recipe = getRecipeById(recipeFood.getIdRecipe());
+            recipe.setTotalCalories(recipe.getTotalCalories() + calories);
+            recipe.setTotalProtein(recipe.getTotalProtein() + protein);
+            recipe.setTotalCarbs(recipe.getTotalCarbs() + carbs);
+            recipe.setTotalFat(recipe.getTotalFat() + fat);
         }
     }
 
