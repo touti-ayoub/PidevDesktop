@@ -71,17 +71,34 @@ public class ajouterParticipation {
                 alert.setContentText("Veuillez sélectionner une compétition, un utilisateur et saisir une description.");
                 alert.show();
             } else {
-                // Créer et ajouter la participation
-                ps.ajouterParticipation(new Participation(competitionSelectionnee.getCodeC(), descriptionParticipation ,utilisateurSelectionne.getCodeU()));
+             //   ParticipationService participationService = new ParticipationService();
+              //  float tarifReduit = participationService.getTarifReduitSemestreAnnee(utilisateurSelectionne.getCodeU(), competitionSelectionnee.getTarif());
+
+                // Créer et ajouter la participation avec le tarif réduit
+                ParticipationService ps = new ParticipationService();
+                ps.ajouterParticipation(new Participation(utilisateurSelectionne.getCodeU(), competitionSelectionnee.getCodeC(), descriptionParticipation));
+
                 // Après avoir ajouté la participation avec succès, naviguez vers la liste des participations
+                // Incrémenter le nombre de participations pour l'utilisateur associé
+                UtilisateurService utilisateurService = new UtilisateurService();
+                Utilisateur utilisateur = utilisateurService.recupererParId(utilisateurSelectionne.getCodeU());
+
+                // Vérifier si l'utilisateur existe
+                if (utilisateur != null) {
+                    utilisateur.setNbrParticipation(utilisateur.getNbrParticipation() + 1);
+                    utilisateurService.modifier(utilisateur);
+                }
+                // Calculer le tarif réduit
+
+
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/listeParticipation.fxml"));
                 Parent root = loader.load();
 
                 // Obtenez le contrôleur de la nouvelle interface et transmettez les données
-                listeParticipation controllerListeParticipation = loader.getController();
+               // listeParticipation controllerListeParticipation = loader.getController();
 
                 // Appelez la méthode de rafraîchissement sur l'instance de listeParticipation
-                controllerListeParticipation.refreshListeParticipations();
+             //   controllerListeParticipation.refreshListeParticipations();
 
                 // Créez une nouvelle scène et configurez-la dans votre stage principal
                 Scene scene = new Scene(root);

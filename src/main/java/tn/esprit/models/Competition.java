@@ -11,7 +11,6 @@ public class Competition {
     private Date dateDebut;
     private Date dateFin;
 
-   // private int nbrMembre;
     private float tarif;
 
 
@@ -82,6 +81,7 @@ public class Competition {
         this.tarif = tarif;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -103,7 +103,6 @@ public class Competition {
                 "   dateDebut: " + dateDebut +
                 "   dateFin: " + dateFin +
 
-                "   tarif: " + tarif
-                ;
+                "   tarif: " + tarif;
     }
 }

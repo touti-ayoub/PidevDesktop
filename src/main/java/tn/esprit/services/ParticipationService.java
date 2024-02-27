@@ -54,5 +54,37 @@ public class ParticipationService implements IParticipationService<Participation
             participations.add(p);
         }
         return participations;
-    }
+    }/*
+    @Override
+    public  float getTarifReduitSemestreAnnee(int codeUtilisateur, float tarif) throws SQLException {
+        String query = "SELECT COUNT(*) AS nbrParticipations FROM participation " +
+                "WHERE codeU = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            // Paramètre : codeU
+            preparedStatement.setInt(1, codeUtilisateur);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    int nbrParticipations = resultSet.getInt("nbrParticipations");
+
+                    // Appliquer la logique de calcul de réduction ici
+                    float reduction = 0.0f;
+
+                    if (nbrParticipations == 5) {
+                        reduction = 0.1f; // 10% pour 5 participations
+                    }
+
+                    // Calculer le tarif réduit en fonction du tarif initial et de la réduction
+                    float tarifReduit = tarif - (tarif * reduction);
+
+                    return tarifReduit;
+                }
+            }
+        }
+
+        // Retournez le tarif initial si aucun utilisateur n'a de participation dans la période spécifiée
+        return tarif;
+    }*/
+
 }

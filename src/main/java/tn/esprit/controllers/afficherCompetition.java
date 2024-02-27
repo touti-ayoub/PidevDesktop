@@ -139,5 +139,33 @@ public class afficherCompetition {
         // Appelez votre méthode initData avec la compétition actuellement affichée
         initData(selectedCompetition);
     }
+    @FXML
+    private void handleRetourButtonClick(ActionEvent event) {
+        loadListeCompetitionInterface();
+    }
+
+    private void loadListeCompetitionInterface() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/listeCompetition.fxml"));
+            Parent root = loader.load();
+
+            // Créez une nouvelle scène et configurez-la dans votre stage principal
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+
+            // Montrez la nouvelle scène
+            stage.show();
+
+            // Fermez la scène actuelle (afficherCompetition)
+            Stage currentStage = (Stage) retour.getScene().getWindow();
+            currentStage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Gérez l'exception de manière appropriée (affichage d'un message d'erreur, journalisation, etc.)
+        }
+    }
+
+
 
 }

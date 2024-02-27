@@ -31,7 +31,8 @@ public class afficherParticipation {
     private Label codeU;
     @FXML
     private Button modifierP;
-
+    @FXML
+    private Button retour;
     @FXML
     private Button supprimer;
     private Participation selectedParticipation; // Déclarer selectedCompetition ici
@@ -45,7 +46,7 @@ public class afficherParticipation {
 }
    @FXML
     private void handleModifierButtonClick2(ActionEvent event) {
-        // Utilisez la compétition actuellement affichée
+        // Utilisez la participation actuellement affichée
         if (selectedParticipation != null) {
             loadModifierParticipationInterface(selectedParticipation);
         }
@@ -60,6 +61,9 @@ public class afficherParticipation {
             // Obtenez le contrôleur de la nouvelle interface et transmettez les données
             modifierParticipation controller = loader.getController();
             controller.initData(participation);
+
+            // Ajoutez une référence à afficherCompetition dans le contrôleur modifierCompetition
+            controller.setAfficherParticipation(this);
 
             // Créez une nouvelle scène et configurez-la dans votre stage principal
             Scene scene = new Scene(root);
@@ -125,6 +129,36 @@ public class afficherParticipation {
             warning.setHeaderText(null);
             warning.setContentText("Veuillez sélectionner une participation à supprimer.");
             warning.showAndWait();
+        }
+    }
+    public void refreshParticipations() {
+        // Appelez votre méthode initData avec la compétition actuellement affichée
+        initData(selectedParticipation);
+    }
+    @FXML
+    private void handleRetourButtonClick(ActionEvent event) {
+        loadListeParticipationInterface();
+    }
+
+    private void loadListeParticipationInterface() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/listeParticipation.fxml"));
+            Parent root = loader.load();
+
+            // Créez une nouvelle scène et configurez-la dans votre stage principal
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+
+            // Montrez la nouvelle scène
+            stage.show();
+
+            // Fermez la scène actuelle (afficherCompetition)
+            Stage currentStage = (Stage) retour.getScene().getWindow();
+            currentStage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Gérez l'exception de manière appropriée (affichage d'un message d'erreur, journalisation, etc.)
         }
     }
 

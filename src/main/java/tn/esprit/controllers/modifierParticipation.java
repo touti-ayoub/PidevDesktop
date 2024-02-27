@@ -54,9 +54,23 @@ public class modifierParticipation {
         this.participationService = new ParticipationService();
     }
     public void initData(Participation participation) {
+        this.participation=participation;
         // Initialisez les champs avec les informations de la compétition
         Description.setText(participation.getDescription());
+// Sélectionnez la compétition associée à la participation
+       // listCompetition.setValue(participation.getCodeC());
+listCompetition.setValue(participation.getCompetition());
+        // Sélectionnez l'utilisateur associé à la participation
+        listUtilisateur.setValue(participation.getUtilisateur());
 
+        // Initialisez la description avec celle de la participation
+        Description.setText(participation.getDescription());
+    }
+    private afficherParticipation afficherParticipation;
+
+    // Add a method to set the reference to afficherCompetition
+    public void setAfficherParticipation(afficherParticipation afficherParticipation) {
+        this.afficherParticipation = afficherParticipation;
     }
 
     @FXML
@@ -64,8 +78,19 @@ public class modifierParticipation {
         // Vérifiez si la compétition a été initialisée
         if (participation != null) {
             try {
+                // Récupérez la compétition sélectionnée dans listCompetition
+                Competition selectedCompetition = listCompetition.getValue();
+
+                // Récupérez l'utilisateur sélectionné dans listUtilisateur
+                Utilisateur selectedUtilisateur = listUtilisateur.getValue();
+
+                // Mettez à jour les champs de la compétition avec les nouvelles valeurs entrées par l'utilisateur
+                participation.setCodeU((selectedUtilisateur.getCodeU()));
+                participation.setCodeC((selectedCompetition.getCodeC()));
+                participation.setDescription(Description.getText());
                 // Mise à jour de la compétition en utilisant le service
                 participationService.modifier(participation);
+
 
                 // Affichez une confirmation à l'utilisateur
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -76,8 +101,14 @@ public class modifierParticipation {
 
                 // Fermez la fenêtre de modification
                 modifierP.getScene().getWindow().hide();
+                // Rafraîchissez la liste dans le contrôleur listeCompetition
+                if (afficherParticipation != null) {
+                    afficherParticipation.refreshParticipations();
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
+                System.err.println("SQL Exception: " + e.getMessage());
+
                 // Gérez l'exception de manière appropriée (affichage d'un message d'erreur, journalisation, etc.)
             }
         }

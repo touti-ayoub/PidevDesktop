@@ -25,7 +25,8 @@ public class listeCompetition implements Initializable {
     @FXML
     private ListView<Competition> competitionListView;
 
-
+    @FXML
+    private Label lienP;
     @FXML
     private TextField chercherText;
     private static listeCompetition instance;
@@ -49,6 +50,35 @@ public class listeCompetition implements Initializable {
         } catch (SQLException e) {
             // Gérer l'exception de manière appropriée (affichage d'un message d'erreur, journalisation, etc.)
             e.printStackTrace();
+        }
+    }
+    @FXML
+    private void handleParticipationLabelClick(MouseEvent event) {
+        // Chargez la liste des participations
+        loadListeParticipationInterface();
+    }
+
+    private void loadListeParticipationInterface() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/listeParticipation.fxml"));
+            Parent root = loader.load();
+
+            listeParticipation controllerListeParticipation = loader.getController();
+            controllerListeParticipation.refreshListeParticipations();  // Rafraîchir la liste si nécessaire
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+
+            // Montrez la nouvelle scène
+            stage.show();
+
+            // Fermez la scène actuelle (listeCompetition)
+            Stage currentStage = (Stage) lienP.getScene().getWindow();
+            currentStage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Gérez l'exception de manière appropriée (affichage d'un message d'erreur, journalisation, etc.)
         }
     }
 

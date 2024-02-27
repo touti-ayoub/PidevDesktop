@@ -4,29 +4,43 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="733.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.listeCompetition">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="799.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.listeCompetition">
    <children>
-      <VBox prefHeight="634.0" prefWidth="206.0" />
-      <HBox alignment="CENTER" layoutX="206.0" prefHeight="54.0" prefWidth="526.0">
+      <VBox alignment="TOP_CENTER" layoutX="-6.0" layoutY="-5.0" prefHeight="642.0" prefWidth="265.0" style="-fx-background-color: #4d3479;">
          <children>
-            <Label text="Liste des compétitions">
+            <ImageView fitHeight="150.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../java/tn/esprit/images/iron_core.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="lienP" text="Participation" textFill="WHITE" onMouseClicked="#handleParticipationLabelClick">
                <font>
-                  <Font name="Cambria Bold" size="22.0" />
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children></VBox>
+      <HBox alignment="BOTTOM_CENTER" layoutX="259.0" prefHeight="68.0" prefWidth="542.0" style="-fx-background-color: #684fe7;">
+         <children>
+            <Label prefHeight="38.0" prefWidth="265.0" text="   Liste des compétitions" textFill="WHITE">
+               <font>
+                  <Font name="Cambria Bold" size="24.0" />
                </font>
             </Label>
          </children>
       </HBox>
-      <HBox alignment="BOTTOM_RIGHT" layoutX="206.0" layoutY="54.0" prefHeight="27.0" prefWidth="526.0">
+      <HBox alignment="BOTTOM_RIGHT" layoutX="259.0" layoutY="64.0" prefHeight="34.0" prefWidth="542.0" style="-fx-background-color: #684fe7;">
          <children>
-            <Button fx:id="chercherBtn" mnemonicParsing="false" text="Rechercher"  onAction="#handleSearchButtonClicked" />
+            <Button fx:id="chercherBtn" mnemonicParsing="false" onAction="#handleSearchButtonClicked" text="Rechercher" />
             <TextField fx:id="chercherText" promptText="libelle" />
          </children>
       </HBox>
-      <ListView fx:id="competitionListView" layoutX="206.0" layoutY="94.0" prefHeight="539.0" prefWidth="526.0" />
+      <ListView fx:id="competitionListView" layoutX="259.0" layoutY="98.0" prefHeight="535.0" prefWidth="539.0" />
    </children>
 </AnchorPane>
