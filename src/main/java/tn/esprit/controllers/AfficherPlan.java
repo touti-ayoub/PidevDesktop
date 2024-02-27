@@ -3,6 +3,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -18,7 +19,6 @@ import javafx.stage.Stage;
 import tn.esprit.models.exercice;
 import tn.esprit.models.plan;
 import tn.esprit.services.planService;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -39,15 +39,27 @@ public class AfficherPlan {
     private TextField RechercherTF;
     @FXML
     private TableColumn<plan, Void> actionCol;
+    @FXML
+    private TableColumn<plan, Integer> likesPlan; // Colonne pour les likes
+    @FXML
+    private Button btnAfficherRecommandations;
+    @FXML
+    private ComboBox<String> nomComboBox;
+    @FXML
+    private void onBtnAfficherRecommandationsClick() {
+        afficherPlansRecommandes();
+    }
 
     private planService ps = new planService();
 
 
     @FXML
-    public void initialize() {
+    public void initialize(){
+
         try {
             List<plan> plans = ps.recuperer(); // Récupérer les plans de la base de données
             ObservableList<plan> observableList = FXCollections.observableArrayList(plans);
+
 
             // Filtre pour la recherche
             FilteredList<plan> filteredData = new FilteredList<>(observableList, b -> true);
@@ -79,6 +91,7 @@ public class AfficherPlan {
             tableView.setItems(sortedData);
 
             // Configuration des colonnes
+            likesPlan.setCellValueFactory(new PropertyValueFactory<>("LIKES"));
             nomPlan.setCellValueFactory(new PropertyValueFactory<>("NOM"));
             descriptionPlan.setCellValueFactory(new PropertyValueFactory<>("DESCRIPTION"));
             imagePlan.setCellValueFactory(new PropertyValueFactory<>("IMAGE_URL"));
@@ -163,6 +176,12 @@ public class AfficherPlan {
         } catch (SQLException e) {
             e.printStackTrace();
             // Afficher une alerte en cas d'erreur
+        }
+        try {
+            List<String> nom = ps.getUniqueNom();
+            nomComboBox.getItems().addAll(nom);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -268,6 +287,26 @@ public class AfficherPlan {
         alert.setContentText(content);
         alert.showAndWait();
     }
+    @FXML
+    public void afficherPlansRecommandes() {
+        try {
+            List<plan> topPlansLikes = ps.recupererTop5PlansLikes(); // Utilisez votre méthode existante
+            ObservableList<plan> observableList = FXCollections.observableArrayList(topPlansLikes);
+
+            tableView.setItems(observableList); // Mettre à jour l'affichage avec les plans recommandés
+
+            // Vous pouvez ajouter ici une logique supplémentaire si nécessaire
+            // Par exemple, mise à jour des titres, des descriptions, etc.
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible de récupérer les plans recommandés.", e.getMessage());
+        }
+    }
+    private void handleComboBoxAction(ActionEvent event) {
+        String selected = nomComboBox.getValue();
+        System.out.println("Sélectionné: " + selected);
+    }
+
 
 
 

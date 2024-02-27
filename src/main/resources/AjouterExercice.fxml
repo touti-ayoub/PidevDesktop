@@ -31,11 +31,10 @@
             <URL value="@style.css" />
          </stylesheets></TextField>
             <Label layoutX="236.0" layoutY="94.0" text="Description de l'exercice :" GridPane.rowIndex="1" />
-            <Label layoutX="241.0" layoutY="200.0" text="Image de l'exercice :" GridPane.rowIndex="2" />
-            <ImageView fx:id="imageView" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button layoutX="229.0" layoutY="226.0" mnemonicParsing="false" onAction="#handleUploadImage" styleClass="buttonn" stylesheets="@style.css" text="Joindre une image" GridPane.rowIndex="3" />
-            <Button layoutX="244.0" layoutY="276.0" mnemonicParsing="false" onAction="#handleAddExercise" styleClass="buttonn" stylesheets="@style.css" text="Ajouter " GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <ImageView fx:id="imageView" fitWidth="200" layoutX="550.0" layoutY="47.0" preserveRatio="true" />
+            <Button layoutX="236.0" layoutY="223.0" mnemonicParsing="false" onAction="#handleUploadImage" styleClass="buttonn" stylesheets="@style.css" text="Joindre une image" GridPane.rowIndex="3" />
+            <Button layoutX="238.0" layoutY="276.0" mnemonicParsing="false" onAction="#handleAddExercise" styleClass="buttonn" stylesheets="@style.css" text="Ajouter " GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <TextArea fx:id="descriptionTextArea" layoutX="238.0" layoutY="123.0" prefHeight="60.0" prefWidth="261.0" promptText="décrire lexercice" styleClass="text" />
-            <Button layoutX="645.0" layoutY="19.0" mnemonicParsing="false" onAction="#navigate" styleClass="buttonn" stylesheets="style.css" text="Afficher la liste" />
+            <Button layoutX="608.0" layoutY="14.0" mnemonicParsing="false" onAction="#navigate" prefHeight="24.0" prefWidth="165.0" styleClass="buttonn" stylesheets="style.css" text="Retourner vers la liste" />
         </children>
 </AnchorPane>

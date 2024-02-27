@@ -7,8 +7,16 @@ public class plan {
 
 
     //objectif du plan
-    private int ID;
+    private int ID ,LIKES;
     private String NOM, DESCRIPTION,IMAGE_URL;
+
+    public int getLIKES() {
+        return LIKES;
+    }
+
+    public void setLIKES(int LIKES) {
+        this.LIKES = LIKES;
+    }
 
     private List<exercice> exercices;
     public plan(int ID, String NOM, String DESCRIPTION, String IMAGE_URL, List<exercice> exercices) {
@@ -19,7 +27,14 @@ public class plan {
         this.exercices = exercices;
     }
 
+    public plan(int ID, int LIKES, String NOM, String DESCRIPTION, String IMAGE_URL) {
+        this.ID = ID;
+        this.LIKES = LIKES;
+        this.NOM = NOM;
+        this.DESCRIPTION = DESCRIPTION;
+        this.IMAGE_URL = IMAGE_URL;
 
+    }
 
     public plan(int ID, String NOM, String DESCRIPTION, String IMAGE_URL) {
         this.ID = ID;
@@ -90,8 +105,9 @@ public class plan {
 
     @Override
     public String toString() {
-        return "Plan{" +
+        return "plan{" +
                 "ID=" + ID +
+                ", LIKES=" + LIKES +
                 ", NOM='" + NOM + '\'' +
                 ", DESCRIPTION='" + DESCRIPTION + '\'' +
                 ", IMAGE_URL='" + IMAGE_URL + '\'' +

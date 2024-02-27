@@ -26,4 +26,5 @@
         </VBox>
         <ImageView fx:id="imageView" fitHeight="200" fitWidth="200" preserveRatio="true" />
     </HBox>
+    <Button layoutX="608.0" layoutY="14.0" mnemonicParsing="false" onAction="#navigate" prefHeight="24.0" prefWidth="165.0" styleClass="buttonn" stylesheets="style.css" text="Retourner vers la liste" />
 </VBox>

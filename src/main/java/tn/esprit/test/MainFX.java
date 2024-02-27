@@ -19,7 +19,7 @@ public class MainFX extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherPlan" +
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterPlan" +
                 ".fxml"));
         try {
             Parent root = loader.load();

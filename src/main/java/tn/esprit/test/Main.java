@@ -27,10 +27,12 @@ public class Main {
        //        System.out.println(c1);
          //  List<String> c2 = es.getUniqueMuscleCibles();
             //System.out.println(c2);
+     List<String> s= ps.getUniqueNom();
+            System.out.println(s);
 
-
-        plan p = ps.recupererPlanAvecExercices(12);
-            System.out.println(p);
+        //plan p = ps.recupererPlanAvecExercices(12);
+           // List<plan> d = ps.recupererTop5PlansLikes();
+          //  System.out.println(d);
            //    List<exercice> exercices = new ArrayList<>();
             // Ajoutez les exercices que vous voulez associer
             //    exercice exercice1 = new exercice();

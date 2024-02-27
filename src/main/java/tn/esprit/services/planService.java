@@ -89,6 +89,7 @@ public class planService implements IService<plan> {
                 plan.setNOM(rs.getString("NOM"));
                 plan.setDESCRIPTION((rs.getString("DESCRIPTION")));
                 plan.setIMAGE_URL(rs.getString("IMAGE_URL"));
+                plan.setLIKES(rs.getInt("LIKES"));
                 plans.add(plan);
             }
             return plans;
@@ -147,6 +148,41 @@ public class planService implements IService<plan> {
         PreparedStatement ps = connection.prepareStatement(req);
         ps.setInt(1, id);
         ps.executeUpdate();
+    }
+    public void incrementerLikes(int idPlan) throws SQLException {
+        String sql = "UPDATE plan SET LIKES = LIKES + 1 WHERE IdPlan = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, idPlan);
+            ps.executeUpdate();
+        }
+    }
+
+    public List<plan> recupererTop5PlansLikes() throws SQLException {
+        List<plan> topPlans = new ArrayList<>();
+        String sql = "SELECT * FROM plan ORDER BY LIKES DESC LIMIT 5";
+        try (PreparedStatement ps = connection.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                plan p = new plan();
+                p.setID(rs.getInt("IdPlan"));
+                p.setNOM(rs.getString("NOM"));
+                p.setDESCRIPTION(rs.getString("DESCRIPTION"));
+                p.setIMAGE_URL(rs.getString("IMAGE_URL"));
+                p.setLIKES(rs.getInt("LIKES"));
+                topPlans.add(p);
+            }
+        }
+        return topPlans;
+    }
+    public List<String> getUniqueNom() throws SQLException {
+        List<String> nom = new ArrayList<>();
+        String req = "SELECT DISTINCT NOM FROM plan ORDER BY NOM";
+        Statement st = connection.createStatement();
+        ResultSet rs = st.executeQuery(req);
+        while (rs.next()) {
+            nom.add(rs.getString("NOM"));
+        }
+        return nom;
     }
 
 

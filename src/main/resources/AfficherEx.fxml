@@ -46,6 +46,7 @@
                 <TableColumn fx:id="muscleEX" prefWidth="130.0" text="MUSCLE" />
                 <TableColumn fx:id="imageEx" minWidth="2.0" prefWidth="130.0" text="IMAGE" />
                 <TableColumn fx:id="actionCol" prefWidth="145.0" text="Action">
+
                     <!-- Pas besoin de cellValueFactory pour les boutons d'action -->
                 </TableColumn>
 

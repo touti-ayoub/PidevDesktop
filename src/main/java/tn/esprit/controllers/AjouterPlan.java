@@ -2,7 +2,9 @@ package tn.esprit.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -14,6 +16,7 @@ import tn.esprit.services.planService;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -69,5 +72,15 @@ public class AjouterPlan {
         ps.ajouterPlan(newPlan, selectedExercices); // Votre méthode ajouterPlan doit gérer l'image et les exercices
 
         // Afficher un message de succès ou effectuer d'autres actions nécessaires après l'ajout
+    }
+    @FXML
+    void navigate(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/AfficherPlan.fxml"));
+            nomPlanTextField.getScene().setRoot(fxmlLoader.load());
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
     }
 }
