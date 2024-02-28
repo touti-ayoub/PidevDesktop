@@ -163,7 +163,7 @@ public class FoodService implements IService<Food>{
     }
 
     public List<Food> getFoodSuggestions() throws SQLException {
-        int calorieLimit = 2000; // Set this to the appropriate value
+        int calorieLimit = 20; // Set this to the appropriate value
         String sql = "SELECT * FROM food ORDER BY calories ASC";
         PreparedStatement statement = connection.prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();

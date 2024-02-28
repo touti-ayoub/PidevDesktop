@@ -5,12 +5,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import tn.esprit.models.Food;
@@ -25,28 +23,7 @@ public class ViewFood {
     public TextField searchTF;
 
     @FXML
-    private TableColumn<Food, Integer> calF;
-
-    @FXML
-    private TableColumn<Food, Integer> protF;
-
-    @FXML
-    private TableColumn<Food, Integer> carbsF;
-
-    @FXML
-    private TableColumn<Food, Integer> fatF;
-
-    @FXML
-    private TableColumn<Food, String> nameF;
-
-    @FXML
-    private TableColumn<Food, Integer> sizeF;
-
-    @FXML
-    private TableView<Food> tableF;
-
-    @FXML
-    private TableColumn<?, ?> unitF;
+    private ListView<Food> listF;
 
     @FXML
     void searchFoods(KeyEvent event) {
@@ -55,7 +32,7 @@ public class ViewFood {
         try {
             List<Food> foods = foodService.searchFoods(keyword);
             ObservableList<Food> observableList = FXCollections.observableList(foods);
-            tableF.setItems(observableList);
+            listF.setItems(observableList);
         } catch (SQLException e) {
             System.err.println("Failed to search foods: " + e.getMessage());
         }
@@ -180,14 +157,20 @@ public class ViewFood {
         try {
             List<Food> food = foodService.recuperer();
             ObservableList<Food> observableList = FXCollections.observableList(food);
-            tableF.setItems(observableList);
-            nameF.setCellValueFactory(new PropertyValueFactory<>("Name"));
-            calF.setCellValueFactory(new PropertyValueFactory<>("calories"));
-            protF.setCellValueFactory(new PropertyValueFactory<>("protein"));
-            carbsF.setCellValueFactory(new PropertyValueFactory<>("carbohydrates"));
-            fatF.setCellValueFactory(new PropertyValueFactory<>("fat"));
-            sizeF.setCellValueFactory(new PropertyValueFactory<>("servingSize"));
-            unitF.setCellValueFactory(new PropertyValueFactory<>("servingUnit"));
+            listF.setItems(observableList);
+            listF.setCellFactory(param -> new ListCell<>() {
+                @Override
+                protected void updateItem(Food item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    if (empty || item == null) {
+                        setText(null);
+                    } else {
+                        setText(String.format("%s, Calories: %d, Serving Size: %.2f %s",
+                                item.getName(), item.getCalories(), item.getServingSize(), item.getServingUnit()));
+                    }
+                }
+            });
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());
