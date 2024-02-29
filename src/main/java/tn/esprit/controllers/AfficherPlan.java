@@ -1,4 +1,5 @@
 package tn.esprit.controllers;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -7,18 +8,22 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import tn.esprit.models.exercice;
 import tn.esprit.models.plan;
 import tn.esprit.services.planService;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -26,287 +31,143 @@ import java.util.List;
 
 public class AfficherPlan {
 
-    @FXML
-    private TableColumn<plan, String> nomPlan;
-    @FXML
-    private TableColumn<plan, String> descriptionPlan;
-    @FXML
-    private TableColumn<plan, String> imagePlan;
+
 
     @FXML
-    private TableView<plan> tableView;
+    private ListView<plan> listP;
     @FXML
     private TextField RechercherTF;
-    @FXML
-    private TableColumn<plan, Void> actionCol;
-    @FXML
-    private TableColumn<plan, Integer> likesPlan; // Colonne pour les likes
-    @FXML
-    private Button btnAfficherRecommandations;
-    @FXML
-    private ComboBox<String> nomComboBox;
-    @FXML
-    private void onBtnAfficherRecommandationsClick() {
-        afficherPlansRecommandes();
-    }
-
-    private planService ps = new planService();
-
 
     @FXML
-    public void initialize(){
-
+    void searchPlans(KeyEvent event) {
+        String keyword = RechercherTF.getText();
+        System.out.println("Searching for: " + keyword); // Print the keyword
+        planService ps = new planService();
         try {
-            List<plan> plans = ps.recuperer(); // Récupérer les plans de la base de données
-            ObservableList<plan> observableList = FXCollections.observableArrayList(plans);
-
-
-            // Filtre pour la recherche
-            FilteredList<plan> filteredData = new FilteredList<>(observableList, b -> true);
-            RechercherTF.textProperty().addListener((observable, oldValue, newValue) -> {
-                filteredData.setPredicate(plan -> {
-                    if (newValue.isEmpty()) {
-                        return true;
-                    }
-                    String lowerCaseFilter = newValue.toLowerCase();
-                    if (plan.getNOM().toLowerCase().contains(lowerCaseFilter)) {
-                        return true; // Filtre sur le nom
-                    } else if (plan.getDESCRIPTION().toLowerCase().contains(lowerCaseFilter)) {
-                        return true; // Filtre sur la description
-                    }
-                    return false; // Pas de correspondance
-                });
-            });
-
-            SortedList<plan> sortedData = new SortedList<>(filteredData);
-            sortedData.comparatorProperty().bind(tableView.comparatorProperty());
-            tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-                if (newSelection != null) {
-                    showPlanDetails(newSelection);
-                }
-            });
-
-            tableView.setItems(sortedData); // Assurez-vous que cette ligne est après la configuration de votre TableView
-
-            tableView.setItems(sortedData);
-
-            // Configuration des colonnes
-            likesPlan.setCellValueFactory(new PropertyValueFactory<>("LIKES"));
-            nomPlan.setCellValueFactory(new PropertyValueFactory<>("NOM"));
-            descriptionPlan.setCellValueFactory(new PropertyValueFactory<>("DESCRIPTION"));
-            imagePlan.setCellValueFactory(new PropertyValueFactory<>("IMAGE_URL"));
-            imagePlan.setCellFactory(column -> new TableCell<plan, String>() {
-                private final ImageView imageView = new ImageView();
-
-                protected void updateItem(String imagePath, boolean empty) {
-                    super.updateItem(imagePath, empty);
-
-                    if (empty || imagePath == null || imagePath.isEmpty()) {
-                        setGraphic(null);
-                    } else {
-                        try {
-                            System.out.println("Image path: " + imagePath); // print the image path
-                            URL url = new URL(imagePath);
-                            Image image = new Image(url.toExternalForm());
-                            imageView.setImage(image);
-                            imageView.setFitWidth(70);
-                            imageView.setFitHeight(70);
-                            setGraphic(imageView);
-                        } catch (Exception e) {
-                            setGraphic(null);
-                            e.printStackTrace(); // print the exception
-                        }
-                    }
-                }
-
-            });
-
-            actionCol.setCellFactory(param -> new TableCell<plan, Void>() {
-                private final ImageView editIcon;
-                private final ImageView deleteIcon;
-                private final ImageView addIcon;
-                private final Button editButton;
-                private final Button deleteButton;
-                private final Button addButton ;
-
-                {
-                    editIcon = new ImageView(new Image(getClass().getResourceAsStream("/img/edit.png")));
-                    editIcon.setFitWidth(40);
-                    editIcon.setFitHeight(40);
-
-                    deleteIcon = new ImageView(new Image(getClass().getResourceAsStream("/img/traaash.png")));
-                    deleteIcon.setFitWidth(40);
-                    deleteIcon.setFitHeight(40);
-
-                    addIcon = new ImageView(new Image((getClass().getResourceAsStream("/img/add-button.png"))));
-                    addIcon.setFitWidth(40); // Adjust size as needed
-                    addIcon.setFitHeight(40); // Adjust size as needed
-
-                    editButton = new Button("", editIcon);
-                    deleteButton = new Button("", deleteIcon);
-                    addButton = new Button("",addIcon);
-
-                    editButton.setOnAction(event -> {
-                        plan currentP = getTableView().getItems().get(getIndex());
-                        handleEditAction(currentP);
-                    });
-
-                    deleteButton.setOnAction(event -> {
-                        plan currentP = getTableView().getItems().get(getIndex());                        handleDeleteAction(currentP);
-                    });
-                    addButton.setOnAction(event -> handleAddAction());
-                }
-
-                @Override
-                protected void updateItem(Void item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (empty) {
-                        setGraphic(null);
-                    } else {
-                        HBox container = new HBox(addButton ,editButton, deleteButton);
-                        container.setAlignment(Pos.CENTER);
-                        container.setSpacing(10);
-                        setGraphic(container);
-                    }
-                }
-            });
-
-
-
+            List<plan> plans = ps.rechercherParNom(keyword);
+            System.out.println("Search results: " + plans); // Print the search results
+            ObservableList<plan> observableList = FXCollections.observableList(plans);
+            listP.setItems(observableList);
         } catch (SQLException e) {
-            e.printStackTrace();
-            // Afficher une alerte en cas d'erreur
-        }
-        try {
-            List<String> nom = ps.getUniqueNom();
-            nomComboBox.getItems().addAll(nom);
-        } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Failed to search foods: " + e.getMessage());
         }
     }
 
-    private void handleAddAction() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterPlan.fxml"));
-            Parent addRoot = loader.load();
-            Stage currentStage = (Stage) tableView.getScene().getWindow();
-            Scene scene = new Scene(addRoot);
-            currentStage.setScene(scene);
-
-            // Optional: If you want to set the title of the window
-            currentStage.setTitle("Ajouter un nouveau plan");
-
-            // Show the updated stage
-            currentStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert("Error Loading", "Cannot load the add exercise view.", e.getMessage());
-        }
-    }
-
-
-
-    private void showPlanDetails(plan selectedPlan) {
-        try {
-            plan detailedPlan = ps.recupererPlanAvecExercices(selectedPlan.getID()); // Assurez-vous que cette méthode est bien implémentée dans votre planService
-
-            StringBuilder details = new StringBuilder();
-            details.append("Nom: ").append(detailedPlan.getNOM()).append("\n");
-            details.append("Description: ").append(detailedPlan.getDESCRIPTION()).append("\n\n");
-            details.append("Exercices:\n");
-            for (exercice ex : detailedPlan.getExercices()) {
-                details.append("- ").append(ex.getNOM()).append(": ").append(ex.getDESCRIPTION()).append("\n");
-            }
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Détails du Plan");
-            alert.setHeaderText("Informations du Plan et Exercices Associés");
-            alert.setContentText(details.toString());
-            alert.showAndWait();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Gestion des erreurs
-        }
-    }
-    private void handleEditAction(plan p) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/EditPlan.fxml"));
-            Parent editRoot = loader.load();
-
-            EditPlanController editController = loader.getController();
-            editController.setPlanData(p);
-
-            Scene scene = new Scene(editRoot);
-            Stage editStage = new Stage();
-            editStage.initModality(Modality.APPLICATION_MODAL);
-            editStage.setScene(scene);
-            editStage.showAndWait();
-
-            refreshTableView();
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert("Erreur de chargement", "Impossible de charger la vue d'édition.", e.getMessage());
-        } catch (Exception e) {
-            e.printStackTrace();
-            showAlert("Erreur", "Une erreur est survenue.", e.getMessage());
-        }
-    }
-    private void refreshTableView() {
+    @FXML
+    void initialize() {
+        planService ps = new planService();
         try {
             List<plan> plans = ps.recuperer();
-            ObservableList<plan> tableData = FXCollections.observableArrayList(plans);
-            tableView.setItems(tableData);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            showAlert("Erreur de rafraîchissement", "Impossible de rafraîchir les données.", e.getMessage());
-        }
-    }
-    private void handleDeleteAction(plan p) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation");
-        alert.setHeaderText("Delete Plan");
-        alert.setContentText("Are you sure you want to delete this exercise?");
+            ObservableList<plan> observableList = FXCollections.observableList(plans);
+            listP.setItems(observableList);
+            listP.setCellFactory(param -> new ListCell<>() {
+                @Override
+                protected void updateItem(plan item, boolean empty) {
+                    super.updateItem(item, empty);
 
-        alert.showAndWait().ifPresent(response -> {
-            if (response == ButtonType.OK) {
-                try {
-                    ps.deletePlanExerciceByPlanId(p.getID());
-                    ps.supprimer(p.getID());
-                    refreshTableView();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    showAlert("Delete Error", "Failed to delete the exercise.", e.getMessage());
+                    if (empty || item == null) {
+                        setText(null);
+                    } else {
+                        VBox vbox = new VBox();
+                        Label planLabel = new Label(String.format("Nom: %s, Likes: %d, Description: %s",
+                                item.getNOM(), item.getLIKES(), item.getDESCRIPTION()));
+                        vbox.getChildren().add(planLabel);
+
+                        ListView<exercice> listView = new ListView<>();
+                        listView.setMaxHeight(100); // Limit the height of the ListView
+
+                        try {
+                            plan planWithExercises = ps.recupererPlanAvecExercices(item.getID());
+                            ObservableList<exercice> exercices = FXCollections.observableArrayList(planWithExercises.getExercices());
+                            listView.setItems(exercices);
+                            listView.setCellFactory(param -> new ListCell<>() {
+                                @Override
+                                protected void updateItem(exercice item, boolean empty) {
+                                    super.updateItem(item, empty);
+
+                                    if (empty || item == null) {
+                                        setText(null);
+                                    } else {
+                                        setText(String.format("Name: %s, Description: %s", item.getNOM(), item.getDESCRIPTION()));
+                                    }
+                                }
+                            });
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+
+                        vbox.getChildren().add(listView);
+                        setGraphic(vbox);
+                    }
                 }
-            }
-        });
-    }
-    private void showAlert(String title, String header, String content) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
-    @FXML
-    public void afficherPlansRecommandes() {
-        try {
-            List<plan> topPlansLikes = ps.recupererTop5PlansLikes(); // Utilisez votre méthode existante
-            ObservableList<plan> observableList = FXCollections.observableArrayList(topPlansLikes);
+            });
 
-            tableView.setItems(observableList); // Mettre à jour l'affichage avec les plans recommandés
-
-            // Vous pouvez ajouter ici une logique supplémentaire si nécessaire
-            // Par exemple, mise à jour des titres, des descriptions, etc.
         } catch (SQLException e) {
-            e.printStackTrace();
-            showAlert("Erreur", "Impossible de récupérer les plans recommandés.", e.getMessage());
+            System.err.println(e.getMessage());
         }
     }
-    private void handleComboBoxAction(ActionEvent event) {
-        String selected = nomComboBox.getValue();
-        System.out.println("Sélectionné: " + selected);
-    }
 
+    @FXML
+    void AfficherPlan(ActionEvent event) {
+        try {
+            // Load the FXML file
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/AfficherPlan.fxml"));
+
+            // Create the scene
+            Scene scene = new Scene(fxmlLoader.load());
+
+            // Get the current stage
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Set the scene for the stage
+            stage.setScene(scene);
+
+            // Show the stage
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Failed to load the page: " + e.getMessage());
+        }
+    }
+    public void AjouterPlan(ActionEvent actionEvent) {
+        try {
+            // Load the FXML file
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/AjouterPlan.fxml"));
+
+            // Create the scene
+            Scene scene = new Scene(fxmlLoader.load());
+
+            // Get the current stage
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+            // Set the scene for the stage
+            stage.setScene(scene);
+
+            // Show the stage
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Failed to load the page: " + e.getMessage());
+        }
+    }
+    public void AfficherExercice(ActionEvent actionEvent) {
+        try {
+            // Load the FXML file
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/AfficherEx.fxml"));
+
+            // Create the scene
+            Scene scene = new Scene(fxmlLoader.load());
+
+            // Get the current stage
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+            // Set the scene for the stage
+            stage.setScene(scene);
+
+            // Show the stage
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Failed to load the page: " + e.getMessage());
+        }
+    }
 
 
 

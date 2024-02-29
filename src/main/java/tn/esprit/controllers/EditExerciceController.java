@@ -1,5 +1,6 @@
 package tn.esprit.controllers;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import tn.esprit.models.exercice;
 import tn.esprit.services.exerciceService;
@@ -37,7 +38,11 @@ public class EditExerciceController {
 
         try {
             es.modifier(currentExercice);
-            // Fermez la fenêtre ou affichez un message de succès
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation");
+            alert.setHeaderText(null);
+            alert.setContentText("Le plan a été ajouté avec succès !");
+            alert.showAndWait();
         } catch (Exception e) {
             e.printStackTrace();
             // Gérez l'erreur

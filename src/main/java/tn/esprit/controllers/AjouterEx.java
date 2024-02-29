@@ -1,6 +1,7 @@
 package tn.esprit.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
@@ -56,7 +57,7 @@ public class AjouterEx {
         String name = nameTextField.getText();
         String description = descriptionTextArea.getText();
         String muscle_cible =  nameTextField.getText();
-        String imageURL = ""; // Mettez le chemin de l'image ici
+        String imageURL = "";
         if (selectedFile != null) {
             // Chemin de l'image pour la base de données
             imageURL = selectedFile.toURI().toString();
@@ -65,10 +66,14 @@ public class AjouterEx {
 
         try {
             es.ajouter(exercise);
-            // Afficher un message de succès ou effectuer d'autres actions nécessaires après l'ajout
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation");
+            alert.setHeaderText(null);
+            alert.setContentText("Le plan a été ajouté avec succès !");
+            alert.showAndWait();
         } catch (SQLException e) {
             e.printStackTrace();
-            // Gérer l'erreur d'ajout d'exercice
+
         }
     }
     @FXML
@@ -81,6 +86,7 @@ public class AjouterEx {
         }
 
     }
+
 
 
 }

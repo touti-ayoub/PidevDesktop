@@ -23,16 +23,18 @@ public class Main {
             // cs.modifier(new plan(1,"avancee","pour les anciens"));
             //cs.supprimer(1);
 
-            //  List<exercice> c1 = es.recuperer();
+          //  List<exercice> c1 = es.recuperer();
        //        System.out.println(c1);
          //  List<String> c2 = es.getUniqueMuscleCibles();
             //System.out.println(c2);
-     List<String> s= ps.getUniqueNom();
-            System.out.println(s);
+     //List<String> s= ps.getUniqueNom();
+         //   System.out.println(s);
 
         //plan p = ps.recupererPlanAvecExercices(12);
-           // List<plan> d = ps.recupererTop5PlansLikes();
-          //  System.out.println(d);
+            List<exercice> d = es.rechercherParNom("d");
+            System.out.println(d);
+        //    List <plan> r = ps.recuperer();
+       //  System.out.println(r);
            //    List<exercice> exercices = new ArrayList<>();
             // Ajoutez les exercices que vous voulez associer
             //    exercice exercice1 = new exercice();

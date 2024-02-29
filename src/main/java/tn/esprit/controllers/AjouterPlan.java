@@ -5,6 +5,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -29,19 +31,18 @@ public class AjouterPlan {
     @FXML
     private ImageView imageView;
     @FXML
-    private ListView<exercice> exercicesListView; // Pour sélectionner les exercices
+    private ListView<exercice> exercicesListView;
 
     private File selectedFile;
 
     private final planService ps = new planService();
-    private final exerciceService es = new exerciceService(); // Pour récupérer la liste des exercices
+    private final exerciceService es = new exerciceService();
 
     @FXML
     private void initialize() throws SQLException {
-        // Charger la liste des exercices disponibles
         List<exercice> exercices = es.recuperer();
         ObservableList<exercice> observableExercices = FXCollections.observableArrayList(exercices);
-        exercicesListView.setItems((observableExercices)); // Assurez-vous que cette méthode retourne ObservableList
+        exercicesListView.setItems((observableExercices));
         exercicesListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
@@ -49,7 +50,7 @@ public class AjouterPlan {
     private void handleUploadImage() throws FileNotFoundException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir une image pour le plan");
-        Stage stage = (Stage) nomPlanTextField.getScene().getWindow(); // Assurez-vous que la scène est déjà définie
+        Stage stage = (Stage) nomPlanTextField.getScene().getWindow();
         selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null) {
             imageView.setImage(new javafx.scene.image.Image(new FileInputStream(selectedFile)));
@@ -64,14 +65,20 @@ public class AjouterPlan {
 
         String imageURL = selectedFile != null ? selectedFile.toURI().toString() : "";
 
-        plan newPlan = new plan(); // Adaptez le constructeur de votre classe plan si nécessaire
+        plan newPlan = new plan();
         newPlan.setNOM(nom);
         newPlan.setDESCRIPTION(description);
-        newPlan.setIMAGE_URL(imageURL); // Assurez-vous que votre classe plan a un champ pour l'URL de l'image
+        newPlan.setIMAGE_URL(imageURL);
 
-        ps.ajouterPlan(newPlan, selectedExercices); // Votre méthode ajouterPlan doit gérer l'image et les exercices
+        ps.ajouterPlan(newPlan, selectedExercices);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText(null);
+        alert.setContentText("Le plan a été ajouté avec succès !");
 
-        // Afficher un message de succès ou effectuer d'autres actions nécessaires après l'ajout
+        alert.showAndWait();
+
+
     }
     @FXML
     void navigate(ActionEvent event) {
@@ -82,5 +89,69 @@ public class AjouterPlan {
             System.err.println(e.getMessage());
         }
 
+    }
+
+    @FXML
+    void AjouterPlan(ActionEvent event) {
+        try {
+            // Load the FXML file
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/AjouterPlan.fxml"));
+
+            // Create the scene
+            Scene scene = new Scene(fxmlLoader.load());
+
+            // Get the current stage
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Set the scene for the stage
+            stage.setScene(scene);
+
+            // Show the stage
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Failed to load the page: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    void AfficherPlan(ActionEvent event) {
+        try {
+            // Load the FXML file
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/AfficherPlan.fxml"));
+
+            // Create the scene
+            Scene scene = new Scene(fxmlLoader.load());
+
+            // Get the current stage
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Set the scene for the stage
+            stage.setScene(scene);
+
+            // Show the stage
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Failed to load the page: " + e.getMessage());
+        }
+    }
+    public void AfficherExercice(ActionEvent actionEvent) {
+        try {
+            // Load the FXML file
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/AfficherEx.fxml"));
+
+            // Create the scene
+            Scene scene = new Scene(fxmlLoader.load());
+
+            // Get the current stage
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+            // Set the scene for the stage
+            stage.setScene(scene);
+
+            // Show the stage
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Failed to load the page: " + e.getMessage());
+        }
     }
 }

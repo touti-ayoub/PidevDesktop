@@ -92,25 +92,28 @@ public class planService implements IService<plan> {
                 plan.setLIKES(rs.getInt("LIKES"));
                 plans.add(plan);
             }
+            System.out.println("Data from database: " + plans); // Print the data
             return plans;
         }
-    public plan rechercherParNom(String nom) throws SQLException {
-        String query = "SELECT * FROM plan WHERE NOM = ?";
+    public List<plan> rechercherParNom(String nom) throws SQLException {
+        List<plan> plans = new ArrayList<>();
+        String query = "SELECT * FROM plan WHERE NOM LIKE ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, nom);
+            statement.setString(1, "%" + nom + "%");
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 plan plan = new plan();
                 plan.setID(resultSet.getInt("IdPlan"));
                 plan.setNOM(resultSet.getString("NOM"));
                 plan.setDESCRIPTION(resultSet.getString("DESCRIPTION"));
+                plan.setLIKES(resultSet.getInt("LIKES"));
                 // If other columns are present, you can add them in the same way
-                return plan;
+                plans.add(plan);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null; // Return null if no matching plan is found
+        return plans; // Return the list of matching plans
     }
     public plan recupererPlanAvecExercices(int idPlan) throws SQLException {
         plan Plan = null;

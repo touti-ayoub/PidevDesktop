@@ -98,4 +98,23 @@ public class exerciceService implements IService<exercice> {
         return muscleCibles;
     }
 
+    public List<exercice> rechercherParNom(String nom) throws SQLException {
+        List<exercice> exercices = new ArrayList<>();
+        String query = "SELECT * FROM exercice WHERE NOM LIKE ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, "%" + nom + "%");
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                exercice exercice = new exercice();
+                exercice.setNOM(resultSet.getString("NOM"));
+                exercice.setDESCRIPTION(resultSet.getString("DESCRIPTION"));
+                exercice.setMUSCLE_CIBLE(resultSet.getString("MUSCLE_CIBLE"));
+                // If other columns are present, you can add them in the same way
+                exercices.add(exercice);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return exercices; // Return the list of matching plans
+    }
 }

@@ -50,9 +50,6 @@ public class plan {
     }
 
 
-
-
-
     public plan(String NOM, String DESCRIPTION,String IMAGE_URL) {
         this.NOM = NOM;
         this.DESCRIPTION = DESCRIPTION;
