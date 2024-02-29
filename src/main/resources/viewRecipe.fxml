@@ -17,6 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.ListView?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="876.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.ViewRecipe">
    <children>
       <VBox prefHeight="642.0" prefWidth="250.0" style="-fx-background-color: #3F2B63;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -115,29 +116,18 @@
             <RowConstraints maxHeight="261.3999847412109" minHeight="10.0" prefHeight="261.3999847412109" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <TableView fx:id="tableR" layoutX="278.0" layoutY="278.0" prefHeight="326.0" prefWidth="578.0" stylesheets="@assets/css/fullpackstyling.css" AnchorPane.leftAnchor="277.6" AnchorPane.rightAnchor="19.600000000000023" GridPane.rowIndex="1">
-               <columns>
-                  <TableColumn fx:id="nameR" text="Recipe Name" />
-                  <TableColumn fx:id="calR" text="Calories" />
-                  <TableColumn fx:id="protR" text="Protein" />
-                  <TableColumn fx:id="carbsR" text="Carbohydrates" />
-                  <TableColumn fx:id="fatR" text="Fat" />
-               </columns>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
-            </TableView>
+            <ListView fx:id="listR" layoutX="278.0" layoutY="278.0" prefHeight="326.0" prefWidth="578.0" stylesheets="@assets/css/fullpackstyling.css" AnchorPane.leftAnchor="277.6" AnchorPane.rightAnchor="19.600000000000023" GridPane.rowIndex="1" />
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
                   <TextField fx:id="searchTF" onKeyReleased="#searchByKeyword" prefHeight="26.0" prefWidth="438.0" />                  <Button graphicTextGap="10.0" mnemonicParsing="false" styleClass="button4" stylesheets="@assets/css/fullpackstyling.css" text="Search" textFill="WHITE">
-                     <graphic>
-                        <ImageView fitHeight="18.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@assets/icons/search2.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
+                  <graphic>
+                     <ImageView fitHeight="18.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@assets/icons/search2.png" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+               </Button>
                </children>
             </HBox>
          </children>

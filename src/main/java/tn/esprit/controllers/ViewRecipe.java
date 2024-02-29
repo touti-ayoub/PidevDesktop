@@ -8,11 +8,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import tn.esprit.models.Food;
 import tn.esprit.models.Recipe;
@@ -26,27 +26,8 @@ import java.util.stream.Collectors;
 public class ViewRecipe {
     @FXML
     private TextField searchTF;
-
     @FXML
-    private TableColumn<Recipe, Integer> calR;
-
-    @FXML
-    private TableColumn<Recipe, Integer> carbsR;
-
-    @FXML
-    private TableColumn<Recipe, Integer> fatR;
-
-    @FXML
-    private TableColumn<Recipe, Integer> nameR;
-
-    @FXML
-    private TableColumn<Recipe, Integer> protR;
-
-    @FXML
-    private TableView<Recipe> tableR;
-
-    @FXML
-    private TableColumn<Recipe, List<Food>> foodsR;
+    private ListView<Recipe> listR;
 
     @FXML
     void searchByKeyword(KeyEvent event) {
@@ -54,8 +35,12 @@ public class ViewRecipe {
         RecipeService recipeService = new RecipeService();
         try {
             List<Recipe> recipes = recipeService.searchByKeyword(keyword);
+            for (Recipe recipe : recipes) {
+                List<Food> foods = recipeService.getFoodsInRecipe(recipe.getIdRecipe());
+                recipe.setFoods(foods);
+            }
             ObservableList<Recipe> observableList = FXCollections.observableList(recipes);
-            tableR.setItems(observableList);
+            listR.setItems(observableList);
         } catch (SQLException e) {
             System.err.println("Failed to search foods: " + e.getMessage());
         }
@@ -176,36 +161,53 @@ public class ViewRecipe {
         RecipeService recipeService = new RecipeService();
         try {
             List<Recipe> recipes = recipeService.recuperer();
+            for (Recipe recipe : recipes) {
+                List<Food> foods = recipeService.getFoodsInRecipe(recipe.getIdRecipe());
+                recipe.setFoods(foods);
+            }
             ObservableList<Recipe> observableList = FXCollections.observableList(recipes);
-            tableR.setItems(observableList);
-            nameR.setCellValueFactory(new PropertyValueFactory<>("name"));
-            calR.setCellValueFactory(new PropertyValueFactory<>("totalCalories"));
-            protR.setCellValueFactory(new PropertyValueFactory<>("totalProtein"));
-            carbsR.setCellValueFactory(new PropertyValueFactory<>("totalCarbs"));
-            fatR.setCellValueFactory(new PropertyValueFactory<>("totalFat"));
+            listR.setItems(observableList);
+            listR.setCellFactory(param -> new ListCell<>() {
+                @Override
+                protected void updateItem(Recipe item, boolean empty) {
+                    super.updateItem(item, empty);
 
-            // Create a new TableColumn for the food names
-            TableColumn<Recipe, String> foodsColumn = new TableColumn<>("Foods");
-            foodsColumn.setCellValueFactory(cellData -> {
-                List<Food> foods = cellData.getValue().getFoods();
-                if (foods != null) {
-                    String foodNames = foods.stream()
-                            .map(Food::getName)
-                            .collect(Collectors.joining(", "));
-                    return new SimpleStringProperty(foodNames);
-                } else {
-                    return new SimpleStringProperty("");
+                    if (empty || item == null) {
+                        setText(null);
+                        setGraphic(null);
+                    } else {
+                        ListView<Food> foodListView = new ListView<>();
+                        foodListView.setPrefSize(200, 100); // Set preferred width and height
+                        foodListView.setMaxHeight(100); // Set max height
+                        ObservableList<Food> foodObservableList = FXCollections.observableList(item.getFoods());
+                        foodListView.setItems(foodObservableList);
+                        foodListView.setCellFactory(param -> new ListCell<>() {
+                            @Override
+                            protected void updateItem(Food item, boolean empty) {
+                                super.updateItem(item, empty);
+
+                                if (empty || item == null || item.getName() == null) {
+                                    setText(null);
+                                } else {
+                                    Text text = new Text(item.getName());
+                                    text.setWrappingWidth(180); // Set wrapping width
+                                    setGraphic(text);
+                                }
+                            }
+                        });
+
+                        Label nameLabel = new Label("Name: " + item.getName());
+                        Label caloriesLabel = new Label("Total Calories: " + item.getTotalCalories());
+                        VBox vbox = new VBox(nameLabel, caloriesLabel, foodListView);
+                        setGraphic(vbox);
+                    }
                 }
             });
-
-            // Add the new column to the TableView
-            tableR.getColumns().add(foodsColumn);
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
-    }
 
-    private void changeScene(ActionEvent event, String fxml) {
+    }    private void changeScene(ActionEvent event, String fxml) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxml));
             Scene scene = new Scene(fxmlLoader.load());
