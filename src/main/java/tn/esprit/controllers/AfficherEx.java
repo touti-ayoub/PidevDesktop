@@ -143,10 +143,6 @@ public class AfficherEx {
             System.err.println("Failed to load the page: " + e.getMessage());
         }
     }
-
-
-
-
     }
 
 

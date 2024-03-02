@@ -1,7 +1,10 @@
 package tn.esprit.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
@@ -17,6 +20,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 public class AjouterEx {
 
@@ -28,6 +32,9 @@ public class AjouterEx {
 
     @FXML
     private ImageView imageView;
+    @FXML
+    private ComboBox<String> MuscleComboBox;
+
 
     @FXML
     private Stage stage;
@@ -39,6 +46,7 @@ public class AjouterEx {
 
     @FXML
     private void initialize() {
+        populateMuscleTargetComboBox();
     }
     @FXML
     private void handleUploadImage() throws FileNotFoundException {
@@ -77,16 +85,78 @@ public class AjouterEx {
         }
     }
     @FXML
-    void navigate(ActionEvent event) {
+    void AjouterExercice(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/AfficherEx.fxml"));
-            nameTextField.getScene().setRoot(fxmlLoader.load());
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
+            // Load the FXML file
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/AjouterExercice.fxml"));
 
+            // Create the scene
+            Scene scene = new Scene(fxmlLoader.load());
+
+            // Get the current stage
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Set the scene for the stage
+            stage.setScene(scene);
+
+            // Show the stage
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Failed to load the page: " + e.getMessage());
+        }
     }
 
+    @FXML
+    void AfficherPlan(ActionEvent event) {
+        try {
+            // Load the FXML file
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/AfficherPlan.fxml"));
+
+            // Create the scene
+            Scene scene = new Scene(fxmlLoader.load());
+
+            // Get the current stage
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Set the scene for the stage
+            stage.setScene(scene);
+
+            // Show the stage
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Failed to load the page: " + e.getMessage());
+        }
+    }
+    public void AfficherExercice(ActionEvent actionEvent) {
+        try {
+            // Load the FXML file
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/AfficherEx.fxml"));
+
+            // Create the scene
+            Scene scene = new Scene(fxmlLoader.load());
+
+            // Get the current stage
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+            // Set the scene for the stage
+            stage.setScene(scene);
+
+            // Show the stage
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Failed to load the page: " + e.getMessage());
+        }
+    }
+
+
+    private void populateMuscleTargetComboBox() {
+        try {
+            List<String> muscleTargets = es.getUniqueMuscleTargets();
+            MuscleComboBox.getItems().addAll(muscleTargets);
+        } catch (SQLException e) {
+            System.err.println("Failed to populate muscle target ComboBox: " + e.getMessage());
+        }
+    }
 
 
 }

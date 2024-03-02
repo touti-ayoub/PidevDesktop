@@ -1,15 +1,10 @@
 package tn.esprit.controllers;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -88,7 +83,7 @@ public class AfficherPlan {
                                     if (empty || item == null) {
                                         setText(null);
                                     } else {
-                                        setText(String.format("Name: %s, Description: %s", item.getNOM(), item.getDESCRIPTION()));
+                                        setText(String.format("Name: %s, Description: %s,Muscle %s", item.getNOM(), item.getDESCRIPTION(),item.getMUSCLE_CIBLE()));
                                     }
                                 }
                             });

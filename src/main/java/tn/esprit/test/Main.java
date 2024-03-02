@@ -18,21 +18,22 @@ public class Main {
         plan_exercice pe = new plan_exercice();
         exerciceService es = new exerciceService();
         try {
+
             // ps.ajouter(new plan("debutant","pour les nouveaux"));
             //es.ajouter(new exercice( "Leg extensionmmmm", "3 Sets 12-10-8 Reps ","legs","nn"));
             // cs.modifier(new plan(1,"avancee","pour les anciens"));
             //cs.supprimer(1);
 
-          //  List<exercice> c1 = es.recuperer();
-       //        System.out.println(c1);
+           List<String> c1 = es.getUniqueMuscleTargets();
+            System.out.println(c1);
          //  List<String> c2 = es.getUniqueMuscleCibles();
             //System.out.println(c2);
      //List<String> s= ps.getUniqueNom();
          //   System.out.println(s);
 
         //plan p = ps.recupererPlanAvecExercices(12);
-            List<exercice> d = es.rechercherParNom("d");
-            System.out.println(d);
+        //    List<exercice> d = es.rechercherParNom("d");
+        //    System.out.println(d);
         //    List <plan> r = ps.recuperer();
        //  System.out.println(r);
            //    List<exercice> exercices = new ArrayList<>();

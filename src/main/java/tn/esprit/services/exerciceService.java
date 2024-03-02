@@ -117,4 +117,14 @@ public class exerciceService implements IService<exercice> {
         }
         return exercices; // Return the list of matching plans
     }
+    public List<String> getUniqueMuscleTargets() throws SQLException {
+        List<String> muscleTargets = new ArrayList<>();
+        String req = "SELECT DISTINCT MUSCLE_CIBLE FROM exercice ORDER BY MUSCLE_CIBLE";
+        Statement st = connection.createStatement();
+        ResultSet rs = st.executeQuery(req);
+        while (rs.next()) {
+            muscleTargets.add(rs.getString("MUSCLE_CIBLE"));
+        }
+        return muscleTargets;
+    }
 }
