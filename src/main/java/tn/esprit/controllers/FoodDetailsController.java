@@ -112,4 +112,20 @@ public class FoodDetailsController {
             alert.showAndWait();
         }
     }
+
+    public void bminavigate(ActionEvent actionEvent) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/bmi.fxml"));
+
+            Scene scene = new Scene(fxmlLoader.load());
+
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+            stage.setScene(scene);
+
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Failed to load the page: " + e.getMessage());
+        }
+    }
 }

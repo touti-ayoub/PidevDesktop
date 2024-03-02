@@ -41,64 +41,14 @@ public class ViewFood {
     @FXML
     void addFood(ActionEvent event) {
         try {
-            // Load the FXML file
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/addFood.fxml"));
 
-            // Create the scene
             Scene scene = new Scene(fxmlLoader.load());
 
-            // Get the current stage
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-            // Set the scene for the stage
             stage.setScene(scene);
 
-            // Show the stage
-            stage.show();
-        } catch (IOException e) {
-            System.err.println("Failed to load the page: " + e.getMessage());
-        }
-    }
-
-    @FXML
-    void deleteFood(ActionEvent event) {
-        try {
-            // Load the FXML file
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/deleteFood.fxml"));
-
-            // Create the scene
-            Scene scene = new Scene(fxmlLoader.load());
-
-            // Get the current stage
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-            // Set the scene for the stage
-            stage.setScene(scene);
-
-            // Show the stage
-            stage.show();
-        } catch (IOException e) {
-            System.err.println("Failed to load the page: " + e.getMessage());
-        }
-
-    }
-
-    @FXML
-    void editFood(ActionEvent event) {
-        try {
-            // Load the FXML file
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/editFood.fxml"));
-
-            // Create the scene
-            Scene scene = new Scene(fxmlLoader.load());
-
-            // Get the current stage
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-            // Set the scene for the stage
-            stage.setScene(scene);
-
-            // Show the stage
             stage.show();
         } catch (IOException e) {
             System.err.println("Failed to load the page: " + e.getMessage());
@@ -108,19 +58,14 @@ public class ViewFood {
     @FXML
     void viewFood(ActionEvent event) {
         try {
-            // Load the FXML file
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/viewFood.fxml"));
 
-            // Create the scene
             Scene scene = new Scene(fxmlLoader.load());
 
-            // Get the current stage
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-            // Set the scene for the stage
             stage.setScene(scene);
 
-            // Show the stage
             stage.show();
         } catch (IOException e) {
             System.err.println("Failed to load the page: " + e.getMessage());
@@ -131,19 +76,14 @@ public class ViewFood {
     @FXML
     void recipeNavigate(ActionEvent event) {
         try {
-            // Load the FXML file
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/viewRecipe.fxml"));
 
-            // Create the scene
             Scene scene = new Scene(fxmlLoader.load());
 
-            // Get the current stage
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-            // Set the scene for the stage
             stage.setScene(scene);
 
-            // Show the stage
             stage.show();
         } catch (IOException e) {
             System.err.println("Failed to load the page: " + e.getMessage());
@@ -175,25 +115,18 @@ public class ViewFood {
             listF.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
                 if (newValue != null) {
                     try {
-                        // Load the FXML file
                         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/foodDetails.fxml"));
 
-                        // Create the scene
                         Scene scene = new Scene(fxmlLoader.load());
 
-                        // Get the controller of the new FXML file
                         FoodDetailsController controller = fxmlLoader.getController();
 
-                        // Pass the selected food data to the controller
                         controller.setFood(newValue);
 
-                        // Get the current stage
                         Stage stage = (Stage) listF.getScene().getWindow();
 
-                        // Set the scene for the stage
                         stage.setScene(scene);
 
-                        // Show the stage
                         stage.show();
                     } catch (IOException e) {
                         System.err.println("Failed to load the page: " + e.getMessage());
@@ -208,19 +141,14 @@ public class ViewFood {
 
     public void bminavigate(ActionEvent actionEvent) {
         try {
-            // Load the FXML file
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/bmi.fxml"));
 
-            // Create the scene
             Scene scene = new Scene(fxmlLoader.load());
 
-            // Get the current stage
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
 
-            // Set the scene for the stage
             stage.setScene(scene);
 
-            // Show the stage
             stage.show();
         } catch (IOException e) {
             System.err.println("Failed to load the page: " + e.getMessage());

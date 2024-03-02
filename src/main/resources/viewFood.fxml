@@ -58,36 +58,6 @@
                   <Font size="13.0" />
                </font>
             </Button>
-            <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="36.0" mnemonicParsing="false" onAction="#editFood" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@assets/css/fullpackstyling.css" text="Edit Food" textFill="WHITE">
-               <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@assets/icons/edit.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <padding>
-                  <Insets left="50.0" />
-               </padding>
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Button>
-            <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="63.0" mnemonicParsing="false" onAction="#deleteFood" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@assets/css/fullpackstyling.css" text="Delete Food" textFill="WHITE">
-               <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@assets/icons/delete.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <padding>
-                  <Insets left="50.0" />
-               </padding>
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Button>
             <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="361.0" mnemonicParsing="false" onAction="#recipeNavigate" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@assets/css/fullpackstyling.css" text="Recipes" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="25.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
