@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -167,6 +168,7 @@ public class AddRecipe {
     public void inesrtRecipe(ActionEvent actionEvent) {
         String name = nameField.getText();
 
+
         if (selectedFoods.isEmpty()) {
             actionStatus.setText("Please select at least one food.");
             return;
@@ -175,6 +177,12 @@ public class AddRecipe {
         Recipe recipe = new Recipe();
         recipe.setName(name);
         recipe.getFoods().addAll(selectedFoods);
+
+        // Add validation for nameTF
+        if (recipe.getName().length() < 2) {
+            showAlert("Name must be at least 2 letters");
+            return;
+        }
 
         try {
             recipeService.ajouter(recipe);
@@ -203,5 +211,13 @@ public class AddRecipe {
         } catch (IOException e) {
             System.err.println("Failed to load the page: " + e.getMessage());
         }
+    }
+
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Input Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
