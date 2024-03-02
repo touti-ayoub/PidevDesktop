@@ -64,13 +64,46 @@ public class AjouterEx {
     private void handleAddExercise() {
         String name = nameTextField.getText();
         String description = descriptionTextArea.getText();
-        String muscle_cible =  nameTextField.getText();
+        String muscle_cible =  MuscleComboBox.getValue();
         String imageURL = "";
         if (selectedFile != null) {
             // Chemin de l'image pour la base de données
             imageURL = selectedFile.toURI().toString();
         }
         exercice exercise = new exercice(name, description,muscle_cible, imageURL);
+
+            // Input validation
+            if (name.isEmpty() || description.isEmpty() || muscle_cible == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur");
+                alert.setHeaderText(null);
+                alert.setContentText("Veuillez remplir tous les champs !");
+                alert.showAndWait();
+                return;
+            }
+
+            // Check if the name starts with a letter
+            if (!Character.isLetter(name.charAt(0))) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur");
+                alert.setHeaderText(null);
+                alert.setContentText("Le nom doit commencer par une lettre !");
+                alert.showAndWait();
+                return;
+            }
+
+            // Check if a photo has been selected
+            if (selectedFile == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur");
+                alert.setHeaderText(null);
+                alert.setContentText("L'ajout d'une photo est obligatoire !");
+                alert.showAndWait();
+                return;
+            }
+
+
+
 
         try {
             es.ajouter(exercise);
