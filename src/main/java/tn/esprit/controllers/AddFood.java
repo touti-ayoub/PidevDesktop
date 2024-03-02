@@ -109,50 +109,6 @@ public class AddFood implements Initializable {
     }
 
     @FXML
-    void deleteFood(ActionEvent event) {
-        try {
-            // Load the FXML file
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/deleteFood.fxml"));
-
-            // Create the scene
-            Scene scene = new Scene(fxmlLoader.load());
-
-            // Get the current stage
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-            // Set the scene for the stage
-            stage.setScene(scene);
-
-            // Show the stage
-            stage.show();
-        } catch (IOException e) {
-            System.err.println("Failed to load the page: " + e.getMessage());
-        }
-    }
-
-    @FXML
-    void editFood(ActionEvent event) {
-        try {
-            // Load the FXML file
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/editFood.fxml"));
-
-            // Create the scene
-            Scene scene = new Scene(fxmlLoader.load());
-
-            // Get the current stage
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-            // Set the scene for the stage
-            stage.setScene(scene);
-
-            // Show the stage
-            stage.show();
-        } catch (IOException e) {
-            System.err.println("Failed to load the page: " + e.getMessage());
-        }
-    }
-
-    @FXML
     void viewFood(ActionEvent event) {
         try {
             // Load the FXML file

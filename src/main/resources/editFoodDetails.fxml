@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="876.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.DeleteFood">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="876.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.EditFoodController">
    <children>
       <VBox prefHeight="642.0" prefWidth="250.0" style="-fx-background-color: #3F2B63;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -56,36 +57,6 @@
                   <Font size="13.0" />
                </font>
             </Button>
-            <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="36.0" mnemonicParsing="false" onAction="#editFood" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@assets/css/fullpackstyling.css" text="Edit Food" textFill="WHITE">
-               <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@assets/icons/edit.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <padding>
-                  <Insets left="50.0" />
-               </padding>
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Button>
-            <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="63.0" mnemonicParsing="false" onAction="#deleteFood" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@assets/css/fullpackstyling.css" text="Delete Food" textFill="WHITE">
-               <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@assets/icons/delete.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <padding>
-                  <Insets left="50.0" />
-               </padding>
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Button>
             <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#recipeNavigate" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@assets/css/fullpackstyling.css" text="Recipes" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="25.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
@@ -106,6 +77,7 @@
       <GridPane layoutX="278.0" layoutY="246.0" prefHeight="326.0" prefWidth="578.0" AnchorPane.leftAnchor="278.0" AnchorPane.rightAnchor="20.399999999999977">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="261.3999847412109" minHeight="10.0" prefHeight="261.3999847412109" vgrow="SOMETIMES" />
@@ -114,26 +86,27 @@
             <RowConstraints maxHeight="261.3999847412109" minHeight="10.0" prefHeight="261.3999847412109" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" onAction="#delete" prefHeight="50.0" prefWidth="130.0" styleClass="button2" stylesheets="@assets/css/fullpackstyling.css" text="Delete" textFill="WHITE" GridPane.rowIndex="2">
-               <font>
-                  <Font size="23.0" />
-               </font>
-            </Button>
-            <Label text="Choose the food you want to delete:">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <ComboBox fx:id="foodComboBox" prefHeight="62.0" prefWidth="309.0" stylesheets="@assets/css/fullpackstyling.css" GridPane.rowIndex="1" />
+            <TextField fx:id="nameField" prefHeight="56.0" promptText="Name" />
+            <TextField fx:id="caloriesField" prefHeight="56.0" promptText="calories" GridPane.rowIndex="1" />
+            <TextField fx:id="proteinField" prefHeight="56.0" promptText="protein" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="carbsField" prefHeight="56.0" promptText="carbohydrates" GridPane.rowIndex="2" />
+            <TextField fx:id="fatField" prefHeight="56.0" promptText="fat" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="servingSizeField" prefHeight="56.0" promptText="Serving size" GridPane.rowIndex="3" />
+            <ComboBox fx:id="combo" onAction="#Select" prefHeight="56.0" prefWidth="287.0" promptText="Unit" styleClass="combo-box" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <Pane layoutX="250.0" layoutY="95.0" prefHeight="118.0" prefWidth="633.0" style="-fx-background-color: #7156DD;" AnchorPane.leftAnchor="250.39999999999998" AnchorPane.rightAnchor="-7.600000000000023">
          <children>
-            <Label layoutX="30.0" layoutY="34.0" text="Delete Food" textFill="WHITE">
+            <Label layoutX="30.0" layoutY="34.0" text="Edit current Food" textFill="WHITE">
                <font>
                   <Font size="35.0" />
                </font>
             </Label>
          </children></Pane>
+      <Button layoutX="502.0" layoutY="572.0" mnemonicParsing="false" onAction="#submitForm" prefHeight="50.0" prefWidth="130.0" styleClass="primary-button" stylesheets="@assets/css/fullpackstyling.css" text="Edit" textFill="WHITE">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

@@ -55,7 +55,19 @@ public class FoodDetailsController {
     public void recipeNavigate(ActionEvent actionEvent) {
     }
 
-    public void edit(ActionEvent actionEvent) {
+    @FXML
+    void edit(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/editFoodDetails.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            EditFoodController controller = fxmlLoader.getController();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+            controller.setFood(currentFood);
+        } catch (IOException e) {
+            System.err.println("Failed to load the page: " + e.getMessage());
+        }
     }
 
     @FXML
