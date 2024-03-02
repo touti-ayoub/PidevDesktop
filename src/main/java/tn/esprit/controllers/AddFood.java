@@ -45,7 +45,6 @@ public class AddFood implements Initializable {
 
     @FXML
     void Select(ActionEvent event) {
-
     }
     @FXML
     void inesrtFood(ActionEvent event) {

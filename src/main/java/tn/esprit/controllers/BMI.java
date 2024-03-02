@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class FoodSuggestionController {
+public class BMI {
 
     @FXML
     private TableView<Food> foodTable;
@@ -45,7 +45,7 @@ public class FoodSuggestionController {
 
     private FoodService foodService;
 
-    public FoodSuggestionController() {
+    public BMI() {
         foodService = new FoodService();
     }
 
