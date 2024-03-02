@@ -69,6 +69,36 @@ public class AjouterPlan {
         newPlan.setNOM(nom);
         newPlan.setDESCRIPTION(description);
         newPlan.setIMAGE_URL(imageURL);
+        // Input validation
+        if (nom.isEmpty() || description.isEmpty() || selectedExercices.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez remplir tous les champs !");
+            alert.showAndWait();
+            return;
+        }
+
+        // Check if the name starts with a letter
+        if (!Character.isLetter(nom.charAt(0))) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText(null);
+            alert.setContentText("Le nom doit commencer par une lettre !");
+            alert.showAndWait();
+            return;
+        }
+
+        // Check if a photo has been selected
+        if (selectedFile == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText(null);
+            alert.setContentText("L'ajout d'une photo est obligatoire !");
+            alert.showAndWait();
+            return;
+        }
+
 
         ps.ajouterPlan(newPlan, selectedExercices);
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -77,6 +107,7 @@ public class AjouterPlan {
         alert.setContentText("Le plan a été ajouté avec succès !");
 
         alert.showAndWait();
+
 
 
     }
