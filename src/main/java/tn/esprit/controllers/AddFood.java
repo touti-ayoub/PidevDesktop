@@ -59,6 +59,12 @@ public class AddFood implements Initializable {
         food.setServingSize(Double.parseDouble(servsizeTF.getText()));
         food.setServingUnit(combo.getValue()); // get the selected item from the combo box
 
+        // Add validation for nameTF
+        if (food.getName().length() < 2) {
+            showAlert("Name must be at least 2 letters");
+            return;
+        }
+
         Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
         confirmationAlert.setTitle("Confirmation");
         confirmationAlert.setContentText("Are you sure you want to add this food item?");
@@ -171,6 +177,33 @@ public class AddFood implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         combo.setItems(FXCollections.observableArrayList("gram","ounce","cup","litre"));
+
+        // Add validation for numeric fields
+        addNumericValidation(caloriesTF, "Calories must be a number");
+        addNumericValidation(carbsTF, "Carbs must be a number");
+        addNumericValidation(fatTF, "Fat must be a number");
+        addNumericValidation(proteinTF, "Protein must be a number");
+        addNumericValidation(servsizeTF, "Serving size must be a number");
+    }
+
+    private void addNumericValidation(TextField textField, String errorMessage) {
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                textField.setText(newValue.replaceAll("[^\\d]", ""));
+                textField.setStyle("-fx-border-color: red;");
+                showAlert(errorMessage);
+            } else {
+                textField.setStyle("");
+            }
+        });
+    }
+
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Input Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     public void recipeNavigate(ActionEvent actionEvent) {
