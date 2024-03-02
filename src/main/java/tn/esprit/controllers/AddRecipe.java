@@ -168,9 +168,8 @@ public class AddRecipe {
     public void inesrtRecipe(ActionEvent actionEvent) {
         String name = nameField.getText();
 
-
         if (selectedFoods.isEmpty()) {
-            actionStatus.setText("Please select at least one food.");
+            showAlert("Please select at least one food.", Alert.AlertType.WARNING);
             return;
         }
 
@@ -180,15 +179,15 @@ public class AddRecipe {
 
         // Add validation for nameTF
         if (recipe.getName().length() < 2) {
-            showAlert("Name must be at least 2 letters");
+            showAlert("Name must be at least 2 letters", Alert.AlertType.ERROR);
             return;
         }
 
         try {
             recipeService.ajouter(recipe);
-            actionStatus.setText("Recipe added successfully!");
+            showAlert("Recipe added successfully!", Alert.AlertType.INFORMATION);
         } catch (SQLException e) {
-            actionStatus.setText("Failed to add recipe: " + e.getMessage());
+            showAlert("Failed to add recipe: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
@@ -213,9 +212,9 @@ public class AddRecipe {
         }
     }
 
-    private void showAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Input Error");
+    private void showAlert(String message, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle("Notification");
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
