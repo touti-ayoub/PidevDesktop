@@ -172,6 +172,35 @@ public class ViewFood {
                 }
             });
 
+            listF.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue != null) {
+                    try {
+                        // Load the FXML file
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/foodDetails.fxml"));
+
+                        // Create the scene
+                        Scene scene = new Scene(fxmlLoader.load());
+
+                        // Get the controller of the new FXML file
+                        FoodDetailsController controller = fxmlLoader.getController();
+
+                        // Pass the selected food data to the controller
+                        controller.setFood(newValue);
+
+                        // Get the current stage
+                        Stage stage = (Stage) listF.getScene().getWindow();
+
+                        // Set the scene for the stage
+                        stage.setScene(scene);
+
+                        // Show the stage
+                        stage.show();
+                    } catch (IOException e) {
+                        System.err.println("Failed to load the page: " + e.getMessage());
+                    }
+                }
+            });
+
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
