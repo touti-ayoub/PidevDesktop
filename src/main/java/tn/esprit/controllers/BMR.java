@@ -1,5 +1,9 @@
 package tn.esprit.controllers;
 
+import com.vonage.client.VonageClient;
+import com.vonage.client.sms.MessageStatus;
+import com.vonage.client.sms.SmsSubmissionResponse;
+import com.vonage.client.sms.messages.TextMessage;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -249,11 +253,30 @@ public class BMR {
         }
     }
 
+    public void sendFoodSuggestionsAsSMS() {
+        StringBuilder foodSuggestions = new StringBuilder("Food List:\n");
+        for (Food food : foodTable.getItems()) {
+            foodSuggestions.append(food.getName()).append("\n");
+        }
+
+        VonageClient client = VonageClient.builder().apiKey("6eb80c51").apiSecret("j5Kxzn4llZ3K1QNY").build();
+        TextMessage message = new TextMessage("IronCoreGYM", phoneField.getText(), foodSuggestions.toString());
+
+        SmsSubmissionResponse response = client.getSmsClient().submitMessage(message);
+
+        if (response.getMessages().get(0).getStatus() == MessageStatus.OK) {
+            System.out.println("Message sent successfully.");
+        } else {
+            System.out.println("Message failed with error: " + response.getMessages().get(0).getErrorText());
+        }
+    }
+
     public void calculateAndDisplayBMR() {
         double bmr = calculateBMR();
         bmrLabel.setText("BMR: " + bmr1 + " calories/day");
         caloriesLabel.setText("TDEE: " + bmr+ " calories/day");
         loadFoodSuggestions();
         displayFoodSuggestions();
+        sendFoodSuggestionsAsSMS();
     }
 }
