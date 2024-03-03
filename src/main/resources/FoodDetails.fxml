@@ -101,7 +101,7 @@
          <children>
             <Label fx:id="nameLabel" prefHeight="54.0" prefWidth="239.0" text="Label">
                <font>
-                  <Font size="20.0" />
+                  <Font name="System Bold" size="28.0" />
                </font></Label>
             <Label fx:id="caloriesLabel" prefHeight="54.0" prefWidth="239.0" text="Label" GridPane.rowIndex="1">
                <font>

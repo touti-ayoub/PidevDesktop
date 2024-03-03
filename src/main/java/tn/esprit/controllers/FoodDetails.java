@@ -38,12 +38,12 @@ public class FoodDetails {
     public void setFood(Food food) {
         this.currentFood = food;
         nameLabel.setText(food.getName());
-        caloriesLabel.setText(String.valueOf(food.getCalories()));
-        proteinLabel.setText(String.valueOf(food.getProtein()));
-        carbsLabel.setText(String.valueOf(food.getCarbohydrates()));
-        fatLabel.setText(String.valueOf(food.getFat()));
-        servingSizeLabel.setText(String.valueOf(food.getServingSize()));
-        servingUnitLabel.setText(food.getServingUnit());
+        caloriesLabel.setText(String.valueOf("Calories: " +food.getCalories()));
+        proteinLabel.setText(String.valueOf("Protein: " +food.getProtein()));
+        carbsLabel.setText(String.valueOf("Carbohydrates: " +food.getCarbohydrates()));
+        fatLabel.setText(String.valueOf("Fat: " +food.getFat()));
+        servingSizeLabel.setText(String.valueOf("Serving Size: " +food.getServingSize()));
+        servingUnitLabel.setText("Serving Unit: " +food.getServingUnit());
     }
 
     public void addFood(ActionEvent actionEvent) {
