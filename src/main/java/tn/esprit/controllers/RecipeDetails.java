@@ -7,13 +7,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import tn.esprit.models.Food;
 import tn.esprit.models.Recipe;
+import tn.esprit.services.RecipeService;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Optional;
 
 public class RecipeDetails{
         @FXML
@@ -105,6 +110,35 @@ public class RecipeDetails{
     }
 
     public void delete(ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Delete Recipe");
+        alert.setContentText("Are you sure you want to delete this recipe?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            RecipeService recipeService = new RecipeService();
+            try {
+                boolean isDeleted = recipeService.supprimer(currentRecipe.getIdRecipe());
+                if (isDeleted) {
+                    System.out.println("Recipe deleted successfully");
+                    // Redirect to viewRecipe.fxml
+                    try {
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/viewRecipe.fxml"));
+                        Scene scene = new Scene(fxmlLoader.load());
+                        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException e) {
+                        System.err.println("Failed to load the page: " + e.getMessage());
+                    }
+                } else {
+                    System.out.println("Failed to delete the recipe");
+                }
+            } catch (SQLException e) {
+                System.err.println("Failed to delete the recipe: " + e.getMessage());
+            }
+        }
     }
 }
 
