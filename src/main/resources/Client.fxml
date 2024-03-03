@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.Client">
+    <ScrollPane fitToWidth="true">
+        <VBox style="-fx-padding: 10;" stylesheets="@assets/css/fullpackstyling.css">
+            <GridPane fx:id="plansExercisesGrid" alignment="center" hgap="20" styleClass="my-grid-style" vgap="20">
+                <padding>
+                    <Insets bottom="10" left="10" right="10" top="10" />
+                </padding> <!-- Correction ici -->
+                <!-- Les éléments (plans et exercices) seront ajoutés dynamiquement ici -->
+            </GridPane>
+        </VBox>
+    </ScrollPane>
+</AnchorPane>

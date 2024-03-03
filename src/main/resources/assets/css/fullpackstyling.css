@@ -182,3 +182,22 @@
 .search-field:hover {
     -fx-background-color: #F0F0F0;
 }
+.my-grid-style {
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #e0e0e0;
+}
+
+
+.plan-label {
+    -fx-font-size: 20px;
+    -fx-text-fill: #000000;
+}
+
+.exercise-label {
+    -fx-font-size: 18px;
+    -fx-text-fill: #666;
+}
+
+.exercise-image {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
