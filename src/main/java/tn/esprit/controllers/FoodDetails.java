@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Optional;
 
-public class FoodDetailsController {
+public class FoodDetails {
     @FXML
     private Label nameLabel;
     @FXML
@@ -99,7 +99,7 @@ public class FoodDetailsController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/editFoodDetails.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-            EditFoodController controller = fxmlLoader.getController();
+            EditFood controller = fxmlLoader.getController();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();

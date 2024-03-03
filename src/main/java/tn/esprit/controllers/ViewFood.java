@@ -9,7 +9,6 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import tn.esprit.models.Food;
 import tn.esprit.services.FoodService;
@@ -119,7 +118,7 @@ public class ViewFood {
 
                         Scene scene = new Scene(fxmlLoader.load());
 
-                        FoodDetailsController controller = fxmlLoader.getController();
+                        FoodDetails controller = fxmlLoader.getController();
 
                         controller.setFood(newValue);
 

@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -17,9 +18,10 @@ import tn.esprit.services.FoodService;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class EditFoodController implements Initializable {
+public class EditFood implements Initializable {
     @FXML
     private TextField nameField;
     @FXML
@@ -72,12 +74,41 @@ public class EditFoodController implements Initializable {
         currentFood.setServingSize(newServingSize);
         currentFood.setServingUnit(newServingUnit);
 
-        try {
-            // update the food details in the database
-            foodService.modifier(currentFood);
-        } catch (SQLException e) {
-            System.err.println("Failed to update the food: " + e.getMessage());
-        }
+        // Confirmation dialog
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure you want to edit this food item?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            // User chose OK, proceed with form submission
+            try {
+                // update the food details in the database
+                foodService.modifier(currentFood);
+
+                // Show success alert
+                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                successAlert.setTitle("Success");
+                successAlert.setHeaderText(null);
+                successAlert.setContentText("Food item edited successfully!");
+                successAlert.showAndWait();
+
+                // navigate to the viewFood.fxml page
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/viewFood.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+                Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
+            } catch (SQLException e) {
+                System.err.println("Failed to update the food: " + e.getMessage());
+            } catch (IOException e) {
+                System.err.println("Failed to load the page: " + e.getMessage());
+            }
+        } else {
+            alert.setTitle("INFO");
+            alert.setContentText("Edit cancelled by the user");
+            alert.showAndWait();        }
     }
 
     public void addFood(ActionEvent actionEvent) {
