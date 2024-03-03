@@ -26,12 +26,13 @@ public class exerciceService implements IService<exercice> {
 
     @Override
     public void modifier(exercice exercice) throws SQLException {
-        String req = "UPDATE exercice SET NOM=?, DESCRIPTION=?,MUSCLE_CIBLE =? WHERE IdExercice=?";
+        String req = "UPDATE exercice SET NOM=?, DESCRIPTION=?,MUSCLE_CIBLE =?,IMAGE_URL=? WHERE IdExercice=?";
         PreparedStatement ps = connection.prepareStatement(req);
         ps.setString(1,exercice.getNOM());
         ps.setString(2,exercice.getDESCRIPTION());
         ps.setString(3,exercice.getMUSCLE_CIBLE());
-        ps.setInt(4,exercice.getID());
+        ps.setString(4,exercice.getIMAGE_URL());
+        ps.setInt(5,exercice.getID());
         ps.executeUpdate();
     }
 

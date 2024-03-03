@@ -2,7 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -15,33 +15,33 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.ComboBox?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="876.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.EditExerciceController">
     <children>
-        <GridPane layoutX="257.0" layoutY="94.0" prefHeight="462.0" prefWidth="565.0" AnchorPane.leftAnchor="257.0" AnchorPane.rightAnchor="54.0">
+        <GridPane layoutX="278.0" layoutY="120.0" prefHeight="445.0" prefWidth="544.0" AnchorPane.leftAnchor="278.0" AnchorPane.rightAnchor="54.0">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="290.0" minWidth="10.0" prefWidth="290.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="304.0" minWidth="10.0" prefWidth="275.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="304.0" minWidth="10.0" prefWidth="258.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="311.0" minWidth="10.0" prefWidth="307.0" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints maxHeight="69.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="190.0" minHeight="10.0" prefHeight="190.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="191.0" minHeight="10.0" prefHeight="148.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="191.0" minHeight="10.0" prefHeight="87.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="191.0" minHeight="10.0" prefHeight="171.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="25.0" minHeight="0.0" prefHeight="0.0" />
             </rowConstraints>
             <children>
-                <TextField fx:id="nomField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="282.0" promptText="Entrer le nom" />
-                <TextArea fx:id="descriptionField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="131.0" prefWidth="282.0" promptText="Entrez une description" GridPane.rowIndex="1" />
-                <ComboBox fx:id="muscleComboBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="282.0" promptText="Type" GridPane.rowIndex="2" />
-                <Button onAction="#handleUploadImage" prefHeight="37.0" prefWidth="149.0" styleClass="primary-button" stylesheets="@assets/css/fullpackstyling.css" text="Upload Image" GridPane.rowIndex="2" />
-                <ImageView fx:id="imageView" fitHeight="188.0" fitWidth="266.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <TextField fx:id="nomField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="254.0" promptText="Entrer le nom" />
+                <TextArea fx:id="descriptionField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="131.0" prefWidth="254.0" promptText="Entrez une description" GridPane.rowIndex="1" />
+                <ComboBox fx:id="muscleComboBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="253.0" promptText="Muscle" GridPane.rowIndex="2" />
+                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleUploadImage" prefHeight="39.0" prefWidth="183.0" styleClass="primary-button" stylesheets="@assets/css/fullpackstyling.css" text="Upload Image" GridPane.rowIndex="3" />
+                <ImageView fx:id="imageView" fitHeight="161.0" fitWidth="248.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                 <!-- Existing code... -->
             </children>
         </GridPane>
 
-        <VBox layoutY="-3.0" prefHeight="642.0" prefWidth="250.0" style="-fx-background-color: #3F2B63;" AnchorPane.bottomAnchor="-4.0" AnchorPane.topAnchor="-3.0">
+        <VBox layoutX="-7.0" layoutY="-6.0" prefHeight="645.0" prefWidth="257.0" style="-fx-background-color: #3F2B63;" AnchorPane.bottomAnchor="-4.0" AnchorPane.topAnchor="-6.0">
             <children>
-                <Pane prefHeight="200.0" prefWidth="200.0">
+                <Pane prefHeight="213.0" prefWidth="234.0">
                     <children>
                         <ImageView fitHeight="183.0" fitWidth="208.0" layoutX="34.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                             <image>
