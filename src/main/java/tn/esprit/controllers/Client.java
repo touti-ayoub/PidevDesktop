@@ -18,7 +18,6 @@ import java.util.List;
 public class Client {
     @FXML
     private GridPane plansExercisesGrid;
-
     private planService ps = new planService();
 
     @FXML
@@ -27,6 +26,7 @@ public class Client {
             List<plan> plans = ps.recuperer(); // Suppose que cette méthode récupère tous les plans
             int row = 0; // Vous pouvez avoir besoin de gérer à la fois la ligne et la colonne si vous voulez un vrai GridView
             int column = 0;
+            final int maxColumn = 3; // Nombre maximum de colonnes par exemple
             for (plan p : plans) {
                 VBox planBox = new VBox(5); // L'espacement entre les éléments
                 // Créez une ImageView pour l'image du plan
@@ -38,13 +38,15 @@ public class Client {
                     planBox.getChildren().add(planImageView);
                 }
 
-                Label nameLabel = new Label(p.getNOM() + ": " + p.getDESCRIPTION());
+                Label nameLabel = new Label(p.getNOM());
                 nameLabel.getStyleClass().add("plan-label"); // Appliquer la classe CSS au label du nom
                 planBox.getChildren().add(nameLabel);
 
                 // Si vous avez un label séparé pour la description, faites comme ceci :
                 Label descriptionLabel = new Label(p.getDESCRIPTION());
-                descriptionLabel.getStyleClass().add("plan-label"); // Appliquer la classe CSS au label de la description
+                descriptionLabel.setWrapText(true);
+                descriptionLabel.setMaxWidth(200);
+                descriptionLabel.getStyleClass().add("description-label"); // Appliquer la classe CSS au label de la description
                 planBox.getChildren().add(descriptionLabel);
 
                 List<exercice> exercices = ps.getExercicesForPlan(p.getID()); // Méthode pour récupérer les exercices d'un plan
@@ -66,7 +68,7 @@ public class Client {
 
                 // Gestion de la mise en page pour passer à la nouvelle ligne/colonne selon votre conception de grille
                 column++;
-                if (column >= 3) { // Changez ce nombre en fonction du nombre de colonnes que vous souhaitez
+                if (column >= maxColumn) { // Changez ce nombre en fonction du nombre de colonnes que vous souhaitez
                     column = 0;
                     row++;
                 }

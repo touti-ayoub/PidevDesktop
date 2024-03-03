@@ -48,7 +48,6 @@ public class EditExerciceController {
         populateMuscleTargetComboBox();
 
     }
-
     // Méthode pour sauvegarder les modifications
     @FXML
     private void saveExercice() {

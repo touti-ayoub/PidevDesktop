@@ -192,6 +192,10 @@
     -fx-font-size: 20px;
     -fx-text-fill: #000000;
 }
+.description-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #000000;
+}
 
 .exercise-label {
     -fx-font-size: 18px;
