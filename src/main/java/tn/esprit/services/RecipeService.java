@@ -19,6 +19,22 @@ public class RecipeService implements IService<Recipe> {
     // CRUD operations for Recipe
     @Override
     public void ajouter(Recipe recipe) throws SQLException {
+        // Calculate the total nutritional information of the recipe
+        int totalCalories = 0;
+        int totalProtein = 0;
+        int totalCarbs = 0;
+        int totalFat = 0;
+        for (Food food : recipe.getFoods()) {
+            totalCalories += food.getCalories();
+            totalProtein += food.getProtein();
+            totalCarbs += food.getCarbohydrates();
+            totalFat += food.getFat();
+        }
+        recipe.setTotalCalories(totalCalories);
+        recipe.setTotalProtein(totalProtein);
+        recipe.setTotalCarbs(totalCarbs);
+        recipe.setTotalFat(totalFat);
+
         String sql = "INSERT INTO recipe (name, totalCalories, totalProtein, totalCarbs, totalFat) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         statement.setString(1, recipe.getName());
@@ -40,7 +56,12 @@ public class RecipeService implements IService<Recipe> {
             RecipeFood recipeFood = new RecipeFood();
             recipeFood.setIdRecipe(recipe.getIdRecipe());
             recipeFood.setIdFood(food.getId());
-            addFoodToRecipe(recipeFood);
+            // Add the food to the recipe
+            sql = "INSERT INTO recipe_food (IdRecipe, IdFood) VALUES (?, ?)";
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, recipeFood.getIdRecipe());
+            statement.setInt(2, recipeFood.getIdFood());
+            statement.executeUpdate();
         }
     }
 
@@ -55,6 +76,26 @@ public class RecipeService implements IService<Recipe> {
         statement.setInt(5, recipe.getTotalFat());
         statement.setInt(6, recipe.getIdRecipe());
         statement.executeUpdate();
+
+        // Remove all foods from the recipe in the database
+        sql = "DELETE FROM recipe_food WHERE IdRecipe = ?";
+        statement = connection.prepareStatement(sql);
+        statement.setInt(1, recipe.getIdRecipe());
+        statement.executeUpdate();
+
+        // Add each food from the foods list of the recipe to the recipe in the database
+        for (Food food : recipe.getFoods()) {
+            RecipeFood recipeFood = new RecipeFood();
+            recipeFood.setIdRecipe(recipe.getIdRecipe());
+            recipeFood.setIdFood(food.getId());
+            // Add the food to the recipe
+            sql = "INSERT INTO recipe_food (IdRecipe, IdFood) VALUES (?, ?)";
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, recipeFood.getIdRecipe());
+            statement.setInt(2, recipeFood.getIdFood());
+            statement.executeUpdate();
+        }
+
         return 0;
     }
 
@@ -149,8 +190,38 @@ public class RecipeService implements IService<Recipe> {
     }
 
     public void removeFoodFromRecipe(RecipeFood recipeFood) throws SQLException {
-        String sql = "DELETE FROM recipe_food WHERE IdRecipe = ? AND IdFood = ?";
+        // Retrieve the nutritional information of the removed food
+        String sql = "SELECT * FROM food WHERE IdFood = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, recipeFood.getIdFood());
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            int calories = resultSet.getInt("calories");
+            int protein = resultSet.getInt("protein");
+            int carbs = resultSet.getInt("carbohydrates");
+            int fat = resultSet.getInt("fat");
+
+            // Update the nutritional information of the recipe in the database
+            sql = "UPDATE recipe SET totalCalories = totalCalories - ?, totalProtein = totalProtein - ?, totalCarbs = totalCarbs - ?, totalFat = totalFat - ? WHERE IdRecipe = ?";
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, calories);
+            statement.setInt(2, protein);
+            statement.setInt(3, carbs);
+            statement.setInt(4, fat);
+            statement.setInt(5, recipeFood.getIdRecipe());
+            statement.executeUpdate();
+
+            // Update the nutritional information of the recipe in memory
+            Recipe recipe = getRecipeById(recipeFood.getIdRecipe());
+            recipe.setTotalCalories(recipe.getTotalCalories() - calories);
+            recipe.setTotalProtein(recipe.getTotalProtein() - protein);
+            recipe.setTotalCarbs(recipe.getTotalCarbs() - carbs);
+            recipe.setTotalFat(recipe.getTotalFat() - fat);
+        }
+
+        // Remove the food from the recipe in the database
+        sql = "DELETE FROM recipe_food WHERE IdRecipe = ? AND IdFood = ?";
+        statement = connection.prepareStatement(sql);
         statement.setInt(1, recipeFood.getIdRecipe());
         statement.setInt(2, recipeFood.getIdFood());
         statement.executeUpdate();

@@ -67,51 +67,6 @@ public class ViewRecipe {
             System.err.println("Failed to load the page: " + e.getMessage());
         }
     }
-
-    @FXML
-    void deleteRecipe(ActionEvent event) {
-            try {
-                // Load the FXML file
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/deleteRecipe.fxml"));
-
-                // Create the scene
-                Scene scene = new Scene(fxmlLoader.load());
-
-                // Get the current stage
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-                // Set the scene for the stage
-                stage.setScene(scene);
-
-                // Show the stage
-                stage.show();
-            } catch (IOException e) {
-                System.err.println("Failed to load the page: " + e.getMessage());
-            }
-    }
-
-    @FXML
-    void editRecipe(ActionEvent event) {
-        try {
-            // Load the FXML file
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/editRecipe.fxml"));
-
-            // Create the scene
-            Scene scene = new Scene(fxmlLoader.load());
-
-            // Get the current stage
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-            // Set the scene for the stage
-            stage.setScene(scene);
-
-            // Show the stage
-            stage.show();
-        } catch (IOException e) {
-            System.err.println("Failed to load the page: " + e.getMessage());
-        }
-    }
-
     @FXML
     void foodNavigate(ActionEvent event) {
         try {
@@ -200,14 +155,49 @@ public class ViewRecipe {
                         Label caloriesLabel = new Label("Total Calories: " + item.getTotalCalories());
                         VBox vbox = new VBox(nameLabel, caloriesLabel, foodListView);
                         setGraphic(vbox);
+
+                        // Add click event to the list cell
+                        setOnMouseClicked(event -> {
+                            if (event.getClickCount() == 2 && (!isEmpty())) {
+                                Recipe selectedRecipe = getItem();
+                                loadRecipeDetailsPage(selectedRecipe);
+                            }
+                        });
                     }
                 }
             });
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
+    }
 
-    }    private void changeScene(ActionEvent event, String fxml) {
+    private void loadRecipeDetailsPage(Recipe selectedRecipe) {
+        try {
+            // Load the FXML file
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/recipeDetails.fxml"));
+
+            // Create the scene
+            Scene scene = new Scene(fxmlLoader.load());
+
+            // Get the controller of the details page
+            RecipeDetails controller = fxmlLoader.getController();
+
+            // Pass the selected recipe to the details page
+            controller.setRecipe(selectedRecipe);
+
+            // Get the current stage
+            Stage stage = (Stage) listR.getScene().getWindow();
+
+            // Set the scene for the stage
+            stage.setScene(scene);
+
+            // Show the stage
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Failed to load the page: " + e.getMessage());
+        }
+    }
+    private void changeScene(ActionEvent event, String fxml) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxml));
             Scene scene = new Scene(fxmlLoader.load());
