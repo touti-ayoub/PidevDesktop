@@ -140,7 +140,7 @@ public class ViewFood {
 
     public void bminavigate(ActionEvent actionEvent) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/bmi.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/bmr.fxml"));
 
             Scene scene = new Scene(fxmlLoader.load());
 

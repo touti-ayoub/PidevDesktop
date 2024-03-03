@@ -162,21 +162,18 @@ public class FoodService implements IService<Food>{
         return food;
     }
 
-    public List<Food> getFoodSuggestions() throws SQLException {
-        int calorieLimit = 20; // Set this to the appropriate value
+    public List<Food> getFoodSuggestions(double bmr) throws SQLException {
         String sql = "SELECT * FROM food ORDER BY calories ASC";
         PreparedStatement statement = connection.prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();
 
         List<Food> foods = new ArrayList<>();
-        int totalCalories = 0;
-        while (resultSet.next()) {
+        double totalCalories = 0;
+        while (resultSet.next() && totalCalories < bmr) {
             Food food = createFoodFromResultSet(resultSet);
-            if (totalCalories + food.getCalories() <= calorieLimit) {
+            if (totalCalories + food.getCalories() <= bmr) {
                 foods.add(food);
                 totalCalories += food.getCalories();
-            } else {
-                break;
             }
         }
 
