@@ -137,15 +137,29 @@
                </font>
             </Label>
          </children></Pane>
-      <Button layoutX="338.0" layoutY="572.0" mnemonicParsing="false" onAction="#edit" prefHeight="50.0" prefWidth="130.0" styleClass="primary-button" stylesheets="@assets/css/fullpackstyling.css" text="Edit" textFill="WHITE">
+      <Button layoutX="373.0" layoutY="572.0" mnemonicParsing="false" onAction="#edit" prefHeight="50.0" prefWidth="130.0" styleClass="primary-button" stylesheets="@assets/css/fullpackstyling.css" text="Edit" textFill="WHITE">
          <font>
             <Font size="23.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="32.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/icons/edit.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Button>
-      <Button layoutX="598.0" layoutY="572.0" mnemonicParsing="false" onAction="#delete" prefHeight="50.0" prefWidth="130.0" styleClass="primary-button" stylesheets="@assets/css/fullpackstyling.css" text="Delete" textFill="WHITE">
+      <Button layoutX="576.0" layoutY="572.0" mnemonicParsing="false" onAction="#delete" prefHeight="55.0" prefWidth="147.0" styleClass="primary-button" stylesheets="@assets/css/fullpackstyling.css" text="Delete" textFill="WHITE">
          <font>
             <Font size="23.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="32.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/icons/delete.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Button>
    </children>
 </AnchorPane>

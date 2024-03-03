@@ -122,6 +122,13 @@
          <font>
             <Font size="23.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="51.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/icons/edit.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Button>
    </children>
 </AnchorPane>

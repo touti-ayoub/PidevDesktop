@@ -3,8 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -17,7 +16,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.ListView?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="876.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.ViewRecipe">
    <children>
       <VBox prefHeight="642.0" prefWidth="250.0" style="-fx-background-color: #3F2B63;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -50,36 +48,6 @@
                   <ImageView fitHeight="25.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@assets/icons/search.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <padding>
-                  <Insets left="50.0" />
-               </padding>
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Button>
-            <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="36.0" mnemonicParsing="false" onAction="#editRecipe" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@assets/css/fullpackstyling.css" text="Edit Recipe" textFill="WHITE">
-               <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@assets/icons/edit.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <padding>
-                  <Insets left="50.0" />
-               </padding>
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Button>
-            <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="63.0" mnemonicParsing="false" onAction="#deleteRecipe" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@assets/css/fullpackstyling.css" text="Delete Recipe" textFill="WHITE">
-               <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@assets/icons/delete.png" />
                      </image>
                   </ImageView>
                </graphic>
