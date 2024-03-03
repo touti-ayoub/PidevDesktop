@@ -1,10 +1,12 @@
 package tn.esprit.services;
 
 import tn.esprit.models.Participation;
+import tn.esprit.models.Utilisateur;
 import tn.esprit.utils.MyDatabase;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class ParticipationService implements IParticipationService<Participation> {
@@ -14,9 +16,32 @@ public class ParticipationService implements IParticipationService<Participation
     }
     @Override
     public void ajouterParticipation(Participation participation) throws SQLException {
-        String req = "INSERT INTO participation (codeU, codeC, `description`) VALUES ('" + participation.getCodeU() + "','" + participation.getCodeC() + "','" + participation.getDescription() + "')";
-        Statement st = connection.createStatement();
-        st.executeUpdate(req);
+
+
+        // Calculer le tarif réduit
+        float tarifReduit = calculerTarifReduit(participation.getCodeU());
+
+        // Appliquer le tarif réduit au tarif initial
+        float tarifApresReduit = participation.getCompetition().getTarif() * tarifReduit;
+        String req = "INSERT INTO participation (codeU, codeC, description, tarifApresReduit) VALUES (?, ?, ?, ?)";
+        PreparedStatement ps = connection.prepareStatement(req, Statement.RETURN_GENERATED_KEYS);
+        ps.setInt(1, participation.getCodeU());
+        ps.setInt(2, participation.getCodeC());
+        ps.setString(3, participation.getDescription());
+        ps.setFloat(4, tarifApresReduit);
+
+        ps.executeUpdate();
+
+// Récupérer la clé générée automatiquement (codeP)
+        ResultSet generatedKeys = ps.getGeneratedKeys();
+        if (generatedKeys.next()) {
+            int codeP = generatedKeys.getInt(1);
+            // Utiliser le constructeur avec tous les attributs pour créer la participation
+            participation.setCodeP(codeP); // Mettre à jour le codeP de la participation
+            participation.setTarifApresReduit(tarifApresReduit); // Mettre à jour le tarif après réduction        } else {
+        }else {
+            throw new SQLException("Échec de la création de la participation, aucun ID généré.");
+        }
     }
     /*   modifier participant*/
     @Override
@@ -54,37 +79,119 @@ public class ParticipationService implements IParticipationService<Participation
             participations.add(p);
         }
         return participations;
-    }/*
-    @Override
-    public  float getTarifReduitSemestreAnnee(int codeUtilisateur, float tarif) throws SQLException {
-        String query = "SELECT COUNT(*) AS nbrParticipations FROM participation " +
-                "WHERE codeU = ?";
+    }
+    // Ajouter cette méthode pour calculer le tarif réduit
+    private float calculerTarifReduit(int codeU) throws SQLException {
+        // Récupérer les participations de l'utilisateur
+        List<Participation> participationsUtilisateur = recupererParticipationsUtilisateur(codeU);
+//System.out.println(participationsUtilisateur);
+        int participationsDansMois = 0;
+        int participationsDansTroisMois = 0;
+        int participationsDansSixMois = 0;
+        int participationsDansNeufMois = 0;
+        int participationsDansAnnee = 0;
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            // Paramètre : codeU
-            preparedStatement.setInt(1, codeUtilisateur);
-
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    int nbrParticipations = resultSet.getInt("nbrParticipations");
-
-                    // Appliquer la logique de calcul de réduction ici
-                    float reduction = 0.0f;
-
-                    if (nbrParticipations == 5) {
-                        reduction = 0.1f; // 10% pour 5 participations
-                    }
-
-                    // Calculer le tarif réduit en fonction du tarif initial et de la réduction
-                    float tarifReduit = tarif - (tarif * reduction);
-
-                    return tarifReduit;
-                }
+        // Date actuelle
+        Date currentDate = new Date(System.currentTimeMillis());
+//System.out.println("tawa"+currentDate);
+        // Calculer le nombre de participations dans chaque période
+        for (Participation participation : participationsUtilisateur) {
+            Date dateFin = participation.getCompetition().getDateFin();
+System.out.println(dateFin);
+            if (isDateWithinMonths(dateFin, currentDate, 1)) {
+  //              System.out.println("1");
+                participationsDansMois++;
+            }
+            if (isDateWithinMonths(dateFin, currentDate, 3)) {
+//                System.out.println("3");
+                participationsDansTroisMois++;
+            }
+            if (isDateWithinMonths(dateFin, currentDate, 6)) {
+  //              System.out.println("6");
+                participationsDansSixMois++;
+            }
+            if (isDateWithinMonths(dateFin, currentDate, 9)) {
+    //            System.out.println("9");
+                participationsDansNeufMois++;
+            }
+            if (isDateWithinYear(dateFin, currentDate)) {
+                participationsDansAnnee++;
             }
         }
 
-        // Retournez le tarif initial si aucun utilisateur n'a de participation dans la période spécifiée
-        return tarif;
-    }*/
+        /// Appliquer la réduction en fonction du nombre de participations
+        if (participationsDansMois >= 5) {
+            System.out.println("Réduction de 50% appliquée (5 participations dans le mois).");
+          //  System.out.println(participationsDansMois);
+
+
+
+            return 0.5f; // 50% de réduction
+        } else if (participationsDansTroisMois >= 5) {
+            System.out.println("Réduction de 40% appliquée (5 participations dans les trois derniers mois).");
+        //    System.out.println(participationsDansTroisMois);
+
+            return 0.6f; // 40% de réduction
+        } else if (participationsDansSixMois >= 5) {
+            System.out.println("Réduction de 30% appliquée (5 participations dans les six derniers mois).");
+      //     System.out.println(participationsDansSixMois);
+
+            return 0.7f; // 30% de réduction
+        } else if (participationsDansNeufMois >= 5) {
+            System.out.println("Réduction de 20% appliquée (5 participations dans les neuf derniers mois).");
+          // System.out.println(participationsDansNeufMois);
+
+            return 0.8f; // 20% de réduction
+        } else if (participationsDansAnnee >= 5) {
+            System.out.println("Réduction de 10% appliquée (5 participations dans l'année).");
+          //  System.out.println(participationsDansAnnee);
+
+            return 0.9f; // 10% de réduction
+        } else {
+            System.out.println("Aucune réduction appliquée (moins de 5 participations).");
+
+            return 1.0f; // Pas de réduction
+        }
+    }
+    private boolean isDateWithinMonths(Date date, Date currentDate, int months) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(currentDate);
+        cal.add(Calendar.MONTH, -months);
+        Date startDate = new Date(cal.getTimeInMillis());
+        return date.after(startDate) && date.before(currentDate);
+    }
+
+    private boolean isDateWithinYear(Date date, Date currentDate) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(currentDate);
+        cal.add(Calendar.YEAR, -1);
+        Date startDate = new Date(cal.getTimeInMillis());
+        return date.after(startDate) && date.before(currentDate);
+    }
+
+
+
+    // Ajouter cette méthode pour récupérer les participations d'un utilisateur
+    private List<Participation> recupererParticipationsUtilisateur(int codeU) throws SQLException {
+        List<Participation> participationsUtilisateur = new ArrayList<>();
+
+        String req = "SELECT * FROM participation WHERE codeU = ?";
+        PreparedStatement ps = connection.prepareStatement(req);
+        ps.setInt(1, codeU);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Participation p = new Participation();
+            p.setCodeP(rs.getInt("codeP"));
+            p.setCodeU(rs.getInt("codeU"));
+            p.setCodeC(rs.getInt("codeC"));
+            p.setDescription(rs.getString("description"));
+            p.setTarifApresReduit(rs.getFloat("tarifApresReduit"));
+            participationsUtilisateur.add(p);
+        }
+
+        return participationsUtilisateur;
+    }
+
 
 }
