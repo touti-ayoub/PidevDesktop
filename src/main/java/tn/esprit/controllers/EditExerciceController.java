@@ -1,27 +1,37 @@
 package tn.esprit.controllers;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import tn.esprit.models.exercice;
 import tn.esprit.services.exerciceService;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 public class EditExerciceController {
 
     @FXML
     private TextField nomField;
     @FXML
-    private TextField descriptionField;
-    @FXML
-    private TextField muscleField;
+    private TextArea descriptionField;
+
     @FXML
     private ImageView imageView;
+    @FXML
+    private ComboBox<String> muscleComboBox;
 
 
 
@@ -33,8 +43,9 @@ public class EditExerciceController {
         currentExercice = ex;
         nomField.setText(ex.getNOM());
         descriptionField.setText(ex.getDESCRIPTION());
-        muscleField.setText(ex.getMUSCLE_CIBLE());
         imageView.setImage(new Image(ex.getIMAGE_URL()));
+        muscleComboBox.setValue(ex.getMUSCLE_CIBLE());
+        populateMuscleTargetComboBox();
 
     }
 
@@ -43,8 +54,8 @@ public class EditExerciceController {
     private void saveExercice() {
         currentExercice.setNOM(nomField.getText());
         currentExercice.setDESCRIPTION(descriptionField.getText());
-        currentExercice.setMUSCLE_CIBLE(muscleField.getText());
         currentExercice.setIMAGE_URL(imageView.getImage().getUrl());
+        currentExercice.setMUSCLE_CIBLE(muscleComboBox.getValue());
 
         try {
             es.modifier(currentExercice);
@@ -75,9 +86,108 @@ public class EditExerciceController {
         } else {
             System.out.println("No file selected"); // Print a message if no file was selected
         }
+
+
+    }
+    private void populateMuscleTargetComboBox() {
+        try {
+            List<String> muscleTargets = es.getUniqueMuscleTargets();
+            muscleComboBox.getItems().addAll(muscleTargets);
+        } catch (SQLException e) {
+            System.err.println("Failed to populate muscle target ComboBox: " + e.getMessage());
+        }
     }
 
     public exercice getExecice() {
         return currentExercice;
     }
+
+
+
+    @FXML
+    void AfficherPlan(ActionEvent event) {
+        try {
+            // Load the FXML file
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/AfficherPlan.fxml"));
+
+            // Create the scene
+            Scene scene = new Scene(fxmlLoader.load());
+
+            // Get the current stage
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Set the scene for the stage
+            stage.setScene(scene);
+
+            // Show the stage
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Failed to load the page: " + e.getMessage());
+        }
+    }
+    public void AjouterPlan(ActionEvent actionEvent) {
+        try {
+            // Load the FXML file
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/AjouterPlan.fxml"));
+
+            // Create the scene
+            Scene scene = new Scene(fxmlLoader.load());
+
+            // Get the current stage
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+            // Set the scene for the stage
+            stage.setScene(scene);
+
+            // Show the stage
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Failed to load the page: " + e.getMessage());
+        }
+    }
+    public void AfficherExercice(ActionEvent actionEvent) {
+        try {
+            // Load the FXML file
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/AfficherEx.fxml"));
+
+            // Create the scene
+            Scene scene = new Scene(fxmlLoader.load());
+
+            // Get the current stage
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+            // Set the scene for the stage
+            stage.setScene(scene);
+
+            // Show the stage
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Failed to load the page: " + e.getMessage());
+        }
+
+    }
+    @FXML
+    void AjouterExercice(ActionEvent event) {
+        try {
+            // Load the FXML file
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/AjouterExercice.fxml"));
+
+            // Create the scene
+            Scene scene = new Scene(fxmlLoader.load());
+
+            // Get the current stage
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Set the scene for the stage
+            stage.setScene(scene);
+
+            // Show the stage
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Failed to load the page: " + e.getMessage());
+        }
+    }
+
 }
+
+

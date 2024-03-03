@@ -28,7 +28,11 @@ public class ExerciceDetail {
     @FXML
     private Label descriptionLabel;
     @FXML
+    private Label muscleLabel;
+    @FXML
     private ImageView imageView;
+
+
 
     private exerciceService es = new exerciceService();
     private exercice currentExercice;
@@ -38,6 +42,8 @@ public class ExerciceDetail {
         nameLabel.setText(e.getNOM());
         descriptionLabel.setText(e.getDESCRIPTION());
         imageView.setImage(new Image(e.getIMAGE_URL()));
+        muscleLabel.setText(e.getMUSCLE_CIBLE());
+
     }
     @FXML
     private void handleDeleteButton() throws SQLException {
