@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="876.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.Client">
     <ScrollPane fitToWidth="true" fitToHeight="true" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
 
@@ -19,6 +20,7 @@
                     <Insets bottom="10" left="10" right="10" top="10" />
                 </padding> <!-- Correction ici -->
                 <!-- Les éléments (plans et exercices) seront ajoutés dynamiquement ici -->
+                <ImageView fx:id="likeIcon"  />
 
             </GridPane>
 

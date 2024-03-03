@@ -28,7 +28,8 @@ public class Client {
             int column = 0;
             final int maxColumn = 3; // Nombre maximum de colonnes par exemple
             for (plan p : plans) {
-                VBox planBox = new VBox(5); // L'espacement entre les éléments
+                VBox planBox = new VBox(5);
+                // L'espacement entre les éléments
                 // Créez une ImageView pour l'image du plan
                 ImageView planImageView = new ImageView();
                 if (p.getIMAGE_URL() != null && !p.getIMAGE_URL().isEmpty()) {
@@ -64,14 +65,36 @@ public class Client {
                 }
 
                 plansExercisesGrid.add(planBox, column, row);
-                GridPane.setMargin(planBox, new Insets(10)); // Applique une marge autour de chaque VBox
+                GridPane.setMargin(planBox, new Insets(10));
+                Label likesLabel = new Label("Likes: " + p.getLIKES());
+                planBox.getChildren().add(likesLabel);
 
-                // Gestion de la mise en page pour passer à la nouvelle ligne/colonne selon votre conception de grille
+
+                ImageView likeIcon = new ImageView(new Image("img/like.png"));
+                likeIcon.setFitHeight(30);
+                likeIcon.setFitWidth(30);
+                likeIcon.setOnMouseClicked(event -> {
+                    try {
+                        ps.incrementerLikes(p.getID());
+                        int updatedLikes = p.getLIKES() + 1; // Assuming you have a getLIKES method
+                        likesLabel.setText("Likes: " + updatedLikes);
+                        p.setLIKES(updatedLikes); // Update the model (if your plan model has a setter for likes)
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                });
+
+                planBox.getChildren().add(likeIcon);
+                // More setup omitted for brevity
+
+
                 column++;
                 if (column >= maxColumn) { // Changez ce nombre en fonction du nombre de colonnes que vous souhaitez
                     column = 0;
                     row++;
                 }
+
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
