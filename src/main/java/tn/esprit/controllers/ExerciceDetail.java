@@ -52,10 +52,10 @@ public class ExerciceDetail {
             // Refresh the view or close the window
         }
     }
-    public void AjouterPlan(ActionEvent actionEvent) {
+    public void AjouterExercice(ActionEvent actionEvent) {
         try {
             // Load the FXML file
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/AjouterPlan.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/AjouterExercice.fxml"));
 
             // Create the scene
             Scene scene = new Scene(fxmlLoader.load());

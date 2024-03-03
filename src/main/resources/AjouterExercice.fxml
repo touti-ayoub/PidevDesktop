@@ -92,11 +92,11 @@
                         <Font size="13.0" />
                     </font>
                 </Button>
-                <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#AfficherExercice" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@assets/css/fullpackstyling.css" text="Exercices" textFill="WHITE">
+                <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#AfficherPlan" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@assets/css/fullpackstyling.css" text="Plans" textFill="WHITE">
                     <graphic>
                         <ImageView fitHeight="25.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@assets/icons/recipe.png" />
+                                <Image url="@img/icons8-plan-50.png" />
                             </image>
                         </ImageView>
                     </graphic>

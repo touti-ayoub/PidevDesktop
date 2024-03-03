@@ -61,7 +61,7 @@
                <graphic>
                   <ImageView fitHeight="25.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@assets/icons/recipe.png" />
+                        <Image url="@img/icons8-plan-50.png" />
                      </image>
                   </ImageView>
                </graphic>
