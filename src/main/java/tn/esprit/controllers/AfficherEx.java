@@ -80,6 +80,26 @@ public class AfficherEx {
                 System.err.println(e.getMessage());
             }
         }
+    @FXML
+    private void handleExerciceClick() throws SQLException {
+        exercice selectedExercice = listE.getSelectionModel().getSelectedItem();
+        if (selectedExercice != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/ExerciceDetail.fxml"));
+                Parent root = loader.load();
+
+                ExerciceDetail controller = loader.getController();
+                controller.setExercice(selectedExercice);
+
+                // Get the current stage and set the new scene on it
+                Stage stage = (Stage) listE.getScene().getWindow();
+                stage.setScene(new Scene(root));
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
         @FXML
         void AfficherExercice(ActionEvent event) {
             try {

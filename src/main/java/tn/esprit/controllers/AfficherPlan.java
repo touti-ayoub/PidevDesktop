@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -19,6 +20,7 @@ import tn.esprit.models.exercice;
 import tn.esprit.models.plan;
 import tn.esprit.services.planService;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -45,6 +47,26 @@ public class AfficherPlan {
             listP.setItems(observableList);
         } catch (SQLException e) {
             System.err.println("Failed to search foods: " + e.getMessage());
+        }
+    }
+    @FXML
+    private void handlePlanClick() throws SQLException {
+        plan selectedPlan = listP.getSelectionModel().getSelectedItem();
+        if (selectedPlan != null) {
+            try {
+              FXMLLoader loader = new FXMLLoader(getClass().getResource("/PlanDetail.fxml"));
+                            Parent root = loader.load();
+
+                            PlanDetail controller = loader.getController();
+                            controller.setPlan(selectedPlan);
+
+                            // Get the current stage and set the new scene on it
+                            Stage stage = (Stage) listP.getScene().getWindow();
+                            stage.setScene(new Scene(root));
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -162,6 +184,7 @@ public class AfficherPlan {
         } catch (IOException e) {
             System.err.println("Failed to load the page: " + e.getMessage());
         }
+
     }
 
 

@@ -24,12 +24,16 @@ public class Main {
             // cs.modifier(new plan(1,"avancee","pour les anciens"));
             //cs.supprimer(1);
 
-           List<String> c1 = es.getUniqueMuscleTargets();
-            System.out.println(c1);
+         //  List<String> c1 = es.getUniqueMuscleTargets();
+          ///  System.out.println(c1);
          //  List<String> c2 = es.getUniqueMuscleCibles();
             //System.out.println(c2);
      //List<String> s= ps.getUniqueNom();
          //   System.out.println(s);
+            List<exercice> d=  ps.getExercicesForPlan(20);
+            System.out.println(d);
+
+
 
         //plan p = ps.recupererPlanAvecExercices(12);
         //    List<exercice> d = es.rechercherParNom("d");

@@ -16,14 +16,30 @@ public class planService implements IService<plan> {
    //     public void ajouter(plan plan) throws SQLException {
      //      String req = "INSERT INTO plan (NOM,DESCRIPTION) VALUES('"+plan.getNOM()+"','"+plan.getDESCRIPTION()+"')";
        //     Statement st = connection.createStatement();
-         //   st.executeUpdate(req);
-        //}
-
-
+         //   st.executeUpdate(re
 
     @Override
     public void ajouter(plan plan) throws SQLException {
 
+    }
+    public List<exercice> getExercicesForPlan(int idPlan) throws SQLException {
+        List<exercice> exercicesList = new ArrayList<>();
+
+        String reqExercices = "SELECT e.* FROM exercice e JOIN plan_exercice pe ON e.IdExercice = pe.idExercice WHERE pe.idPlan = ?";
+        PreparedStatement psExercices = connection.prepareStatement(reqExercices);
+        psExercices.setInt(1, idPlan);
+        ResultSet rsExercices = psExercices.executeQuery();
+        while (rsExercices.next()) {
+            exercice exercice = new exercice();
+            exercice.setID(rsExercices.getInt("IdExercice"));
+            exercice.setNOM(rsExercices.getString("NOM"));
+            exercice.setDESCRIPTION(rsExercices.getString("DESCRIPTION"));
+            exercice.setMUSCLE_CIBLE(rsExercices.getString("MUSCLE_CIBLE"));
+            exercice.setIMAGE_URL(rsExercices.getString("IMAGE_URL"));
+            exercicesList.add(exercice);
+        }
+
+        return exercicesList;
     }
 
     @Override
@@ -60,11 +76,13 @@ public class planService implements IService<plan> {
 
     @Override
     public void modifier(plan plan) throws SQLException {
-        String req = "UPDATE plan SET NOM=?, DESCRIPTION=? WHERE IdPlan=?";
+        String req = "UPDATE plan SET NOM=?, DESCRIPTION=?, IMAGE_URL=? WHERE IdPlan=?";
         PreparedStatement ps = connection.prepareStatement(req);
         ps.setString(1,plan.getNOM());
         ps.setString(2,plan.getDESCRIPTION());
-        ps.setInt(3,plan.getID());
+        ps.setString(3,plan.getIMAGE_URL());
+        ps.setInt(4,plan.getID());
+
         ps.executeUpdate();
     }
 
@@ -143,7 +161,6 @@ public class planService implements IService<plan> {
             }
             Plan.setExercices(exercicesList); // Assurez-vous que votre classe plan a une méthode pour définir la liste des exercices
         }
-
         return Plan;
     }
     public void deletePlanExerciceByPlanId(int id) throws SQLException {

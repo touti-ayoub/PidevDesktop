@@ -94,7 +94,8 @@
                       <Image url="@img/search_8767612.png" /> <!-- Assurez-vous que le chemin est correct -->
                   </image>
               </ImageView>
-             <ListView fx:id="listP" prefHeight="418.0" prefWidth="409.0" GridPane.rowIndex="2" />
+             <ListView fx:id="listP"  onMouseClicked="#handlePlanClick" prefHeight="418.0" prefWidth="409.0" GridPane.rowIndex="2" />
+
          </children>
       </GridPane>
 

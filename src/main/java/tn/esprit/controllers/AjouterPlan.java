@@ -32,9 +32,7 @@ public class AjouterPlan {
     private ImageView imageView;
     @FXML
     private ListView<exercice> exercicesListView;
-
     private File selectedFile;
-
     private final planService ps = new planService();
     private final exerciceService es = new exerciceService();
 
