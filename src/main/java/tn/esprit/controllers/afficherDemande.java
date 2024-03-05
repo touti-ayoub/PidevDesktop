@@ -1,12 +1,20 @@
 package tn.esprit.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.stage.Stage;
 import tn.esprit.models.Participation;
 import tn.esprit.services.ParticipationService;
 
 import javafx.scene.control.Label;
+
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class afficherDemande {
@@ -27,6 +35,8 @@ public class afficherDemande {
 
     @FXML
     private Button refuserBtn;
+    @FXML
+    private Button retour;
 
     private Participation selectedParticipation; // Declare selectedParticipation here
 
@@ -48,19 +58,28 @@ public class afficherDemande {
     @FXML
     private void handleRefuserButtonClick() {
         if (selectedParticipation != null) {
-            // Assuming your ParticipationService is properly initialized
             ParticipationService participationService = new ParticipationService();
             try {
-                // Call the method to set etatDemande to false
-                participationService.modifierEtatDemande(selectedParticipation.getCodeP(), 1);
+                // Modifier l'état de la demande et obtenir le résultat
+                boolean success = participationService.modifierEtatDemande(selectedParticipation.getCodeP(), 1);
 
-                // You may want to update the UI or perform other actions after refusing
+                if (success) {
+                    // Afficher un message de confirmation
+                    showAlert("Demande réfusée avec succès!");
+                    // Actualiser l'interface ou effectuer d'autres actions si nécessaire
+                } else {
+                    showAlert("Erreur lors de réfuse de la demande.");
+                }
+
             } catch (SQLException e) {
                 e.printStackTrace();
-                // Handle the exception appropriately
+                // Gérer l'exception de manière appropriée
+                showAlert("Une erreur s'est produite. Veuillez réessayer.");
             }
         }
     }
+
+
     @FXML
     private void handleAccepterButtonClick() {
         if (selectedParticipation != null) {
@@ -91,7 +110,38 @@ public class afficherDemande {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+        loadListeDemandeInterface();
     }
+
+
+    @FXML
+    private void handleRetourButtonClick(ActionEvent event) {
+        loadListeDemandeInterface();
+    }
+
+    private void loadListeDemandeInterface() {
+        try {
+            // Load the FXML file for listeParticipation
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/listeDemande.fxml"));
+            Parent root = loader.load();
+
+            // Create a new scene
+            Scene scene = new Scene(root);
+
+            // Get the current stage from the Retour button
+            Stage currentStage = (Stage) retour.getScene().getWindow();
+
+            // Set the new scene in the existing stage
+            currentStage.setScene(scene);
+
+            // Show the existing stage (listeParticipation)
+            currentStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the exception appropriately (display an error message, log it, etc.)
+        }
+    }
+
 
 
 } 

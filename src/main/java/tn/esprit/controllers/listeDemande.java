@@ -118,7 +118,8 @@ public class listeDemande implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/afficherDemande.fxml"));
             Parent root = loader.load();
 
-            afficherDemande controller = loader.getController();  // Change to afficherDemande
+            afficherDemande controller = loader.getController();
+            controller.initData(participation);  // Ajoutez cette ligne pour initialiser les données
 
             Scene scene = new Scene(root);
             Stage stage = new Stage();
@@ -129,6 +130,7 @@ public class listeDemande implements Initializable {
             // Gérez l'exception de manière appropriée (affichage d'un message d'erreur, journalisation, etc.)
         }
     }
+
 
     public void refreshListeParticipations() {
         ParticipationService ps = new ParticipationService();
