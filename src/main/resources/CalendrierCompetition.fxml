@@ -1,20 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.text.Font?>
 <?import javafx.geometry.Insets?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="tn.esprit.controllers.CalendrierCompetition"
-            prefHeight="400.0" prefWidth="600.0">
-    <FlowPane fx:id="calendar" hgap="10.0" layoutX="14.0" layoutY="116.0" prefHeight="498.0" prefWidth="716.0" vgap="5.0" />
-    <HBox alignment="CENTER" layoutX="163.0" layoutY="14.0" prefHeight="44.0" prefWidth="419.0" spacing="5.0">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="428.0" prefWidth="551.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.CalendrierCompetition">
+    <VBox prefHeight="613.0" prefWidth="232.0" style="-fx-background-color: #3F2B63;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <children>
+            <Pane prefHeight="200.0" prefWidth="200.0">
+                <children>
+                    <ImageView fitHeight="183.0" fitWidth="208.0" layoutX="23.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@logo/iron_core.png" />
+                        </image>
+                    </ImageView>
+                </children>
+            </Pane>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#handleListeDemandeButtonClick" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@css/fullpackstyling.css" text="Liste des demandes" textFill="WHITE">
+                <graphic>
+                    <ImageView fitHeight="25.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@logo/add.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+                <padding>
+                    <Insets left="50.0" />
+                </padding>
+                <font>
+                    <Font size="13.0" />
+                </font>
+            </Button>
+
+
+
+        </children>
+    </VBox>
+    <FlowPane fx:id="calendar" hgap="10.0" layoutX="241.0" layoutY="119.0" prefHeight="487.0" prefWidth="582.0" vgap="5.0" />
+    <HBox alignment="CENTER" layoutX="231.0" layoutY="72.0" prefHeight="43.0" prefWidth="602.0" spacing="42.0" style="-fx-background-color: #7156DD;">
+        <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sunday" textAlignment="CENTER" wrappingWidth="53.9660062789917" />
+            <Text layoutX="213.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Monday" textAlignment="CENTER" />
+            <Text layoutX="222.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tuesday" textAlignment="CENTER" />
+            <Text layoutX="232.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wednesday" textAlignment="CENTER" />
+            <Text layoutX="241.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thursday" textAlignment="CENTER" />
+            <Text layoutX="251.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Friday" textAlignment="CENTER" />
+            <Text layoutX="266.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Saturday" textAlignment="CENTER" />
+        </children>
+        <padding>
+            <Insets right="9.0" />
+        </padding>
+    </HBox>
+    <HBox alignment="CENTER" layoutX="231.0" prefHeight="77.0" prefWidth="602.0" spacing="5.0" style="-fx-background-color: #7156DD;">
         <children>
             <Button mnemonicParsing="false" onAction="#backOneMonth" text="&lt;" />
             <Text fx:id="year" strokeType="OUTSIDE" strokeWidth="0.0" text="####">
@@ -29,20 +74,6 @@
             </Text>
             <Button mnemonicParsing="false" onAction="#forwardOneMonth" text="&gt;" />
         </children>
-    </HBox>
-    <HBox alignment="CENTER" layoutX="14.0" layoutY="78.0" prefHeight="44.0" prefWidth="716.0" spacing="88.75">
-        <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Su" textAlignment="CENTER" />
-            <Text layoutX="213.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mo" textAlignment="CENTER" />
-            <Text layoutX="222.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tu" textAlignment="CENTER" />
-            <Text layoutX="232.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="We" textAlignment="CENTER" />
-            <Text layoutX="241.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Th" textAlignment="CENTER" />
-            <Text layoutX="251.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fr" textAlignment="CENTER" />
-            <Text layoutX="266.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sa" textAlignment="CENTER" />
-        </children>
-        <padding>
-            <Insets right="9.0" />
-        </padding>
     </HBox>
 
 </AnchorPane>
