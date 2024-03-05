@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="876.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.RecipeDetails">
+    <children>
+        <VBox prefHeight="642.0" prefWidth="250.0" style="-fx-background-color: #3F2B63;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Pane prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                        <ImageView fitHeight="183.0" fitWidth="208.0" layoutX="34.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@assets/icons/iron_core.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </Pane>
+                <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#addRecipe" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@assets/css/fullpackstyling.css" text="Add Recipe" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@assets/icons/add.png" />
+                            </image></ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Button>
+                <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#viewRecipe" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@assets/css/fullpackstyling.css" text="View Recipe" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@assets/icons/search.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#foodNavigate" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@assets/css/fullpackstyling.css" text="Food" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/icons/food.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
+            </children>
+        </VBox>
+        <Pane layoutX="250.0" layoutY="95.0" prefHeight="118.0" prefWidth="633.0" style="-fx-background-color: #7156DD;" AnchorPane.leftAnchor="250.39999999999998" AnchorPane.rightAnchor="-7.600000000000023">
+            <children>
+                <Label layoutX="30.0" layoutY="34.0" text="Recipe Details" textFill="WHITE">
+                    <font>
+                        <Font size="35.0" />
+                    </font>
+                </Label>
+            </children></Pane>
+      <GridPane layoutX="299.2" layoutY="210.0" prefHeight="162.0" prefWidth="535.0" AnchorPane.leftAnchor="299.2" AnchorPane.rightAnchor="42.40000000000009">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="96.00000610351563" minHeight="10.0" prefHeight="54.9999755859375" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="187.9999755859375" minHeight="10.0" prefHeight="50.20001220703125" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="218.19998779296876" minHeight="10.0" prefHeight="62.19998779296877" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label fx:id="nameLabel" text="Label">
+               <font>
+                  <Font name="System Bold" size="26.0" />
+               </font>
+            </Label>
+            <Label fx:id="caloriesLabel" text="Label" GridPane.rowIndex="1">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="proteinLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="fatLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="carbsLabel" text="Label" GridPane.rowIndex="2">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+      <ListView fx:id="foodListView" layoutX="265.0" layoutY="376.0" prefHeight="177.0" prefWidth="584.0" />
+      <Button layoutX="571.0" layoutY="572.0" mnemonicParsing="false" onAction="#delete" prefHeight="55.0" prefWidth="150.0" styleClass="primary-button" stylesheets="@assets/css/fullpackstyling.css" text="Delete" textFill="WHITE">
+         <font>
+            <Font size="23.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="28.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/icons/delete.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+        <Button layoutX="383.0" layoutY="572.0" mnemonicParsing="false" onAction="#edit" prefHeight="55.0" prefWidth="150.0" styleClass="primary-button" stylesheets="@assets/css/fullpackstyling.css" text="Edit" textFill="WHITE">
+            <font>
+                <Font size="23.0" />
+            </font>
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/icons/edit.png" />
+               </image>
+            </ImageView>
+         </graphic>
+        </Button>
+    </children>
+</AnchorPane>

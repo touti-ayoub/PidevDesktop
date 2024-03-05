@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="876.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.ViewRecipe">
+   <children>
+      <VBox prefHeight="642.0" prefWidth="250.0" style="-fx-background-color: #3F2B63;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <ImageView fitHeight="183.0" fitWidth="208.0" layoutX="34.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/icons/iron_core.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#addRecipe" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@assets/css/fullpackstyling.css" text="Add Recipe" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/icons/add.png" />
+                     </image></ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#viewRecipe" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@assets/css/fullpackstyling.css" text="View Recipe" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/icons/search.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="361.0" mnemonicParsing="false" onAction="#foodNavigate" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@assets/css/fullpackstyling.css" text="Food" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/icons/food.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+      <GridPane layoutX="278.0" layoutY="233.0" prefHeight="391.0" prefWidth="578.0" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="278.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="233.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="145.4" minHeight="10.0" prefHeight="69.40001831054687" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="320.79998168945315" minHeight="10.0" prefHeight="320.79998168945315" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <ListView fx:id="listR" layoutX="278.0" layoutY="278.0" prefHeight="295.0" prefWidth="578.0" stylesheets="@assets/css/fullpackstyling.css" AnchorPane.leftAnchor="277.6" AnchorPane.rightAnchor="19.600000000000023" GridPane.rowIndex="1" />
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <TextField fx:id="searchTF" onKeyReleased="#searchByKeyword" prefHeight="26.0" prefWidth="438.0" />                  <Button graphicTextGap="10.0" mnemonicParsing="false" styleClass="button4" stylesheets="@assets/css/fullpackstyling.css" text="Search" textFill="WHITE">
+                  <graphic>
+                     <ImageView fitHeight="18.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@assets/icons/search2.png" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+               </Button>
+               </children>
+            </HBox>
+         </children>
+      </GridPane>
+      <Pane layoutX="250.0" layoutY="95.0" prefHeight="118.0" prefWidth="633.0" style="-fx-background-color: #7156DD;" AnchorPane.leftAnchor="250.39999999999998" AnchorPane.rightAnchor="-7.600000000000023">
+         <children>
+            <Label layoutX="30.0" layoutY="34.0" text="Recipes List" textFill="WHITE">
+               <font>
+                  <Font size="35.0" />
+               </font>
+            </Label>
+         </children></Pane>
+   </children>
+</AnchorPane>
