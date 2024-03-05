@@ -43,9 +43,9 @@ public class afficherCompetitionUser implements Initializable {
 
     @FXML
     private Button demanderParticipation;
-
     @FXML
     private Button retour;
+
 
     private Competition selectedCompetition;
 
@@ -91,25 +91,32 @@ public class afficherCompetitionUser implements Initializable {
         // Get the selected competition and user
         Utilisateur selectedUser = comboUser.getValue();
 
-        // Create a Participation instance with the selected competition, user, and other details
-        Participation participation = new Participation(selectedUser.getCodeU(), selectedCompetition.getCodeC(), "Your Description Here");
-
+        // Check if the user has already participated in the selected competition
         try {
-            ParticipationService ps = new ParticipationService();
+            ParticipationService participationService = new ParticipationService();
+            boolean participationExistante = participationService.verifierParticipationExistante(selectedUser.getCodeU(), selectedCompetition.getCodeC());
 
-            // Call the ajouterParticipation method in ParticipationService
-            ps.ajouterParticipation(participation);
+            if (participationExistante) {
+                showMessageDialog("Participation Existante", "Vous avez déjà demandé de participer à cette compétition.");
+            } else {
+                // Create a Participation instance with the selected competition, user, and other details
+                Participation participation = new Participation(selectedUser.getCodeU(), selectedCompetition.getCodeC(), "Your Description Here");
 
-            // Show a message dialog with information about the added participation
-            showMessageDialog("Participation Added", "Participation added successfully!\nDetails:\n" + selectedUser + "\n" + selectedCompetition+" tarif aprés réduction"+participation.getTarifApresReduit());
+                // Call the ajouterParticipation method in ParticipationService
+                participationService.ajouterParticipation(participation);
 
-            // Close the current scene
-            Stage stage = (Stage) demanderParticipation.getScene().getWindow();
-            stage.close();
+                // Show a message dialog with information about the added participation
+                showMessageDialog("Participation Ajoutée", "Participation ajoutée avec succès !\nDétails:\n" + selectedUser + "\n" + selectedCompetition + " tarif après réduction" + participation.getTarifApresReduit());
+
+                // Close the current scene
+                Stage stage = (Stage) demanderParticipation.getScene().getWindow();
+                stage.close();
+            }
         } catch (SQLException e) {
             e.printStackTrace(); // Handle the exception appropriately
         }
     }
+
 
     // Method to show a message dialog
     private void showMessageDialog(String title, String content) {
