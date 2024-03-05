@@ -9,6 +9,8 @@ public class plan {
     //objectif du plan
     private int ID ,LIKES;
     private String NOM, DESCRIPTION,IMAGE_URL;
+    private boolean est_premium;
+
 
     public int getLIKES() {
         return LIKES;
@@ -99,6 +101,13 @@ public class plan {
         this.exercices = exercices;
     }
 
+    public boolean isEst_premium() {
+        return est_premium;
+    }
+
+    public void setEst_premium(boolean est_premium) {
+        this.est_premium = est_premium;
+    }
 
     @Override
     public String toString() {
@@ -111,4 +120,6 @@ public class plan {
                 ", exercices=" + exercices +
                 '}';
     }
+
+
 }

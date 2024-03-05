@@ -113,6 +113,28 @@ public class planService implements IService<plan> {
             System.out.println("Data from database: " + plans); // Print the data
             return plans;
         }
+    public void mettreAJourPlan(plan p) throws SQLException {
+        String reqPlan = "UPDATE plan SET est_premium = ? WHERE IdPlan = ?";
+
+
+             PreparedStatement psPlan = connection.prepareStatement(reqPlan);
+             try {
+            psPlan.setBoolean(1, p.isEst_premium()); // Assigne la valeur de est_premium
+            psPlan.setInt(2, p.getID()); // Assigne l'ID du plan à mettre à jour
+
+            int affectedRows = psPlan.executeUpdate(); // Exécute la mise à jour
+
+            if (affectedRows > 0) {
+                System.out.println("Le plan a été mis à jour avec succès.");
+            } else {
+                System.out.println("Aucune mise à jour effectuée. Vérifiez que l'ID du plan existe.");
+            }
+        } catch (SQLException e) {
+            System.err.println("Erreur lors de la mise à jour du plan : " + e.getMessage());
+            throw e; // Rethrow l'exception pour gestion externe si nécessaire
+        }
+    }
+
     public List<plan> rechercherParNom(String nom) throws SQLException {
         List<plan> plans = new ArrayList<>();
         String query = "SELECT * FROM plan WHERE NOM LIKE ?";

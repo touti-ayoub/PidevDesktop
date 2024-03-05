@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+
+<AnchorPane fx:controller="tn.esprit.controllers.PaymentFormController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane layoutX="75.0" layoutY="59.0" prefHeight="282.0" prefWidth="450.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TextField fx:id="clientNameField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="37.0" prefWidth="215.0" promptText="name" styleClass="search-field" stylesheets="@assets/css/fullpackstyling.css" />
+            <TextField fx:id="emailField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" promptText="email" styleClass="search-field" stylesheets="@assets/css/fullpackstyling.css" GridPane.columnIndex="1" />
+            <TextField fx:id="cardNumberField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" promptText="Card Number" styleClass="search-field" stylesheets="@assets/css/fullpackstyling.css" GridPane.rowIndex="1" />
+            <TextField fx:id="expMonthField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" promptText="Expiration Month" styleClass="search-field" stylesheets="@assets/css/fullpackstyling.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="expYearField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" promptText="Expiration Year" styleClass="search-field" stylesheets="@assets/css/fullpackstyling.css" GridPane.rowIndex="2" />
+            <TextField fx:id="cvcField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" promptText="CVC" styleClass="search-field" stylesheets="@assets/css/fullpackstyling.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+         </children>
+      </GridPane>
+      <Button layoutX="273.0" layoutY="341.0" onAction="#processPayment" styleClass="primary-button" stylesheets="@assets/css/fullpackstyling.css" text="Submit" />
+      <Label layoutX="227.0" layoutY="14.0" prefHeight="59.0" prefWidth="147.0" />
+      <ImageView fitHeight="78.0" fitWidth="98.0" layoutX="261.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@assets/icons/iron_core_black.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

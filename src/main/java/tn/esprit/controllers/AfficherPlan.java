@@ -54,15 +54,15 @@ public class AfficherPlan {
         plan selectedPlan = listP.getSelectionModel().getSelectedItem();
         if (selectedPlan != null) {
             try {
-              FXMLLoader loader = new FXMLLoader(getClass().getResource("/PlanDetail.fxml"));
-                            Parent root = loader.load();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/PlanDetail.fxml"));
+                Parent root = loader.load();
 
-                            PlanDetail controller = loader.getController();
-                            controller.setPlan(selectedPlan);
+                PlanDetail controller = loader.getController();
+                controller.setPlan(selectedPlan);
 
-                            // Get the current stage and set the new scene on it
-                            Stage stage = (Stage) listP.getScene().getWindow();
-                            stage.setScene(new Scene(root));
+                // Get the current stage and set the new scene on it
+                Stage stage = (Stage) listP.getScene().getWindow();
+                stage.setScene(new Scene(root));
 
             } catch (IOException e) {
                 e.printStackTrace();
