@@ -38,13 +38,19 @@ public class afficherParticipation {
     private Participation selectedParticipation; // Déclarer selectedCompetition ici
 
     public void initData(Participation participation) {
-    selectedParticipation = participation;
-        codeP.setText("Participation: " + participation.getCodeP());
-    codeU.setText("Participant: " + participation.getCodeU());
-    codeC.setText("Compétition: " + participation.getCodeC());
-    desc.setText("Description: " + participation.getDescription());
-}
-   @FXML
+        if (participation != null) {
+            selectedParticipation = participation;
+            codeP.setText("Participant   : " + participation.getUtilisateur().getPrenom());
+            codeU.setText("Compétition   : " + participation.getCompetition().getLibelle());
+            codeC.setText("date de déubt : " + participation.getCompetition().getDateDebut());
+            desc.setText("date de fin   : " + participation.getCompetition().getDateFin());
+        } else {
+            // Gérez le cas où participation est null (affichage d'un message d'erreur, log, etc.)
+            System.err.println("Erreur: La participation est null dans initData.");
+        }
+    }
+
+    @FXML
     private void handleModifierButtonClick2(ActionEvent event) {
         // Utilisez la participation actuellement affichée
         if (selectedParticipation != null) {
@@ -142,24 +148,26 @@ public class afficherParticipation {
 
     private void loadListeParticipationInterface() {
         try {
+            // Load the FXML file for listeParticipation
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/listeParticipation.fxml"));
             Parent root = loader.load();
 
-            // Créez une nouvelle scène et configurez-la dans votre stage principal
+            // Create a new scene
             Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.setScene(scene);
 
-            // Montrez la nouvelle scène
-            stage.show();
-
-            // Fermez la scène actuelle (afficherCompetition)
+            // Get the current stage from the Retour button
             Stage currentStage = (Stage) retour.getScene().getWindow();
-            currentStage.close();
+
+            // Set the new scene in the existing stage
+            currentStage.setScene(scene);
+
+            // Show the existing stage (listeParticipation)
+            currentStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            // Gérez l'exception de manière appropriée (affichage d'un message d'erreur, journalisation, etc.)
+            // Handle the exception appropriately (display an error message, log it, etc.)
         }
     }
+
 
 }
