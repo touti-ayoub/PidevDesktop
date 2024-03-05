@@ -52,8 +52,6 @@ public class ajouterParticipation {
     }
 
     @FXML
-
-
     public void ajouterParticipation(javafx.event.ActionEvent actionEvent) throws SQLException, IOException {
             // Récupérer la compétition sélectionnée
             Competition competitionSelectionnee = listCompetition.getValue();

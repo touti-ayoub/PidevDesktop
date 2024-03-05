@@ -14,7 +14,9 @@ public interface ICompetitionService <C>{
 
     List<C> recuperer() throws SQLException;
     // List<C> rechercherParDate(Date dateDebut, Date dateFin) throws SQLException ;
-     Competition recupererParId(int codeC) throws SQLException;
+    // Competition recupererParId(int codeC) throws SQLException;
      List<Competition> rechercherParLibelle(String libelleRecherche) throws SQLException ;
 
-    }
+    //pour calendrier
+    List<Competition> getCompetitionsByMonth(int month, int year) throws SQLException;
+}

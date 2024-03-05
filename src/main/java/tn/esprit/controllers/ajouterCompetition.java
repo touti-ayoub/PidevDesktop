@@ -105,5 +105,42 @@ float tarif =Float.parseFloat(tarifTxt.getText());
             }
         }
     }
+    @FXML
+    private void handleListeDemandeButtonClick(ActionEvent event) {
+        try {
+            // Chargez une nouvelle scène avec le fichier FXML de l'interface d'ajout de compétition
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/listeDemande.fxml"));
+            Parent root = loader.load();
 
+            // Créez une nouvelle scène et configurez-la dans votre stage principal
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+
+            // Montrer la nouvelle scène
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Gérer l'exception de manière appropriée (affichage d'un message d'erreur, journalisation, etc.)
+        }
+    }
+    @FXML
+    private void handleListeCompetitionButtonClick(ActionEvent event) {
+        try {
+            // Chargez une nouvelle scène avec le fichier FXML de l'interface d'ajout de compétition
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/listeCompetition.fxml"));
+            Parent root = loader.load();
+
+            // Créez une nouvelle scène et configurez-la dans votre stage principal
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+
+            // Montrer la nouvelle scène
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Gérer l'exception de manière appropriée (affichage d'un message d'erreur, journalisation, etc.)
+        }
+    }
 }

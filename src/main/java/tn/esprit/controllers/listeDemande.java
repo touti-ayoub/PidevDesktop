@@ -2,6 +2,7 @@ package tn.esprit.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -45,35 +46,7 @@ public class listeDemande implements Initializable {
 
     @FXML
     private Label lienC;
-    private void loadListeCompetitionInterface() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/listeCompetition.fxml"));
-            Parent root = loader.load();
 
-            listeCompetition controllerListeCompetition = loader.getController();
-            controllerListeCompetition.refreshListeCompetitions();  // Rafraîchir la liste si nécessaire
-
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.setScene(scene);
-
-            // Montrez la nouvelle scène
-            stage.show();
-
-            // Fermez la scène actuelle (listeParticipation)
-            Stage currentStage = (Stage) lienC.getScene().getWindow();
-            currentStage.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Gérez l'exception de manière appropriée (affichage d'un message d'erreur, journalisation, etc.)
-        }
-    }
-
-    @FXML
-    private void handleCompetitionLabelClick(MouseEvent event) {
-        // Chargez la liste des compétitions
-        loadListeCompetitionInterface();
-    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
@@ -144,27 +117,42 @@ public class listeDemande implements Initializable {
         }
     }
     @FXML
-    private void handleAjouterParticipationClick(MouseEvent event) {
+    private void handleCompetitionLabelClick(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ajouterParticipation.fxml"));
+            // Chargez une nouvelle scène avec le fichier FXML de l'interface d'ajout de compétition
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/listeCompetition.fxml"));
             Parent root = loader.load();
 
-            ajouterParticipation controllerAjouterParticipation = loader.getController();
-            // Vous pouvez ajouter des initialisations supplémentaires ici si nécessaire
-
+            // Créez une nouvelle scène et configurez-la dans votre stage principal
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setScene(scene);
 
-            // Montrez la nouvelle scène
+            // Montrer la nouvelle scène
             stage.show();
-
-            // Fermez la scène actuelle (listeParticipation)
-            Stage currentStage = (Stage) lienAjoutP.getScene().getWindow();
-            currentStage.close();
         } catch (IOException e) {
             e.printStackTrace();
-            // Gérez l'exception de manière appropriée (affichage d'un message d'erreur, journalisation, etc.)
+            // Gérer l'exception de manière appropriée (affichage d'un message d'erreur, journalisation, etc.)
+        }
+    }
+
+    @FXML
+    private void handleAjouterParticipationClick(ActionEvent event) {
+        try {
+            // Chargez une nouvelle scène avec le fichier FXML de l'interface d'ajout de compétition
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ajouterCompetition.fxml"));
+            Parent root = loader.load();
+
+            // Créez une nouvelle scène et configurez-la dans votre stage principal
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+
+            // Montrer la nouvelle scène
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Gérer l'exception de manière appropriée (affichage d'un message d'erreur, journalisation, etc.)
         }
     }
 

@@ -27,11 +27,11 @@
                   </ImageView>
                </children>
             </Pane>
-            <Button fx:id="retour" alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#handleRetourButtonClick" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@css/fullpackstyling.css" text="return" textFill="WHITE">
+            <Button fx:id="retour" alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#handleRetourButtonClick" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@css/fullpackstyling.css" text="retour" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="25.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@logo/add.png" />
+                        <Image url="@logo/retour22.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -42,7 +42,7 @@
                   <Font size="13.0" />
                </font>
             </Button>
-            <Button fx:id="modifierP" alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#handleModifierButtonClick2" prefHeight="50.0" prefWidth="200.0" styleClass="button2" stylesheets="@css/fullpackstyling.css" text="Update Demande" textFill="WHITE">
+            <Button fx:id="modifierP" alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#handleModifierButtonClick2" prefHeight="50.0" prefWidth="200.0" styleClass="button2" stylesheets="@css/fullpackstyling.css" text="modifier Demande" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="25.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -58,7 +58,7 @@
                </font>
             </Button>
 
-            <Button fx:id="supprimer" alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#handleModifierButtonClick2" prefHeight="50.0" prefWidth="200.0" styleClass="button2" stylesheets="@css/fullpackstyling.css" text="Delete Demande" textFill="WHITE">
+            <Button fx:id="supprimer" alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#handleSupprimerButtonClick" prefHeight="50.0" prefWidth="221.0" styleClass="button2" stylesheets="@css/fullpackstyling.css" text="Supprimer Demande" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="25.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -79,7 +79,7 @@
       </VBox>
       <HBox alignment="CENTER" layoutX="253.0" prefHeight="102.0" prefWidth="547.0" style="-fx-background-color: #684fe7;">
          <children>
-            <Label prefHeight="27.0" prefWidth="268.0" text="View demande" textFill="WHITE">
+            <Label prefHeight="27.0" prefWidth="268.0" text="afficher demandes" textFill="WHITE">
                <font>
                   <Font name="Cambria Bold" size="22.0" />
                </font>

@@ -23,6 +23,7 @@ public class UtilisateurService implements IUtilisateurService<Utilisateur> {
             Utilisateur u = new Utilisateur();
             u.setCodeU(rs.getInt("codeU"));
             u.setPrenom(rs.getString("prenom"));
+//            u.setNbrParticipation(rs.getInt(""));
             utilisateurs.add(u);
         }
         return utilisateurs;
@@ -55,5 +56,18 @@ public class UtilisateurService implements IUtilisateurService<Utilisateur> {
 
         // Retournez null si aucun utilisateur n'est trouvé avec l'ID donné
         return null;
+    }
+
+//pour incrémenter le nbr de participation
+    @Override
+    public void modifier(Utilisateur utilisateur) throws SQLException {
+        // Implémentez la logique pour mettre à jour un utilisateur dans la base de données
+        String req = "UPDATE utilisateur SET prenom=? WHERE codeU=?";
+        try (PreparedStatement ps = connection.prepareStatement(req)) {
+            ps.setString(1, utilisateur.getPrenom());
+            ps.setInt(2, utilisateur.getCodeU());
+
+            ps.executeUpdate();
+        }
     }
 }

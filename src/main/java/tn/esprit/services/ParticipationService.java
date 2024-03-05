@@ -1,7 +1,6 @@
 package tn.esprit.services;
 
 import tn.esprit.models.Participation;
-import tn.esprit.models.Utilisateur;
 import tn.esprit.utils.MyDatabase;
 
 import java.sql.*;
@@ -23,14 +22,16 @@ public class ParticipationService implements IParticipationService<Participation
 
         // Appliquer le tarif réduit au tarif initial
         float tarifApresReduit = participation.getCompetition().getTarif() * tarifReduit;
-        String req = "INSERT INTO participation (codeU, codeC, description, tarifApresReduit) VALUES (?, ?, ?, ?)";
+        String req = "INSERT INTO participation (codeU, codeC, description, tarifApresReduit, etatDemande) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement ps = connection.prepareStatement(req, Statement.RETURN_GENERATED_KEYS);
         ps.setInt(1, participation.getCodeU());
         ps.setInt(2, participation.getCodeC());
         ps.setString(3, participation.getDescription());
         ps.setFloat(4, tarifApresReduit);
+        ps.setInt(5, participation.getEtatDemande()); // Ajoutez cette ligne pour le champ etatDemande
 
         ps.executeUpdate();
+
 
 // Récupérer la clé générée automatiquement (codeP)
         ResultSet generatedKeys = ps.getGeneratedKeys();
@@ -80,6 +81,50 @@ public class ParticipationService implements IParticipationService<Participation
         }
         return participations;
     }
+    //les demandes
+    @Override
+    public List<Participation> recupererAccepte() throws SQLException {
+        List<Participation> participations = new ArrayList<>();
+
+        String req = "SELECT * FROM participation WHERE etatDemande = 2";
+        Statement st = connection.createStatement();
+        ResultSet rs = st.executeQuery(req);
+
+        while (rs.next()) {
+            Participation p = new Participation();
+            p.setCodeP(rs.getInt("codeP"));
+            p.setCodeU(rs.getInt("codeU"));
+            p.setCodeC(rs.getInt("codeC"));
+            p.setDescription(rs.getString("description"));
+            p.setTarifApresReduit(rs.getFloat("tarifApresReduit"));
+            p.setEtatDemande(rs.getInt("etatDemande"));
+            participations.add(p);
+        }
+
+        return participations;
+    }
+
+    public List<Participation> recupererRefuser() throws SQLException {
+        List<Participation> participations = new ArrayList<>();
+
+        String req = "SELECT * FROM participation WHERE etatDemande = 1";
+        Statement st = connection.createStatement();
+        ResultSet rs = st.executeQuery(req);
+
+        while (rs.next()) {
+            Participation p = new Participation();
+            p.setCodeP(rs.getInt("codeP"));
+            p.setCodeU(rs.getInt("codeU"));
+            p.setCodeC(rs.getInt("codeC"));
+            p.setDescription(rs.getString("description"));
+            p.setTarifApresReduit(rs.getFloat("tarifApresReduit"));
+            p.setEtatDemande(rs.getInt("etatDemande"));
+            participations.add(p);
+        }
+
+        return participations;
+    }
+
     // Ajouter cette méthode pour calculer le tarif réduit
     private float calculerTarifReduit(int codeU) throws SQLException {
         // Récupérer les participations de l'utilisateur
@@ -192,6 +237,31 @@ System.out.println(dateFin);
 
         return participationsUtilisateur;
     }
+    public boolean modifierEtatDemande(int codeP, int newEtatDemande) throws SQLException {
+        String req = "UPDATE participation SET etatDemande = ? WHERE codeP = ?";
+        try (PreparedStatement ps = connection.prepareStatement(req)) {
+            ps.setInt(1, newEtatDemande);
+            ps.setInt(2, codeP);
+            int rowsUpdated = ps.executeUpdate();
 
+            // Retourne true si au moins une ligne a été mise à jour, sinon false
+            return rowsUpdated > 0;
+        }
+    }
+
+    public boolean verifierParticipationExistante(int codeU, int codeC) throws SQLException {
+        String query = "SELECT COUNT(*) FROM participation WHERE codeU = ? AND codeC = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, codeU);
+            preparedStatement.setInt(2, codeC);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    int count = resultSet.getInt(1);
+                    return count > 0;
+                }
+            }
+        }
+        return false;
+    }
 
 }

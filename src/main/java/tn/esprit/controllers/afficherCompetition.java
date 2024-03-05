@@ -5,17 +5,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
 import tn.esprit.models.Competition;
+import tn.esprit.models.Utilisateur;
 import tn.esprit.services.CompetitionService;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 
 public class afficherCompetition {
@@ -42,11 +41,36 @@ public class afficherCompetition {
 
     public void initData(Competition competition) {
         selectedCompetition = competition;
-        libelleLabel.setText("Compétition: " + competition.getLibelle());
-        dateDebutLabel.setText("Date de début: " + competition.getDateDebut());
-        dateFinLabel.setText("Date de fin: " + competition.getDateFin().toString());
-        tarifLabel.setText("Tarif: " + competition.getTarif());
+
+        if (competition != null) {
+            libelleLabel.setText("Compétition: " + (competition.getLibelle() != null ? competition.getLibelle() : ""));
+            dateDebutLabel.setText("Date de début: " + (competition.getDateDebut() != null ? competition.getDateDebut() : ""));
+
+            if (competition.getDateFin() != null) {
+                dateFinLabel.setText("Date de fin: " + competition.getDateFin().toString());
+            } else {
+                dateFinLabel.setText("Date de fin: N/A");
+            }
+
+            // Check if tarif is not equal to 0 before setting the label
+            if (competition.getTarif() != 0) {
+                tarifLabel.setText("Tarif: " + competition.getTarif());
+            } else {
+                tarifLabel.setText("Tarif: N/A");
+            }
+        } else {
+            // Handle the case where competition is null, perhaps log an error or throw an exception
+            // You might also want to set default values for the labels or clear them, depending on your requirements
+            libelleLabel.setText("Compétition: N/A");
+            dateDebutLabel.setText("Date de début: N/A");
+            dateFinLabel.setText("Date de fin: N/A");
+            tarifLabel.setText("Tarif: N/A");
+        }
     }
+
+
+
+
     @FXML
     private void handleModifierButtonClick(ActionEvent event) {
         // Utilisez la compétition actuellement affichée

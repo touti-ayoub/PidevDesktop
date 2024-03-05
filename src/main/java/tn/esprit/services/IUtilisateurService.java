@@ -10,4 +10,6 @@ public interface IUtilisateurService<U> {
 
 
     Utilisateur recupererParId(int codeU) throws SQLException;
-}
+    public void modifier(Utilisateur utilisateur) throws SQLException ;
+
+    }

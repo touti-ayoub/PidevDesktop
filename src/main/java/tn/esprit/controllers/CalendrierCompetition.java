@@ -215,4 +215,30 @@ public class CalendrierCompetition implements Initializable {
             // Handle the exception appropriately (display an error message, logging, etc.)
         }
     }
+
+    @FXML
+    private void handleListeCompetitionButtonClick(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/listeCompetition.fxml"));
+            Parent root = loader.load();
+
+            // If CalendrierCompetition.fxml controller needs initialization, you can get the controller instance
+            // CalendrierCompetitionController controllerCalendrierCompetition = loader.getController();
+            // Perform any initialization if needed
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+
+            // Optionally, you can close the current stage (listeParticipation)
+            Stage currentStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            currentStage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the exception appropriately (display an error message, logging, etc.)
+        }
+    }
+
+
 }

@@ -27,6 +27,10 @@ public class modifierCompetition {
 
     @FXML
     private TextField nbr;
+
+    @FXML
+    private Button annuler;
+
     private Competition competition;
     private CompetitionService competitionService=new CompetitionService(); // Ajoutez le service
 
@@ -123,6 +127,16 @@ public class modifierCompetition {
                     alert.show();
                 }
             }
+        }
+    }
+    @FXML
+    private void handleAnnulerButtonClick(ActionEvent event) {
+        // Close the modifierCompetition window
+        annuler.getScene().getWindow().hide();
+
+        // If you need to refresh the afficherCompetition interface, you can call the refresh method here
+        if (afficherCompetition != null) {
+            afficherCompetition.refreshCompetitions();
         }
     }
 

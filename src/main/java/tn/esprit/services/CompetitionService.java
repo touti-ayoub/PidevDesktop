@@ -117,5 +117,30 @@ public class CompetitionService implements ICompetitionService<Competition> {
 
         return competitions;
     }
+//pour calendrier
+@Override
+public List<Competition> getCompetitionsByMonth(int month, int year) throws SQLException {
+    List<Competition> competitions = new ArrayList<>();
+    String query = "SELECT * FROM competition WHERE MONTH(dateDebut) = ? AND YEAR(dateDebut) = ?";
+
+    try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        preparedStatement.setInt(1, month);
+        preparedStatement.setInt(2, year);
+
+        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                Competition c = new Competition();
+                c.setCodeC(resultSet.getInt("codeC"));
+                c.setLibelle(resultSet.getString("libelle"));
+                c.setDateDebut(resultSet.getDate("dateDebut"));
+                c.setDateFin(resultSet.getDate("dateFin"));
+                c.setTarif(resultSet.getFloat("tarif"));
+                competitions.add(c);
+            }
+        }
+    }
+
+    return competitions;
+}
 
 }

@@ -45,7 +45,7 @@
 
          </children>
       </VBox>
-      <HBox alignment="CENTER" layoutX="250.0" prefHeight="92.0" prefWidth="551.0" style="-fx-background-color: #684fe7;">
+      <HBox alignment="CENTER" layoutX="250.0" prefHeight="129.0" prefWidth="551.0" style="-fx-background-color: #684fe7;">
          <children>
             <Label text="Liste demandes participations" textFill="WHITE">
                <font>

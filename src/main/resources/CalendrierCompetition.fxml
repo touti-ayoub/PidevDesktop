@@ -39,6 +39,21 @@
                     <Font size="13.0" />
                 </font>
             </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#handleListeCompetitionButtonClick" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@css/fullpackstyling.css" text="Liste des compétitions" textFill="WHITE">
+                <graphic>
+                    <ImageView fitHeight="25.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@logo/search.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+                <padding>
+                    <Insets left="50.0" />
+                </padding>
+                <font>
+                    <Font size="13.0" />
+                </font>
+            </Button>
 
 
 
