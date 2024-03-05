@@ -2,14 +2,13 @@ package tn.esprit.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import tn.esprit.models.Competition;
@@ -28,12 +27,46 @@ public class listeParticipation implements Initializable {
     private ListView<Participation> participationListView;
     @FXML
     private ListView<Competition> competitionListView;
+
+
+    @FXML
+    private Label lienAjoutP;
     private static listeParticipation instance;
     public static listeParticipation getInstance() {
         return instance;
     }
 
+    @FXML
+    private Label lienC;
+    private void loadListeCompetitionInterface() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/listeCompetition.fxml"));
+            Parent root = loader.load();
 
+            listeCompetition controllerListeCompetition = loader.getController();
+            controllerListeCompetition.refreshListeCompetitions();  // Rafraîchir la liste si nécessaire
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+
+            // Montrez la nouvelle scène
+            stage.show();
+
+            // Fermez la scène actuelle (listeParticipation)
+            Stage currentStage = (Stage) lienC.getScene().getWindow();
+            currentStage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Gérez l'exception de manière appropriée (affichage d'un message d'erreur, journalisation, etc.)
+        }
+    }
+
+    @FXML
+    private void handleCompetitionLabelClick(MouseEvent event) {
+        // Chargez la liste des compétitions
+        loadListeCompetitionInterface();
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
@@ -49,6 +82,29 @@ public class listeParticipation implements Initializable {
         } catch (SQLException e) {
             // Gérer l'exception de manière appropriée (affichage d'un message d'erreur, journalisation, etc.)
             e.printStackTrace();
+        }
+    }
+    @FXML
+    private void handleCalendrierButtonClick(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/CalendrierCompetition.fxml"));
+            Parent root = loader.load();
+
+            // If CalendrierCompetition.fxml controller needs initialization, you can get the controller instance
+            // CalendrierCompetitionController controllerCalendrierCompetition = loader.getController();
+            // Perform any initialization if needed
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+
+            // Optionally, you can close the current stage (listeParticipation)
+            Stage currentStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            currentStage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the exception appropriately (display an error message, logging, etc.)
         }
     }
 
@@ -94,7 +150,7 @@ public class listeParticipation implements Initializable {
     }
     public void refreshListeParticipations() {
         ParticipationService ps = new ParticipationService();
-        try {
+         try {
             List<Participation> participations = ps.recuperer();
             ObservableList<Participation> participationObservableList = FXCollections.observableArrayList(participations);
             participationListView.setItems(participationObservableList);
@@ -103,4 +159,31 @@ public class listeParticipation implements Initializable {
             e.printStackTrace();
         }
     }
+    @FXML
+    private void handleAjouterParticipationClick(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ajouterParticipation.fxml"));
+            Parent root = loader.load();
+
+            ajouterParticipation controllerAjouterParticipation = loader.getController();
+            // Vous pouvez ajouter des initialisations supplémentaires ici si nécessaire
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+
+            // Montrez la nouvelle scène
+            stage.show();
+
+            // Fermez la scène actuelle (listeParticipation)
+            Stage currentStage = (Stage) lienAjoutP.getScene().getWindow();
+            currentStage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Gérez l'exception de manière appropriée (affichage d'un message d'erreur, journalisation, etc.)
+        }
+    }
+
+
+
 }
