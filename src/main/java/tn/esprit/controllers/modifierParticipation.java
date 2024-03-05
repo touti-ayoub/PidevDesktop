@@ -29,6 +29,9 @@ public class modifierParticipation {
 
     @FXML
     private Button modifierP;
+
+    @FXML
+    private Button annuler;
     private Participation participation;
 
     private ParticipationService participationService; // Ajoutez le service
@@ -111,6 +114,16 @@ listCompetition.setValue(participation.getCompetition());
 
                 // Gérez l'exception de manière appropriée (affichage d'un message d'erreur, journalisation, etc.)
             }
+        }
+    }
+    @FXML
+    private void handleAnnulerButtonClick(ActionEvent event) {
+        // Close the modifierParticipation window
+        annuler.getScene().getWindow().hide();
+
+        // If you need to refresh the afficherParticipation interface, you can call the refresh method here
+        if (afficherParticipation != null) {
+            afficherParticipation.refreshParticipations();
         }
     }
 
