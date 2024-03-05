@@ -23,6 +23,7 @@ public class MainFX extends Application {
         try {
             Parent root = loader.load();
             Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/assets/css/fullpackstyling.css").toExternalForm());
             primaryStage.setTitle("afficher exercice");
             primaryStage.setScene(scene);
             primaryStage.show();

@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class EditPlanController {
     @FXML
@@ -66,19 +67,29 @@ public class EditPlanController {
     // Méthode pour sauvegarder les modifications
     @FXML
     private void savePlan() throws SQLException{
-        currentPlan.setNOM(nomPlan.getText());
-        currentPlan.setDESCRIPTION(descriptionPlan.getText());
-        currentPlan.setExercices(exercicesListView.getItems());
-        currentPlan.setIMAGE_URL(imageView.getImage().getUrl());
-        try {
-            ps.modifier(currentPlan);
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation");
-            alert.setHeaderText(null);
-            alert.setContentText("Le plan a été ajouté avec succès !");
-            alert.showAndWait();
-        } catch (Exception e) {
-            e.printStackTrace();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure you want to save changes?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            currentPlan.setNOM(nomPlan.getText());
+            currentPlan.setDESCRIPTION(descriptionPlan.getText());
+            currentPlan.setExercices(exercicesListView.getItems());
+            currentPlan.setIMAGE_URL(imageView.getImage().getUrl());
+            try {
+                ps.modifier(currentPlan);
+                Alert successAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                successAlert.setTitle("Confirmation");
+                successAlert.setHeaderText(null);
+                successAlert.setContentText("The plan has been successfully updated!");
+                successAlert.showAndWait();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            // ... user chose CANCEL or closed the dialog
         }
     }
     @FXML

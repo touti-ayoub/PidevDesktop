@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -47,40 +48,15 @@ public class Client {
             // Display non-premium plans by default
             displayPlans(nonPremiumPlans, 0, 0, false);
 
-            // If user has not paid for premium, show payment button
-                // If user has paid, display premium plans as well
-                displayPlans(premiumPlans, plansExercisesGrid.getRowCount(), 0, true);
-
+            displayPlans(premiumPlans, plansExercisesGrid.getRowCount(), 0, true);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-/*
-    private void displayPaymentButton() {
-        Button payForPremiumButton = new Button("Access Premium Plans");
-        payForPremiumButton.setOnAction(event -> {
-            // Assuming processPayment() is securely triggered on the server
-            try {
-                // Directly calling for demonstration; in real scenarios, this should happen on the server
-                new payementController().processPayment();
-                // Simulate checking payment success
-                hasPaidForPremium = true; // Update this based on actual payment success
-                plansExercisesGrid.getChildren().clear(); // Clear existing UI components
-                initialize(); // Refresh the UI to display premium plans
-            } catch (Exception e) {
-                System.out.println("Payment processing error: " + e.getMessage());
-                // Handle failed payment attempt, e.g., show an error message to the user
-            }
-        });
-
-        // Positioning the payment button dynamically can be complex; as an example, add it to the bottom of the grid
-        plansExercisesGrid.add(payForPremiumButton, 0, plansExercisesGrid.getRowCount(), 3, 1);
-        GridPane.setMargin(payForPremiumButton, new Insets(20, 0, 20, 0));
-    }*/
-
     private Button createPaymentButton(plan p) {
         Button payForPremiumButton = new Button("Buy This Premium Plan");
+        payForPremiumButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-padding: 10px 20px; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
         payForPremiumButton.setOnAction(event -> {
             try {
                 // Load the FXML file
@@ -119,6 +95,9 @@ public class Client {
 
             column++;
             if (column >= maxColumn) {
+                ColumnConstraints columnConstraints = new ColumnConstraints();
+                columnConstraints.setPercentWidth(100.0 / 3);
+                plansExercisesGrid.getColumnConstraints().add(columnConstraints);
                 column = 0;
                 row++;
             }

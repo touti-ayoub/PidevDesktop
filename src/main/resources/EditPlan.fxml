@@ -49,7 +49,7 @@
                         </ImageView>
                     </children>
                 </Pane>
-                <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#AjouterExercice" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@assets/css/fullpackstyling.css" text="Ajouter Exercice" textFill="WHITE">
+                <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#AjouterPlan" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@assets/css/fullpackstyling.css" text="Ajouter Plan" textFill="WHITE">
                     <graphic>
                         <ImageView fitHeight="25.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -64,7 +64,7 @@
                         <Font size="13.0" />
                     </font>
                 </Button>
-                <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#AfficherExercice" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@assets/css/fullpackstyling.css" text="Visualiser Exercice" textFill="WHITE">
+                <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#AfficherPlan" prefHeight="50.0" prefWidth="291.0" styleClass="button2" stylesheets="@assets/css/fullpackstyling.css" text="Visualiser Plan" textFill="WHITE">
                     <graphic>
                         <ImageView fitHeight="25.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                             <image>

@@ -2,8 +2,14 @@ package tn.esprit.controllers;
 
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
+import com.stripe.model.Charge;
 import com.stripe.model.PaymentIntent;
+import com.stripe.model.PaymentMethod;
+import com.stripe.model.Token;
+import com.stripe.param.ChargeCreateParams;
 import com.stripe.param.PaymentIntentCreateParams;
+import com.stripe.param.PaymentMethodCreateParams;
+import com.stripe.param.TokenCreateParams;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -42,7 +48,7 @@ public class PaymentFormController {
             alert.setHeaderText(null);
             alert.setContentText("Veuillez entrer un numéro de carte valide");
             alert.showAndWait();
-        } else if (expYearField.getText().length() != 2 || expYearField.getText().isEmpty() || expMonthField.getText().length() != 2 || expMonthField.getText().isEmpty()) {
+        } else if (expYearField.getText().length() != 2 || expYearField.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
@@ -57,19 +63,35 @@ public class PaymentFormController {
         } else {
             try {
                 Stripe.apiKey = "sk_test_51OqPMMFhMW4sZiUh3UHaW9EBbRTOO9qt1mR0thGB5g4o7FFIzFz7XMuDc0pAfop4lU0N7FtkdZ4b9ejQW8J5WP5y00wNohmpeh";
-                PaymentIntentCreateParams params = PaymentIntentCreateParams.builder()
-                        .setAmount(100L * 100) // Default amount set to 100
-                        .setCurrency("usd")
+
+                // Create a Token
+                TokenCreateParams tokenParams = TokenCreateParams.builder()
+                        .setCard(TokenCreateParams.Card.builder()
+                                .setNumber(cardNumberField.getText()) // Use the actual card number
+                                .setExpMonth(expMonthField.getText()) // Pass as String
+                                .setExpYear(expYearField.getText()) // Pass as String
+                                .setCvc(cvcField.getText()) // Pass as String
+                                .build())
                         .build();
 
-                PaymentIntent intent = PaymentIntent.create(params);
-                if ("succeeded".equals(intent.getStatus())) {
-                    System.out.println("Payment successful. PaymentIntent ID: " + intent.getId());
+                Token token = Token.create(tokenParams);
+
+// Create a Charge with the Token
+                ChargeCreateParams chargeParams = ChargeCreateParams.builder()
+                        .setAmount(100L * 100) // Default amount set to 100
+                        .setCurrency("usd")
+                        .setSource(token.getId())
+                        .setDescription("Example charge")
+                        .build();
+
+                Charge charge = Charge.create(chargeParams);
+                if ("succeeded".equals(charge.getStatus())) {
+                    System.out.println("Charge successful. Charge ID: " + charge.getId());
                 } else {
-                    System.out.println("Payment failed. PaymentIntent status: " + intent.getStatus());
+                    System.out.println("Charge failed. Charge status: " + charge.getStatus());
                 }
             } catch (StripeException e) {
-                System.out.println("Payment failed. Error: " + e.getMessage());
+                System.out.println("Charge failed. Error: " + e.getMessage());
             }
         }
     }

@@ -110,7 +110,7 @@ public class AjouterEx {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation");
             alert.setHeaderText(null);
-            alert.setContentText("Le plan a été ajouté avec succès !");
+            alert.setContentText("L'exercice a été ajouté avec succès !");
             alert.showAndWait();
         } catch (SQLException e) {
             e.printStackTrace();

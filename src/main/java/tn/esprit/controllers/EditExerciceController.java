@@ -4,10 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -20,6 +17,7 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class EditExerciceController {
 
@@ -51,21 +49,31 @@ public class EditExerciceController {
     // Méthode pour sauvegarder les modifications
     @FXML
     private void saveExercice() {
-        currentExercice.setNOM(nomField.getText());
-        currentExercice.setDESCRIPTION(descriptionField.getText());
-        currentExercice.setIMAGE_URL(imageView.getImage().getUrl());
-        currentExercice.setMUSCLE_CIBLE(muscleComboBox.getValue());
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Confirmation");
+        confirmationAlert.setHeaderText(null);
+        confirmationAlert.setContentText("Are you sure you want to edit this exercise?");
 
-        try {
-            es.modifier(currentExercice);
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation");
-            alert.setHeaderText(null);
-            alert.setContentText("L'exercice a été modifié avec succès !");
-            alert.showAndWait();
-        } catch (Exception e) {
-            e.printStackTrace();
-            // Gérez l'erreur
+        Optional<ButtonType> result = confirmationAlert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            currentExercice.setNOM(nomField.getText());
+            currentExercice.setDESCRIPTION(descriptionField.getText());
+            currentExercice.setIMAGE_URL(imageView.getImage().getUrl());
+            currentExercice.setMUSCLE_CIBLE(muscleComboBox.getValue());
+
+            try {
+                es.modifier(currentExercice);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information");
+                alert.setHeaderText(null);
+                alert.setContentText("The exercise has been successfully edited!");
+                alert.showAndWait();
+            } catch (Exception e) {
+                e.printStackTrace();
+                // Handle the error
+            }
+        } else {
+            // ... user chose CANCEL or closed the dialog
         }
     }
     @FXML

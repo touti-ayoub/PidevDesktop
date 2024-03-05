@@ -4,7 +4,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,6 +19,7 @@ import tn.esprit.services.planService;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class PlanDetail {
 
@@ -68,8 +71,18 @@ public class PlanDetail {
     @FXML
     private void handleDeleteButton() throws SQLException {
         if (currentPlan != null) {
-            ps.supprimer(currentPlan.getID());
-            // Refresh the view or close the window
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation");
+            alert.setHeaderText(null);
+            alert.setContentText("Are you sure you want to delete this plan?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                ps.supprimer(currentPlan.getID());
+                // Refresh the view or close the window
+            } else {
+                // ... user chose CANCEL or closed the dialog
+            }
         }
     }
 
